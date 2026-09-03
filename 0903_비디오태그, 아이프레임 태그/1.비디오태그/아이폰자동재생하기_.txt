@@ -1,0 +1,8 @@
+<video  src="" autoplay muted loop playsinline>
+</video>
+
+playsinline (아이폰 자동재생을 위해 )추가하면 좋은 속성.
+
+
+
+

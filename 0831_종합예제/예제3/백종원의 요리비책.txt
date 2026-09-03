@@ -1,0 +1,11 @@
+백종원의 요리비책
+
+1. 레시피 메인페이지와 각 레시피 페이지 만들어주기(번호순서대로 만들기)
+2. 레시피 메인페이지에 있는 해시태그(#)로 표시된 a태그에는 주소가 없으므로 주소에 "#" 넣어주기.
+3. 레시피 메인페이지에 레시피 보러가기 버튼에 레시피 페이지 연결해주기.
+4. 영상보러가기에는 주소넣어주기.
+ - 오므라이스 : https://www.youtube.com/watch?v=AlK2Gl6kHZI&t
+ - 고구마빠스 : https://www.youtube.com/watch?v=aXJgN_JjYDg&t
+ - 짜장덮밥 : https://www.youtube.com/watch?v=_O4tvQtZDiU
+5. 레시피 페이지에 home 버튼에 레시피 메인페이지 연결해 주기.
+6. 이미지태그에 alt 속성과 title속성 넣어주기.

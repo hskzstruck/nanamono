@@ -1,0 +1,7 @@
+﻿<video> 속성
+
+preload :  재생 전 미리 불러오기(preload="auto" 영상파일을 사전에 로딩/ preload="metadata" 메타정보만 로딩/ preload="none" 영상파일을 사전에 로딩 금지)
+
+autoplay : 자동재생(autoplay 속성을 preload 속성과 함께 쓰면 autoplay 속성에서 이미 재생 전 미리 불러오기 때문에 preload속성이 없어진다.)
+
+muted : 음소거 

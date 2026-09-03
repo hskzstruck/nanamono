@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼태그</title>
+</head>
+<body>
+    <h1>폼태그</h1>
+    <form action="#">
+    <label for="zettaireid0">
+        username: <input type="text" id="zettaireid0" placeholder="아이디를 입력하세요" minlength="5" maxlength="10" required>
+    </label><br>
+    <p>
+        password: <input type="password" placeholder="비밀번호를 입력하세요">
+    </p>
+    <p>
+        search: <input type="search" placeholder="검색어를 입력하세요">
+    </p>
+    <p>
+        <label for="su29min@gmail.com">email: </label>
+        <input type="email" id="su29min@gmail.com" placeholder="이메일을 입력하세요">  
+    </p>
+    <p>
+        color: <input type="color">
+    </p>
+    <p>
+        number: <input type="number" min="0" max="20">
+    </p>
+    <p>
+        range: <input type="range" min="0" max="100">
+    </p>
+    <p>
+        <input type="radio" id="yes" name="question">
+        <label for="yes">네</label>
+        <input type="radio" id="no" name="question">
+        <label for="no">아니오</label>
+        <input type="radio" id="maybe" name="question">
+        <label for="maybe">잘 모름</label>
+    </p>
+    <p>
+        <label>
+            <input type="checkbox" name="language" value="korean"> 한국어
+        </label>
+        <label>
+            <input type="checkbox" name="language" value="english"> 영어
+        </label>
+    </p>
+    <p>
+        <input type="submit" value="전송하기">
+    </p>
+    <p>
+        <input type="image" src="./submit_btn.png" alt="전송하기">
+    </p>
+    <p>
+        <input type="file">
+    </p>
+    </form>
+</body>
+</html>
