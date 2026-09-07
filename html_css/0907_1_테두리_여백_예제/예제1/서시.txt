@@ -1,0 +1,13 @@
+글자체 : 맑은 고딕
+글자크기 : 16px
+글자색 : #000
+줄간격 : 26px
+배경색 : #ccc
+
+body{
+     font-family:"맑은고딕";
+     font-size:16px;
+     color:#000;
+     line-height:26px;
+     background-color:#ccc;
+}

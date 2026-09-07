@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>여백</title>
+    <style>
+        .box1, .box2{
+            background-color: cornflowerblue;
+            /*특정태그에 배경이나 테두리를 넣었을때 나오는게 해당태그의 크기다(해당태그의 크기가 헷갈릴때, 배경색이나 테두리를 넣어보면 알수있다)*/
+            border: 3px solid #111;
+            width: 300px;
+            height: 300px;
+        }
+        .box1{
+            padding: 50px;
+        }
+        .box2{
+            margin: 50px;
+        }
+        .box3{
+            background-color: bisque;
+            margin: 0 auto;
+            width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">box1</div>
+    <div class="box2">box2</div>
+    <div class="box3">box3</div>
+</body>
+</html>
