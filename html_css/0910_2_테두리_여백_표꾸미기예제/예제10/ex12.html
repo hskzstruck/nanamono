@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예제12</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "나눔고딕";
+            font-size: 12px;
+            line-height: 22px;
+            color: #000;
+            background-color: #ccc;
+        }
+
+        .container {
+            width: 700px;
+            margin: 50px auto;
+            border: 3px solid #fff;
+            padding: 50px;
+        }
+
+        h1 {
+            color: red;
+            font-size: 30px;
+            padding-bottom: 30px;
+        }
+
+        h3 {
+            background-color: #fff;
+            padding: 5px;
+            margin-top: 30px;
+        }
+
+        ul {
+            padding: 20px 30px;
+        }
+
+        h4 {
+            text-align: right;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            border: 1px solid #fff;
+            padding: 10px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            /* 부모 width의 100%를 차지 하게 된다. 부모의 크기가 기준이 된다.*/
+        }
+
+        th {
+            color: #fff;
+            background-color: #aaa;
+        }
+
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 흰색선, 가운데 정렬 -->
+        <h1>아메리카노 Americano</h1>
+        <p>진한 에스프레소의 맛과 향을 부드럽게 즐길 수 있는 아메리칸 스타일의 커피</p>
+        <h3>Health Point</h3>
+        <ul>
+            <li>에스프레소에는 발암물질 제거</li>
+            <li>신장활동 촉진</li>
+            <li>당수치 조절</li>
+        </ul>
+        <h4>제품영양정보(Regular 사이즈 기준)</h4>
+        <table class="table1">
+            <tr>
+                <th></th>
+                <th>칼로리</th>
+                <th>당류</th>
+                <th>단백질</th>
+                <th>포화지방</th>
+                <th>나트륨</th>
+                <th>카페인</th>
+            </tr>
+            <tr>
+                <th>HOT</th>
+                <td>15Kcal</td>
+                <td>1g</td>
+                <td>1g</td>
+                <td>0g</td>
+                <td>0mg</td>
+                <td>105mg</td>
+            </tr>
+            <tr>
+                <th>ICED</th>
+                <td>15Kcal</td>
+                <td>1g</td>
+                <td>1g</td>
+                <td>0g</td>
+                <td>0mg</td>
+                <td>105mg</td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

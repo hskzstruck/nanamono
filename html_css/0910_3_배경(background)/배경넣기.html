@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경넣기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box1 {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            background-image: url(./images/back01.jpg);
+            background-repeat: no-repeat;
+            background-position: 85% 85%;
+            /* 배경의 위치는 완성작을 기준으로 위치 파악을 합니다! */
+        }
+
+        .box2 {
+            width: 400px;
+            height: 300px;
+            border: 1px solid red;
+            padding: 50px;
+            background: url(./images/back02.gif) no-repeat center center, #ccc url(./images/bg1.png) no-repeat right bottom;
+        }
+
+        .box3 {
+            background: pink url(./images/back03.jpg) no-repeat center top;
+            height: 640px;
+            /* 배경이미지 높이와 같은 길이 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box1">box1</div>
+    <div class="box2">box2</div>
+    <div class="box3">box3</div>
+    <!-- 배경이미지는 해당태그의 크기만큼 나오므로, 배경이미지가 원하는만큼 나오지 않는 경우에는 대부분 해당태그의 크기가 배경이미지보다 작기 때문이다. -->
+</body>
+
+</html>
