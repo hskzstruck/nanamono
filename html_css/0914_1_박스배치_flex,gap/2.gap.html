@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>gap</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		h1 {
+			padding: 10px 0;
+		}
+
+		h2 {
+			padding: 10px 0;
+		}
+
+		#wrap {
+			width: 1200px;
+			margin: 40px auto;
+		}
+
+		.box {
+			background-color: pink;
+			display: flex;
+			flex-wrap: wrap;
+		}
+
+		.box li {
+			width: 400px;
+			height: 200px;
+			background-color: skyblue;
+			font-size: 40px;
+			padding: 30px;
+			box-sizing: border-box;
+			border: 1px solid #000;
+		}
+
+		.box .item {
+			padding: 60px;
+		}
+
+		.style6 li:nth-child(1) {
+			height: 100px;
+		}
+
+		.style6 li:nth-child(2) {
+			height: 300px;
+		}
+
+		.style6 li:nth-child(3) {
+			height: 400px;
+		}
+
+		.style6 li:nth-child(4) {
+			height: 200px;
+		}
+
+		/*갭 숫자 한개*/
+		.style1{
+			display:flex;
+			gap:50px;
+		}
+
+		/*갭 숫자 두개*/
+		.style2{
+			display:flex;
+			gap:10px 50px;
+		}
+		/*row-gap*/
+
+		/*column-gap*/
+	</style>
+</head>
+
+<body>
+	<section id="wrap">
+		<h1>gap</h1>
+		<p>플렉스 아이템 간의 간격을 설정함. 사잇값으로만 들어간다.</p>
+		<h2>gap: 숫자한개 - 상하 좌우 동일한 여백 간격값</h2>
+		<ul class="box style1">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>gap: 숫자1 숫자2 - 상하(숫자1), 좌우(숫자2) 다른 여백 간격값</h2>
+		<ul class="box style2">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>row-gap:숫자 - 상하 여백 간격값</h2>
+		<ul class="box style3">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>column-gap:숫자 - 좌우 여백 간격값</h2>
+		<ul class="box style4">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</section>
+</body>
+
+</html>

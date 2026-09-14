@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플렉스사용해보기</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    body {
+        font-family:"맑은 고딕";
+        font-size: 16px;
+        line-height: 1.2;
+        color:#111;
+    }
+    .container{
+        display:flex;
+        gap:30px;
+        width: 900px;
+        margin: 0 auto;
+        border: 3px solid #111;
+    }
+    .textbox{
+        width: 354px;
+        padding: 30px;
+    }
+    .subtitle{
+        color:red;
+    }
+    .imgbox{
+        width:576px;
+    }
+    h2{
+        padding:20px 0;
+    }
+    
+
+</style>
+<body>
+    <div class="container">
+        <div class="textbox">
+            <p class="subtitle">brand</p>
+            <h2>브랜드 소개</h2>
+            <p>행복과 건강은 기본에서 시작하기에 본을 지키고 키워가는 음식을 만든다는 원칙을 지켜온 본죽</p>
+        </div>
+        <div class="imgbox">
+            <img src="./images/main_m01.jpg" alt="죽사진1">
+        </div>
+    </div>
+</body>
+</html>

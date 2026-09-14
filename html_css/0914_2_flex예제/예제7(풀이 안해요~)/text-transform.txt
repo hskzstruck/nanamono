@@ -1,0 +1,11 @@
+text-transform 속성
+영어 텍스트 대소문자 변환 속성
+
+text-transform:lowercase
+- 모든 텍스트 소문자로 변환
+
+text-transform:uppercase
+- 모든 텍스트 대문자로 변환
+
+text-transform:capitalize
+- 텍스트 첫번째 글자 대문자로 변환
