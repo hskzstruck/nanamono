@@ -6,15 +6,79 @@
     <title>루나맥주예제</title>
 </head>
 <style>
-
+    *{
+        margin:0;
+        padding:0;
+    }
+    body{
+        font-family: "맑은 고딕";
+        line-height: 26px;
+        font-size: 16px;
+        color:#333;
+        background-color: #f5f2e1;
+        padding:50px;
+    }
+    .container{
+        display:flex;
+        gap:50px;
+        width:1150px;
+        margin:0 auto;
+    }
+    .contents{
+        width:500px;
+        padding:50px;
+        margin: 0 auto;
+    }
+    .history{
+        display:flex;
+        gap:20px;
+    }
+    .list p{
+        padding-bottom: 20px;
+    }
+    h1{
+        font-size: 40px;
+        padding-bottom: 50px;
+    }
+    h3{
+        font-weight: 400;
+        font-size:23px;
+        padding-bottom:15px;
+    }
+    .imgbox{
+        display: flex;
+    }
+    .contents img{
+        padding-bottom: 40px;
+    }
+    .bold{
+        font-weight: 800;
+    }
 </style>
 <body>
     <div class="container">
         <div class="contents">
-
+            <img src="./images/logo.jpg" alt="로고">
+            <h3>수제맥주 제조부터 유통까지</h3>
+            <h1>루나브루가 걸어온 길</h1>
+            <div class="history">
+                <img src="./images/contents.jpg" alt="menu">
+            <div class="list">  
+                <div class="bold"><p>HoppyBox 출시</p></div>
+                <p>수제 맥주 브랜드 브루잉 설립</p>
+                <p>나미나라공화국(남이섬) '깡타비어; 출시</p>
+                <p>디스틸 보일러메이커 맥주 출시</p>
+                <p>메리모나크 요트 클럽 맥주 출시</p>
+                <p>푸른솔 CC(장성) 제품 공급</p>
+                <p>리슨컴퍼니 맥주 출시</p>
+                <p>모바일 App "Hoppy" 서비스 오픈</p>
+                <p>서울랜드 자회사 편입</p>
+                <p>경주 황남주택 맥주 출시</p>
+             </div>  
+            </div>
         </div>
         <div class="imgbox">
-            
+            <img src="./images/sect04-main.gif" alt="맥주영상" width="550px" height="700px">
         </div>
     </div>
 </body>

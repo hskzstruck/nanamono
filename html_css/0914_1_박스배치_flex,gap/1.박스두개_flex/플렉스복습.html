@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플렉스 복습</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            font-family: "맑은 고딕";
+            font-size: 14px;
+            line-height: 1.2;
+            color: #111;
+        }
+        .flex_container{
+            display: flex;
+            gap: 30px;
+            /*너의 모든 자식들을 가로정렬해라.*/
+            width: 900px;
+            margin: 0 auto;
+        }
+        .text_box{
+            width: 354px;
+        }
+        .img_box{
+             width: 576px;
+        }
+
+        .container{
+            width: 1200px;
+            margin: 100px auto;
+            background-color: antiquewhite;
+        }
+        h1{
+            font-size: 40px;
+            padding-bottom: 30px;
+            color: blue;
+        }
+        .des{
+            font-size: 20px;
+            padding-bottom: 20px;
+        }
+        .flex_box>div{
+            /*실제 레이아웃을 이루는 플렉스아이템*/
+            background-color: #ccc;
+            width: 285px;
+            height: 200px;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .flex_box{
+            /*플렉스아이템의 부모*/
+            display: flex;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex_container">
+        <!--플렉스 컨테이너, 가운데정렬-->
+        <div class="text_box">
+            <!--레이아웃구성박스. 플렉스아이템, 너비-->
+            <p>brand</p>
+            <h2>브랜드소개</h2>
+            <p>브랜드소개내용입니다. 예시글과 같아도 되는데 지금은 아무 글이나 넣고 있어요.</p>
+        </div><!--text_box-->
+        <div class="img_box">
+            <!--레이아웃구성박스, 플렉스아이템, 너비-->
+            <img src="./images/main_m01.jpg" alt="본죽이미지">
+        </div><!--img_box-->
+    </div><!--flex_container-->
+    <div class="container">
+        <!--가운데 정렬-->
+        <h1>플렉스 내용 넣어봅시다!</h1>
+        <p class="des">플렉스는 레이아웃을 만들기 위한 속성입니다</p>
+        <div class="flex_box"><!--플렉스컨테이너-->
+            <div class="text1">
+                <!--text1~text4번은 형제관계. 플렉스 아이템-->
+                <h3>플렉스아이템</h3>
+                <p>플렉스아이템내용입니다</p>
+            </div><!--text1-->
+            <div class="text2">
+                <h3>플렉스아이템</h3>
+                <p>플렉스아이템내용입니다</p>
+            </div><!--text2-->
+            <div class="text3">
+                <h3>플렉스아이템</h3>
+                <p>플렉스아이템내용입니다</p>
+            </div><!--text3-->
+            <div class="text4">
+                <h3>플렉스아이템</h3>
+                <p>플렉스아이템내용입니다</p>
+            </div><!--text4-->
+        </div><!--flex_box-->
+    </div><!--container-->
+</body>
+</html>
