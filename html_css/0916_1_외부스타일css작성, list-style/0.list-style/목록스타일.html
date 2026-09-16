@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>목록스타일</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 500px;
+            margin: 50px auto;
+        }
+        .list1 li:first-child{
+            /*.list의 첫번째 li를 선택*/
+            list-style-type: square;
+        }
+        .list1 li:nth-child(2){
+            list-style-image: url(./images/icon_03.gif);
+        }
+        .list1 li:last-child{
+            list-style-position: inside;
+        }
+        .list2{
+            list-style: none;
+            /*li앞의 점 없애기. */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>list-style</h1>
+        <ul class="list1">
+            <li>li입니다</li>
+            <li>li입니다</li>
+            <li>li입니다</li>
+        </ul>
+        <ul class="list2">
+            <li>li입니다</li>
+            <li>li입니다</li>
+        </ul>
+    </div>
+</body>
+</html>

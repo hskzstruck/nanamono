@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: "궁서체";
+    font-size: 20px;
+    line-height: 1.2;
+    color: #111;
+}
+.container{
+    width: 1000px;
+    margin: 50px auto;
+    background-color: antiquewhite;
+}

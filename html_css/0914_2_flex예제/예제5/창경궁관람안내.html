@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>창경궁관람안내</title>
+</head>
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    body{
+        background-image: url(images/bg.jpg);
+    }
+    .maincontainer{
+        margin: 0 auto;
+        width: 1200px;
+        text-align: center;
+    }
+    .flexcontainer{
+        display:flex;
+        gap: 30px;
+    }
+    .box1, .box2, .box3, .box4{
+    width: 300px;
+    text-align: left;
+    }
+    .box1 dd,.box3 dd,.box4 dd {
+        font-size: 12px;
+        margin: 0 20px;
+    }
+    .box1 dt, .box3 dt, .box4 dt{
+        font-size: 19px;
+        font-weight: 600;
+        margin: 20px;
+    }
+    .box2 dd{
+        font-size: 12px;
+        margin: 0 20px;
+    }
+    .box2 dt{
+        font-size: 19px;
+        font-weight: 600;
+        margin: 20px;
+    }
+    .box1{
+        color:white;
+        width: 280px;
+        min-height: 140px;
+        background-color: #B15E58;
+    }
+    .box2{
+        color:#3A220A;
+        width: 280px;
+        min-height: 140px;
+        background-color: #E9BC65;
+    }
+    .box3{
+        color:white;
+        width: 280px;
+        min-height: 140px;
+        background-color: #888888;
+    }
+    .box4{
+        color:white;
+        width: 280px;
+        min-height: 140px;
+        background-color: #21938A;
+    }
+    .box1, .box2, .box3, .box4{
+    width: 300px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    }
+    .icon{
+    width: 40px;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    }
+    h1{
+        margin:50px 0;
+    }
+
+
+</style>
+<body>
+    <div class="maincontainer">
+        <h1>창경궁 관람안내</h1>
+        <div class="flexcontainer">
+            <dl class="box1">
+                <dt>관람요금 및 시간</dt>
+                <dd>휴궁일 : 매주 월요일</dd>
+                <dd>매표장소 : 함양문</dd>
+                <img src="./images/main_ico1.png" alt="아이콘" class="icon">
+            </dl>
+            <dl class="box2">
+                <dt>관람규칙</dt>
+                <dd>관람하시면서 꼭 준수해<br>주셔야 할 사항입니다.</dd>
+                <img src="./images/main_ico2.png" alt="아이콘" class="icon">
+            </dl>
+            <dl class="box3">
+                <dt>촬영 및 장소사용</dt>
+                <dd>촬영을 하고자 하시는 분에<br>대한 신청 안내</dd>
+                <img src="./images/main_ico3.png" alt="아이콘" class="icon">
+            </dl>
+            <dl class="box4">
+                <dt>찾아오시는 길</dt>
+                <dd>서울특별시 종로구 창경궁로 185</dd>
+                <img src="./images/main_ico4.png" alt="아이콘" class="icon">
+            </dl>
+        </div>
+    </div>
+</body>
+</html>
