@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>flex-wrap</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		h1 {
+			padding: 10px 0;
+		}
+
+		h2 {
+			padding: 10px 0;
+		}
+
+		#wrap {
+			width: 1200px;
+			margin: 40px auto;
+		}
+
+		.box {
+			width: 1200px;
+			background-color: pink;
+			display: flex;
+			gap: 20px;
+			margin: 10px;
+		}
+
+		.box li {
+			width: 400px;
+			height: 200px;
+			background-color: skyblue;
+			font-size: 40px;
+			padding: 30px;
+			box-sizing: border-box;
+		}
+
+		.style2{
+			display: flex;
+			flex-wrap: wrap;
+			/*플렉스 컨테이너의 가로길이 기준으로 자식들을 정렬하다가 공간이 부족하면 밑으로 내려서 정렬해라.(공간이 부족하지 않으면 한줄로 나올수도있음)*/
+		}
+
+		.style3{
+			display: flex;
+			flex-wrap: wrap-reverse;
+		}
+
+		/*flex-wrap:norwap*/
+
+
+
+		/*flex-wrap:rwap*/
+
+
+		/*flex-wrap:rwap-reverse*/
+	</style>
+</head>
+
+<body>
+	<section id="wrap">
+		<h1>flex-wrap</h1>
+		<p>플렉스 아이템을 정렬하다 컨테이너의 크기가 모자란경우, 아이템을 어떻게 배치할지 결정. </p>
+		<h2>flex-wrap: nowrap(기본값)</h2>
+		<p>컨테이너의 공간이 부족하더라도 아이템을 무조건 한 줄에 정렬함(다음줄로 넘기지 않음)</p>
+		<ul class="box style1">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>flex-wrap: wrap</h2>
+		<p>컨테이너의 공간이 부족할 경우 아이템을 다음 줄로 넘김. 공간이 부족하지 않은경우, 아이템은 한줄로 나옴.</p>
+		<ul class="box style2">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>flex-wrap: wrap-reverse</h2>
+		<p>컨테이너의 공간이 부족할 경우 아이템을 다음 줄로 넘기되, 줄의 순서를 반대로 함</p>
+		<ul class="box style3">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>4</li>
+		</ul>
+	</section>
+</body>
+
+</html>

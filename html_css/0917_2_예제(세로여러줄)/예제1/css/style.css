@@ -1,0 +1,110 @@
+/*프리텐다드 웹폰트*/
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-display: swap;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+body{
+    font-family: 'Pretendard', sans-serif;
+    /*sans-serif, serif(삐침이 있는 글씨) 글자체 종류.
+    크게 봤을때 서체는 두종류 - 고딕체, 명조체
+    font-family에서 마지막에 sans-serif를 써주면, 너가 가지고 있는 고딕체 중 하나를 설정하라.
+    */
+    font-size: 14px;
+    line-height: 1.5;/*단위 적으면 안됨!*/
+    color: #111;
+}
+
+.container{
+    width: 900px;
+    margin: 0 auto;
+}
+
+h1{
+    font-size: 40px;
+    border-bottom: 1px solid #111;
+    margin-bottom: 10px;
+}
+
+ul{
+    display: flex;
+    /*자식인 li들을 정렬*/
+    flex-wrap: wrap;
+    /*자식을 플렉스 컨테이너의 가로길이를 기준으로 정렬하다가 공간이 모자라면 밑으로 내려서 정렬한다.*/
+    gap: 30px;
+    /*자식을 정렬하면서 사이여백을 30px로 부여해라.*/
+}
+li{
+    /*플렉스 아이템의 크기 설정 중요함! 플렉스 아이템에는 배경색을
+     설정해서 크기 확인을 하면서 하세요!*/
+    width: 280px;
+    height: 330px;
+}
+h2{
+    padding: 15px 0;
+}
