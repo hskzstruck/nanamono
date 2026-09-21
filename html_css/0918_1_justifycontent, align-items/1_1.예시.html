@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>justify-content 실제 사용예시</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #new_product{
+            background-color: pink;
+        }
+        .container{
+            width: 1200px;
+            margin: 0px auto;
+            padding: 100px 0;
+            background-color: skyblue;
+            display: flex;/*자식인 black_box가 움직임*/
+            justify-content: flex-end;
+        }
+        .black_box{
+            width: 500px;
+            height: 600px;
+            background-color: burlywood;
+        }
+
+        #header{
+            background-color: orange;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+            /*inherit은 부모로부터 해당값을 받아서 사용해라.*/
+        }
+        .header_container{
+            width: 1000px;
+             margin: 0 auto;
+             background-color: cadetblue;
+             display: flex;
+             justify-content: space-between;
+        }
+        .logo{
+            background-color: red;
+        }
+        #gnb{
+            width: 700px;
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h2>justify-content:flex-end</h2>
+    <p>가운데 정렬 박스에서 하나뿐인 플렉스 아이템이 오른쪽 끝으로 간 구조</p>
+    <section id="new_product">
+        <div class="container"><!--가운데 정렬, 플렉스 컨테이너-->
+            <div class="black_box">
+                <!--플렉스 아이템-->
+                <h3>h3태그입니다.</h3>
+                <p>p태그입니다. 내용물이 조금더 많이 나오게 아무글이나 넣어주세요.</p>
+            </div><!--black_box-->
+        </div><!--container-->
+    </section>
+    <h2>justify-content:space-btween</h2>
+    <p>보통은 아이템이 두개이고, 각 아이템을 왼쪽 오른쪽으로 각각 붙여서 만들고 싶을때 사용한다</p>
+    <header id="header">
+        <div class="header_container">
+            <!--가운데 정렬박스, 플렉스컨테이너-->
+            <a href="#" class="logo">LOGO</a>
+            <!--플렉스아이템-->
+            <nav id="gnb">주 메뉴</nav>
+            <!--플렉스 아이템-->
+        </div>
+    </header>
+</body>
+</html>

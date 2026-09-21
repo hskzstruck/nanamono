@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>align-items</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		h1 {
+			padding: 10px 0;
+		}
+
+		h2 {
+			padding: 10px 0;
+		}
+
+		#wrap {
+			width: 1200px;
+			margin: 40px auto;
+		}
+
+		.box {
+			background-color: pink;
+			display: flex;
+			gap: 20px;
+		}
+
+		.box li {
+			width: 200px;
+			height: 200px;
+			background-color: skyblue;
+			font-size: 40px;
+			padding: 30px;
+			box-sizing: border-box;
+		}
+
+		.box .item {
+			padding: 60px;
+		}
+
+		.style6 li:nth-child(1) {
+			height: 100px;
+		}
+
+		.style6 li:nth-child(2) {
+			height: 300px;
+		}
+
+		.style6 li:nth-child(3) {
+			height: 400px;
+		}
+
+		.style6 li:nth-child(4) {
+			height: 200px;
+		}
+
+		/*align-items: stretch*/
+
+		/*align-items: flex-start*/
+
+		/*align-items: flex-end*/
+
+		/*align-items: center*/
+
+		/*align-items: baseline*/
+
+		/*align-self*/
+	</style>
+</head>
+
+<body>
+	<section id="wrap">
+		<h1>align-items</h1>
+		<p>세로 1줄일때 사용. 플렉스 컨테이너의 높이를 기준으로 자식을정렬함.<br>
+			플렉스 컨테이너에 높이가 없을 경우, 아이템중 가장 높이가 높은 아이템을 기준으로 컨테이너의 높이가 정해지므로, 가장
+			높이가 긴 아이템을 기준으로 정렬되는것 처럼 보임.</p>
+		<h2>align-items: stretch</h2>
+		<ul class="box style1">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>align-items: flex-start</h2>
+		<ul class="box style2">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>align-items: flex-end</h2>
+		<ul class="box style3">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>align-items: center</h2>
+		<ul class="box style4">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>align-items: baseline</h2>
+		<ul class="box style5">
+			<li>1</li>
+			<li class="item">2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>align-self:자식한테 설정</h2>
+		<p>소수의 아이템만 align-self를 사용하여 개별적으로 정렬함</p>
+		<ul class="box style6">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</section>
+</body>
+
+</html>

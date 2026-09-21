@@ -1,0 +1,121 @@
+/*나눔바른고딕 웹폰트*/
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
+    font-weight: 400;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
+    font-weight: 300;
+    font-display: swap;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}/*앞으로 a태그의 글씨 스타일을 보통글씨와 같아지게 설정함. 복사붙여넣기 해서 쓰세요*/
+ul,ol{
+    list-style: none;
+}/*목록태그들 앞 표시 없애기. 복사붙여넣기 해서 쓰세요*/
+
+body{
+    font-family: 'NanumBarunGothic', sans-serif;
+    font-size: 14px;
+    line-height: 24px;
+    color: #fff;
+    background-color: #333;
+}
+
+#tomahawk_steak{
+    background-image: url(../images/bg.jpg);
+    height: 700px;
+    /*들어있는 내용물보다 낮은 높이는 지정하면 문제가 생깁니다!*/
+    background-position: center center;
+}
+.container{
+    width: 1000px;
+    margin:0px auto;
+    padding:50px 0;
+    
+    display: flex;
+    justify-content: flex-end;
+}
+.black_box{ /*플렉스아이템*/
+    width:400px;
+}
+
+.text{
+    background-color: rgba(0,0,0,0.8);
+    padding:30px;
+}
+
+.sub_title{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.text h2{
+    font-size: 30px;
+    padding:20px 0;
+}
+
+.origin{
+    border-top:1px solid rgba(255,255,255,0.2);
+    padding-top:30px;
+    margin-top:30px;
+}
+
+.price{
+    padding:30px 0;
+    color:#433A2F;
+}
+.price span{
+    font-size:30px;
+    font-weight:bold;
+    color:burlywood;
+}
+
+.card_btn{
+    border:1px solid #fff;
+    padding: 10px;
+    display:block;
+    text-align: center;
+}
+.card_btn:hover{
+    background-color: #fff;
+    color:#333;
+    transition: all 0.5s;
+    /*hover와 함께 사용하여 변화부분의 시간차를 내가 원하는만큼 안에서 보여줌*/
+}
+
+.btn1{
+    background-color: burlywood;
+    display: block;
+    width:50%;
+    text-align: center;
+    padding:20px 0;
+}
+.btn2{
+    background-color: #A10A0F;
+    display: block;
+    width:50%;
+    text-align: center;
+    padding:20px 0;
+}
+.button{
+    display: flex;
+}

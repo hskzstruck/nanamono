@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>justify-content</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		h1 {
+			padding: 10px 0;
+		}
+
+		h2 {
+			padding: 10px 0;
+		}
+
+		#wrap {
+			width: 1200px;
+			margin: 40px auto;
+		}
+
+		.box {
+			width: 1200px;
+			background-color: pink;
+		}
+
+		.box li {
+			border: 1px solid #111;
+			width: 200px;
+			height: 200px;
+			background-color: skyblue;
+			font-size: 40px;
+			padding: 30px;
+			box-sizing: border-box;
+		}
+
+		/*justify-content: flex-start*/
+
+
+		/*justify-content: flex-end*/
+
+
+		/*justify-content: center*/
+
+
+		/*justify-content: space-between*/
+
+
+		/*justify-content: space-around*/
+
+
+		/*justify-content: space-evenly*/
+
+
+		.style1{
+			display: flex;
+			justify-content: flex-start;
+		}
+		.style2{
+			display: flex;
+			justify-content: flex-end;
+		}
+		.style3{
+			display: flex;
+			justify-content: center;
+		}
+		.style4{
+			display: flex;
+			justify-content: space-between;
+		}
+		.style5{
+			display: flex;
+			justify-content: space-around;
+		}
+		.style6{
+			display: flex;
+			justify-content: space-evenly;
+		}
+	</style>
+</head>
+
+<body>
+	<section id="wrap">
+		<h1>justify-content</h1>
+		<h2>justify-content: flex-start</h2>
+		<ul class="box style1">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>justify-content: flex-end</h2>
+		<ul class="box style2">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>justify-content: center</h2>
+		<ul class="box style3">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>justify-content: space-between</h2>
+		<p>첫 줄은 (컨테이너의) 시작점, 마지막 줄은 (컨테이너의) 끝점에 배치하고, 사이 여백은 전부 균등하게 분배됨.</p>
+		<ul class="box style4">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>justify-content: space-around</h2>
+		<p>자식 요소 주변에 동일한 여백이 배치됨. 사이여백은 양끝 여백의 2배가 됨</p>
+		<ul class="box style5">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>justify-content: space-evenly</h2>
+		<p>모든 여백이 동일한 크기</p>
+		<ul class="box style6">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</section>
+</body>
+
+</html>
