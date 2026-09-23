@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>flex-direction</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		h1 {
+			padding: 10px 0;
+		}
+
+		h2 {
+			padding: 10px 0;
+		}
+
+		#wrap {
+			width: 1200px;
+			margin: 40px auto;
+		}
+
+		.box {
+			background-color: pink;
+			display: flex;
+			gap: 20px;
+		}
+
+		.box li {
+			width: 200px;
+			height: 200px;
+			background-color: skyblue;
+			font-size: 40px;
+			padding: 30px;
+			box-sizing: border-box;
+		}
+
+
+
+
+
+		.box1 {
+			width: 400px;
+			height: 700px;
+			background-color: pink;
+
+		}
+
+		/*flex-direction:row*/
+
+
+		/*flex-direction:row-reverse*/
+
+
+		/*flex-direction:column*/
+
+
+		/*flex-direction:column-reverse*/
+	</style>
+</head>
+
+<body>
+	<section id="wrap">
+		<h1>Flex-direction</h1>
+		<h2>flex-direction:row</h2>
+		<ul class="box style1">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>flex-direction:row-reverse</h2>
+		<ul class="box style2">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>flex-direction:column</h2>
+		<ul class="box style3">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>flex-direction:column-reverse</h2>
+		<ul class="box style4">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>flex-direction:column 이용해서 여러개의 자식을 가로세로 정 가운데로 맞추기</h2>
+		<p>flex-direction은 정렬기준이 되는 축을 바꾸는 속성이라, 본래 가로 정렬하던 속성은 세로를 정렬하게 되고, 본래 세로 정렬하던 속성은 가로를 정렬하게 됩니다.</p>
+		<div class="box1">
+			<h3>인생팬츠 찾았다! 가볍고 쾌적하게</h3>
+			<p>사이드 절개로 라인을 길어 보이게 잡고</p>
+			<p>리오셀 소재로 가볍게 흐르는 와이드 팬츠</p>
+		</div>
+	</section>
+</body>
+
+</html>

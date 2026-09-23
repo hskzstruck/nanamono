@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>자식속성 - order</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		h1 {
+			padding: 10px 0;
+		}
+
+		h2 {
+			padding: 10px 0;
+		}
+
+		#wrap {
+			width: 1200px;
+			margin: 40px auto;
+		}
+
+		.list {
+			list-style-type: disc;
+			list-style-position: inside;
+			padding-left: 20px;
+		}
+
+		.box {
+			width: 1200px;
+			background-color: pink;
+			display: flex;
+			gap: 20px;
+		}
+
+		.box li {
+			width: 200px;
+			height: 200px;
+			background-color: skyblue;
+			font-size: 40px;
+			padding: 30px;
+			box-sizing: border-box;
+
+		}
+
+		/*하나만 설정해서 맨앞으로 보내기*/
+
+		/*하나만 설정해서 맨 뒤로 보내기*/
+
+		/*내가 원하는대로 순서 바꾸기*/
+	</style>
+</head>
+
+<body>
+	<section id="wrap">
+		<h1>플렉스의 자식속성 : order</h1>
+		<ul class="list">
+			<li>눈에 보이는 순서만 바꾼것.(접근성, 키보드 포커스 문제로 신중한 접근 필요)</li>
+			<li>기본값은 0. 모든 아이템이 같은 order를 갖고 있을경우, html에 쓰여진 순서대로 배치됨.</li>
+			<li>속성값은 정수로 설정. 음수로 설정 가능.(0.1 = X, 100 = o, -50 = o)</li>
+		</ul>
+		<h2>하나만 설정해서 맨앞으로 보내기</h2>
+		<ul class="box">
+			<li>1</li>
+			<li class="style1">2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>하나만 설정해서 맨 뒤로 보내기</h2>
+		<p></p>
+		<ul class="box">
+			<li>1</li>
+			<li class="style2">2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<h2>내가 원하는대로 순서 바꾸기</h2>
+		<ul class="box style3">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</section>
+</body>
+
+</html>

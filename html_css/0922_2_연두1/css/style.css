@@ -1,0 +1,49 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+ul,ol{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+body{
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #333;
+}
+
+/*---------header---------*/
+#header{
+    border-bottom: 3px solid yellowgreen;
+}
+.inner{
+    width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    /*아이템들을 정렬하고 남은 여백을 자식들 사이에 분배해라.*/
+    align-items: center;
+    /*아이템들이 세로 한줄일때, 플렉스 컨테이너의 세로길이의 중심을 기준으로 아이템들을 세로정렬해라.*/
+}
+
+#gnb ul{
+    display: flex;
+}
+
+#gnb ul li{
+    font-size: 18px;
+    font-weight: 600;
+    padding:30px 15px;
+}
+
+/*메인배너 슬라이드 화살표, 페이지네이션 색상변경*/
+.mb_next svg{
+    fill:red
+}

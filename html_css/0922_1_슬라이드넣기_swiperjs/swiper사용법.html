@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swiper 슬라이드 — 가져와서 응용하기</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --accent3: #d97706;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    #wrap {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: var(--accent);
+      padding: 48px 48px 40px;
+      color: #fff;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 16px;
+      opacity: 0.85;
+      margin-bottom: 24px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 14px;
+      opacity: 0.9;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+      min-width: 0;
+    }
+
+    .toc {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      border-right: 2px solid var(--border);
+      padding: 24px;
+      align-self: flex-start;
+    }
+
+    .toc-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+    }
+
+    .toc-list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 0;
+    }
+
+    .toc-list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc-num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding: 0 48px 60px;
+    }
+
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .section-time {
+      margin-left: auto;
+      font-size: 14px;
+      color: var(--muted);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card li {
+      font-size: 16px;
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.6;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      min-width: 0;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .step-num {
+      width: 32px;
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-start;
+      font-family: var(--mono);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .step-desc strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .code-block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 12px 0;
+      font-family: var(--mono);
+      font-size: 16px;
+      line-height: 1.9;
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-block .comment {
+      color: #7c88a8;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 14px;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .tag.blue {
+      background: #e8f0fe;
+      color: var(--accent);
+    }
+
+    .tag.green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.amber {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .tag.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info-box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 16px;
+      line-height: 1.7;
+      align-items: flex-start;
+    }
+
+    .info-box.tip {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .info-box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info-box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info-box.danger {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .info-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .opt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .opt-item {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .opt-item .code-block {
+      margin: 0 0 12px;
+    }
+
+    .opt-desc-text {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .opt-desc-text strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .qa-block {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .qa-q {
+      background: #fff8ec;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #92400e;
+      border-bottom: 1px solid #fde68a;
+    }
+
+    .qa-a {
+      background: var(--bg);
+      padding: 12px 16px;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .qa-a strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .link-box {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .link-box a {
+      color: var(--accent);
+      text-decoration: none;
+      font-family: var(--mono);
+    }
+
+    .link-box a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== 반응형 ===== */
+    @media (max-width: 1024px) {
+      .flex_box {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .toc {
+        width: 100%;
+        position: static;
+        border-right: none;
+        border-bottom: 2px solid var(--border);
+      }
+
+      .toc-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+      }
+
+      .content {
+        padding: 0 24px 48px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 32px 20px 28px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .content {
+        padding: 0 16px 40px;
+      }
+
+      .section-header {
+        flex-wrap: wrap;
+      }
+
+      .section-time {
+        margin-left: 0;
+      }
+
+      .step {
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
+
+      .code-block {
+        font-size: 16px;
+        padding: 14px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="hero">
+      <h1>Swiper 슬라이드 — 가져와서 응용하기</h1>
+      <p>공식 데모 페이지에서 코드를 가져와 내 프로젝트에 적용하는 법</p>
+      <div class="hero-meta">
+        <div class="meta-item">💻 VSCode 기준</div>
+        <div class="meta-item">🌐 swiperjs.com/demos 활용</div>
+      </div>
+    </div>
+
+    <div class="flex_box">
+      <div class="toc">
+        <div class="toc-title">목차</div>
+        <ul class="toc-list">
+          <li><a href="#s1"><span class="toc-num">01</span> Swiper란?</a></li>
+          <li><a href="#s2"><span class="toc-num">02</span> 데모 페이지에서 기능 찾기</a></li>
+          <li><a href="#s3"><span class="toc-num">03</span> Core 코드 확인</a></li>
+          <li><a href="#s4"><span class="toc-num">04</span> 코드 복사 & 내 프로젝트에 적용</a></li>
+          <li><a href="#s5"><span class="toc-num">05</span> 클래스명 변경하기</a></li>
+          <li><a href="#s6"><span class="toc-num">06</span> 슬라이드 내용 교체하기</a></li>
+          <li><a href="#s7"><span class="toc-num">07</span> 전체 구조 예시</a></li>
+          <li><a href="#s8"><span class="toc-num">08</span> 자주 쓰는 옵션 정리</a></li>
+          <li><a href="#s9"><span class="toc-num">09</span> 주의사항 체크리스트</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+        <!-- 01 개념 -->
+        <div class="section" id="s1">
+          <div class="section-header">
+            <span class="section-num">01</span>
+            <span class="section-title">Swiper란?</span>
+          </div>
+          <p class="step-desc" style="font-size: 16px; line-height: 1.9;">
+            <strong style="color: var(--text);">Swiper</strong>는 이미지나 카드를 좌우(또는 위아래)로 넘기는 슬라이드 기능이 이미
+            완성되어 배포된 JS 라이브러리예요. 터치 드래그, 자동 넘김, 무한 반복, 점(인디케이터) 동기화까지 다 직접 짤 필요 없이 이미
+            만들어진 부품을 가져다 쓰고, 겉모습만 내 디자인에 맞게 바꾸는 방식으로 사용합니다.
+          </p>
+        </div>
+
+        <!-- 02 데모 페이지 -->
+        <div class="section" id="s2">
+          <div class="section-header">
+            <span class="section-num">02</span>
+            <span class="section-title">데모 페이지에서 원하는 기능 찾기</span>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <div class="step-title">swiperjs.com/demos 접속</div>
+                <div class="step-desc">
+                  왼쪽 사이드바에 Navigation, Pagination, Autoplay, Space between 등 수십 가지 기능 이름이 나열되어
+                  있어요.
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <div class="step-title">검색(Ctrl+K)으로 원하는 기능 찾기 — 예: autoplay</div>
+                <div class="step-desc">
+                  화면 상단의 <strong>검색 아이콘(🔍)</strong> 클릭 또는 단축키 <strong>Ctrl + K</strong> → 검색창에 원하는
+                  기능 이름 입력 (예: <span class="tag blue">autoplay</span>)<br /><br />
+                  검색 결과 목록에서 <strong>제목 아래 "Swiper Demos"라고 적힌 항목</strong>을 클릭하기.
+                  같은 이름이어도 API 문서 등 다른 카테고리가 섞여 나올 수 있으니 꼭 "Swiper Demos" 표시된 것을 선택해야
+                  실제 작동하는 데모 페이지로 이동해요.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <span>"슬라이드가 자동으로 넘어가게 하고 싶다" → <span class="tag blue">autoplay</span> 검색, "화살표로 넘기고
+              싶다" → <span class="tag blue">navigation</span> 검색, "카드처럼 겹쳐 보이게 하고 싶다" →
+              <span class="tag blue">slides per view</span> 검색 — 원하는 동작을 영어 키워드로 떠올려서 검색하는 습관을 들이면
+              됩니다.</span>
+          </div>
+        </div>
+
+        <!-- 03 StackBlitz -->
+        <div class="section" id="s3">
+          <div class="section-header">
+            <span class="section-num">03</span>
+            <span class="section-title">Core 코드 확인하기</span>
+          </div>
+          <div class="info-box danger">
+            <span class="info-icon">🚫</span>
+            <span>꼭 <strong>"Core" 버튼</strong>을 눌러서 봐야 해요. React나 Vue를 누르면 우리가 배우는 순수
+              HTML/CSS/JS 문법과 다른 코드가 나와서 그대로 쓸 수 없어요.</span>
+          </div>
+        </div>
+
+        <!-- 04 코드 복사 -->
+        <div class="section" id="s4">
+          <div class="section-header">
+            <span class="section-num">04</span>
+            <span class="section-title">코드 복사 & 내 프로젝트에 적용하기</span>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <div class="step-title">head에 들어갈 CSS 링크만 복사</div>
+                <div class="step-desc">
+                  Demo styles(<span class="tag blue">&lt;style&gt;...&lt;/style&gt;</span>) 부분은 그 데모 페이지
+                  배경 꾸밈용이라 복사하지 않음.
+                </div>
+                <div class="code-block"><span class="comment">&lt;!-- Link Swiper's CSS --&gt;</span>
+&lt;link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css"
+/&gt;</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <div class="step-title">head 안, 내가 만든 CSS 위에 붙여넣기</div>
+                <div class="step-desc">
+                  복사한 Swiper CSS 링크는 내가 이미 작성해둔 CSS(예: <span class="tag blue">style.css</span>)
+                  <strong>보다 위쪽</strong>에 붙여넣어야 해요.
+                </div>
+                <div class="code-block">&lt;head&gt;
+  ...
+  <span class="comment">&lt;!-- Swiper CSS: 먼저 --&gt;</span>
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css" /&gt;
+
+  <span class="comment">&lt;!-- 내가 만든 CSS: 나중에 --&gt;</span>
+  &lt;link rel="stylesheet" href="style.css" /&gt;
+&lt;/head&gt;</div>
+                <div class="info-box note">
+                  <span class="info-icon">💡</span>
+                  <span>CSS는 <strong>나중에 불러온 것이 먼저 것을 덮어써요.</strong> 내 CSS를 Swiper CSS보다 아래에
+                    둬야, 나중에 화살표·점 색상 같은 걸 내 스타일로 덮어쓸 수 있어요. 순서가 반대면 내가 쓴 CSS가 무시될 수
+                    있어요.</span>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <div class="step-title">body 안쪽 전체(HTML 구조 + JS) 복사</div>
+                <div class="code-block"><span class="comment">&lt;!-- Swiper --&gt;</span>
+&lt;div class="swiper mySwiper"&gt;
+  &lt;div class="swiper-wrapper"&gt;
+    &lt;div class="swiper-slide"&gt;Slide 1&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 2&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 3&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 4&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 5&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 6&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 7&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 8&lt;/div&gt;
+    &lt;div class="swiper-slide"&gt;Slide 9&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="swiper-button-next"&gt;&lt;/div&gt;
+  &lt;div class="swiper-button-prev"&gt;&lt;/div&gt;
+  &lt;div class="swiper-pagination"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+<span class="comment">&lt;!-- Swiper JS --&gt;</span>
+&lt;script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"&gt;&lt;/script&gt;
+
+<span class="comment">&lt;!-- Initialize Swiper --&gt;</span>
+&lt;script&gt;
+  var swiper = new Swiper('.mySwiper', {
+    spaceBetween: 30,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+&lt;/script&gt;</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <div class="step-title">슬라이드 HTML 구조를 원하는 위치에 붙여넣기</div>
+                <div class="step-desc">
+                  복사한 슬라이드 구조(<span class="tag blue">&lt;div class="swiper mySwiper"&gt;</span> ~
+                  <span class="tag blue">&lt;/div&gt;</span>)를 슬라이드가 보여질 위치에 붙여넣기.
+                </div>
+                <div class="code-block"><span class="comment">&lt;!-- 슬라이드가 보여질 위치 --&gt;</span>
+&lt;div class="swiper mySwiper"&gt;
+  &lt;div class="swiper-wrapper"&gt;
+    &lt;div class="swiper-slide"&gt;Slide 1&lt;/div&gt;
+    ...
+  &lt;/div&gt;
+  &lt;div class="swiper-button-next"&gt;&lt;/div&gt;
+  &lt;div class="swiper-button-prev"&gt;&lt;/div&gt;
+  &lt;div class="swiper-pagination"&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">5</div>
+              <div class="step-body">
+                <div class="step-title">JS &lt;script&gt; 두 개는 body 맨 끝으로 이동</div>
+                <div class="step-desc">
+                  라이브러리 스크립트와 초기화 스크립트를 <span class="tag amber">&lt;/body&gt; 태그 바로 위(body 맨
+                    끝)</span>로 옮겨서 붙여넣기.
+                </div>
+                <div class="code-block">&lt;body&gt;
+  ...(다른 콘텐츠들)...
+
+  <span class="comment">&lt;!-- JS는 body 제일 끝으로 이동 --&gt;</span>
+  &lt;script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    var swiper = new Swiper('.mySwiper', {
+      ...
+    });
+  &lt;/script&gt;
+&lt;/body&gt;</div>
+                <div class="info-box note">
+                  <span class="info-icon">💡</span>
+                  <span>JS를 body 맨 끝에 두는 이유 — HTML 요소들이 먼저 다 그려진 다음에 JS가 실행돼야
+                    <span class="tag blue">.swiper</span>, <span class="tag blue">.swiper-slide</span> 같은 요소를
+                    제대로 찾을 수 있기 때문이에요. 앞쪽(head나 body 중간)에 두면 아직 안 만들어진 요소를 찾으려다 에러가 날 수
+                    있어요.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 클래스명 변경 -->
+        <div class="section" id="s5">
+          <div class="section-header">
+            <span class="section-num">05</span>
+            <span class="section-title">클래스명 변경하기</span>
+          </div>
+          <div class="step-desc" style="margin-bottom: 14px;">
+            <span class="tag blue">mySwiper</span>는 데모의 임시 이름이라, 실제 프로젝트에서는 어떤 슬라이드인지 알아보기 쉬운 이름으로
+            바꾸는 게 좋아요. (예: <span class="tag green">main_visual_swiper</span>,
+            <span class="tag green">product_swiper</span> 등 snake_case)
+          </div>
+          <div class="info-box danger">
+            <span class="info-icon">🚫</span>
+            <span><strong>반드시 두 군데를 다 바꿔야 해요.</strong> 한쪽만 바꾸고 한쪽을 안 바꾸면 Swiper가 "이 클래스를 못
+              찾겠다"며 슬라이드가 아예 작동하지 않아요. 학생들이 가장 많이 하는 실수 중 하나예요.</span>
+          </div>
+          <div class="card">
+            <div class="code-block"><span class="comment">// ① HTML의 class</span>
+&lt;div class="swiper main_visual_swiper"&gt;
+
+<span class="comment">// ② JS의 선택자</span>
+var swiper = new Swiper('.main_visual_swiper', {</div>
+          </div>
+        </div>
+
+        <!-- 06 슬라이드 내용 교체 -->
+        <div class="section" id="s6">
+          <div class="section-header">
+            <span class="section-num">06</span>
+            <span class="section-title">슬라이드 내용 교체하기</span>
+          </div>
+          <div class="step-desc" style="margin-bottom: 14px;">
+            <span class="tag blue">swiper-slide</span> 안의 텍스트를 지우고 내 이미지·카드로 바꿔주면 됩니다.
+          </div>
+          <div class="code-block">&lt;div class="swiper-slide"&gt;
+  &lt;img src="images/photo_1.jpg" alt="상품 1" /&gt;
+&lt;/div&gt;</div>
+          <div class="info-box note">
+            <span class="info-icon">💡</span>
+            <span>이때 <span class="tag blue">swiper</span>, <span class="tag blue">swiper-wrapper</span>,
+              <span class="tag blue">swiper-slide</span> 클래스명은 절대 바꾸지 말고, 내가 추가로 넣는 요소(카드 안
+              제목/설명 등)에만 snake_case 클래스를 붙이면 돼요. 예: <span class="tag green">slide_title</span>,
+              <span class="tag green">slide_desc</span></span>
+          </div>
+        </div>
+
+        <!-- 07 전체 구조 예시 -->
+        <div class="section" id="s7">
+          <div class="section-header">
+            <span class="section-num">07</span>
+            <span class="section-title">전체 구조 예시</span>
+          </div>
+          <div class="step-desc" style="margin-bottom: 14px;">
+            지금까지 배운 것 — CSS 연결, 클래스명 변경, 슬라이드 내용 교체, body 맨 끝 JS 배치 — 을 <strong style="color: var(--text);">전부 적용했을 때</strong> 실제 파일이 어떤 모습인지 예시로 보여드릴게요.
+          </div>
+          <div class="code-block">&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;title&gt;내 프로젝트&lt;/title&gt;
+
+  <span class="comment">&lt;!-- ① Swiper CSS는 head에 --&gt;</span>
+  &lt;link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css"
+  /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;...우리 사이트 헤더...&lt;/header&gt;
+
+  <span class="comment">&lt;!-- ② 슬라이드 구조는 원하는 위치에, 클래스명은 mySwiper → product_swiper로 변경 --&gt;</span>
+  &lt;div class="swiper product_swiper"&gt;
+    &lt;div class="swiper-wrapper"&gt;
+      <span class="comment">&lt;!-- ③ swiper-slide 안 내용은 내 이미지로 교체 --&gt;</span>
+      &lt;div class="swiper-slide"&gt;
+        &lt;img src="images/product_1.jpg" alt="상품 1" /&gt;
+      &lt;/div&gt;
+      &lt;div class="swiper-slide"&gt;
+        &lt;img src="images/product_2.jpg" alt="상품 2" /&gt;
+      &lt;/div&gt;
+      &lt;div class="swiper-slide"&gt;
+        &lt;img src="images/product_3.jpg" alt="상품 3" /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="swiper-button-next"&gt;&lt;/div&gt;
+    &lt;div class="swiper-button-prev"&gt;&lt;/div&gt;
+    &lt;div class="swiper-pagination"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;footer&gt;...우리 사이트 푸터...&lt;/footer&gt;
+
+  <span class="comment">&lt;!-- ④ JS 두 개는 body 맨 끝, 선택자도 product_swiper로 통일 --&gt;</span>
+  &lt;script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"&gt;&lt;/script&gt;
+  &lt;script&gt;
+    var swiper = new Swiper('.product_swiper', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</div>
+          <div class="info-box tip">
+            <span class="info-icon">💡</span>
+            <span>①~④ 표시된 순서대로 확인해보면 됩니다 — <strong>CSS는 head, 슬라이드 구조는 원하는 자리, 클래스명은 HTML·JS 양쪽 다 동일하게, JS 스크립트는 body 맨 끝.</strong> 이 4가지만 지키면 어떤 데모를 가져와도 같은 방식으로 적용할 수 있어요.</span>
+          </div>
+        </div>
+
+        <!-- 08 옵션 정리 -->
+        <div class="section" id="s8">
+          <div class="section-header">
+            <span class="section-num">08</span>
+            <span class="section-title">자주 쓰는 옵션 정리</span>
+          </div>
+          <div class="opt-list">
+            <div class="opt-item">
+              <div class="code-block">autoplay: {
+  delay: 5000,
+  disableOnInteraction: false,
+},</div>
+              <div class="opt-desc-text">자동 재생. <strong>delay</strong>는 몇 초 뒤에 다음 슬라이드로 넘어갈지 설정(1000=1초)</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">speed: 500,</div>
+              <div class="opt-desc-text">슬라이드가 넘어갈 때 걸리는 전환 속도(1000=1초). 숫자가 작을수록 빠르게, 클수록 천천히 넘어감</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">loop: true,</div>
+              <div class="opt-desc-text">슬라이드가 무한 반복되어 돌아가게 만들기</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">navigation: {
+  nextEl: ".swiper-button-next",
+  prevEl: ".swiper-button-prev",
+},</div>
+              <div class="opt-desc-text">화살표가 동작하게 만듦. html에 화살표 관련 태그 추가 후 적용해야 함</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">pagination: {
+  el: ".swiper-pagination",
+  clickable: true,
+},</div>
+              <div class="opt-desc-text">슬라이드 밑의 점(●●●●) 부분이 동작하게 만듦. html에 관련 태그 추가 후 적용해야 함</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">spaceBetween: 30,</div>
+              <div class="opt-desc-text">슬라이드 사이에 간격 설정. 기본값은 0</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">slidesPerView: 3,</div>
+              <div class="opt-desc-text">한 번에 보이는 슬라이드 개수 설정</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">slidesPerGroup: 3,</div>
+              <div class="opt-desc-text">한 번에 넘어가는 슬라이드 개수 설정. 3으로 설정 시 3개가 한꺼번에 넘어감</div>
+            </div>
+            <div class="opt-item">
+              <div class="code-block">breakpoints: {
+  640: {
+    slidesPerView: 2,
+    spaceBetween: 20,
+  },
+  768: {
+    slidesPerView: 4,
+    spaceBetween: 40,
+  },
+  1024: {
+    slidesPerView: 5,
+    spaceBetween: 50,
+  },
+},</div>
+              <div class="opt-desc-text">창 너비에 따라 다른 개수로 보이게 함. 예) 640px부터 슬라이드 2개·간격 20, 768px부터 4개·간격 40, 1024px부터
+                5개·간격 50</div>
+            </div>
+          </div>
+          <div class="link-box">
+            더 많은 옵션: <a href="https://swiperjs.com/swiper-api" target="_blank">swiperjs.com/swiper-api</a><br />
+            더 많은 데모: <a href="https://swiperjs.com/demos" target="_blank">swiperjs.com/demos</a>
+          </div>
+        </div>
+
+        <!-- 09 주의사항 -->
+        <div class="section" id="s9">
+          <div class="section-header">
+            <span class="section-num">09</span>
+            <span class="section-title">주의사항 체크리스트</span>
+            <span class="section-time">참고용</span>
+          </div>
+          <div class="qa-block">
+            <div class="qa-q">슬라이드가 아예 안 움직여요</div>
+            <div class="qa-a">
+              HTML의 class명과 JS <strong>new Swiper('.클래스명', ...)</strong> 안의 선택자가 똑같은지 확인하세요. 오타나 한쪽만
+              바꾼 경우가 가장 흔한 원인이에요.
+            </div>
+          </div>
+          <div class="qa-block">
+            <div class="qa-q">화살표나 점이 안 보이거나 눌러도 반응이 없어요</div>
+            <div class="qa-a">
+              <strong>navigation</strong> / <strong>pagination</strong> 옵션을 JS에 추가했는지, 그리고 HTML에
+              <strong>.swiper-button-next / .swiper-button-prev / .swiper-pagination</strong> 태그가 있는지 확인하세요.
+              둘 다 있어야 동작해요.
+            </div>
+          </div>
+          <div class="qa-block">
+            <div class="qa-q">Swiper is not defined 에러가 떠요</div>
+            <div class="qa-a">
+              초기화 코드(<strong>new Swiper(...)</strong>)가 Swiper JS 스크립트 태그보다 먼저 실행된 경우예요. JS
+              <strong>&lt;script&gt;</strong> 두 개를 <strong>body 맨 아래</strong>에 순서대로(라이브러리 → 초기화 코드) 배치했는지
+              확인하세요.
+            </div>
+          </div>
+          <div class="qa-block">
+            <div class="qa-q">한 페이지에 슬라이드를 2개 이상 쓰고 싶어요</div>
+            <div class="qa-a">
+              각 슬라이드의 클래스명이 서로 겹치지 않게 다르게 지정해야 해요. (예: <strong>main_visual_swiper</strong>,
+              <strong>product_swiper</strong>)
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

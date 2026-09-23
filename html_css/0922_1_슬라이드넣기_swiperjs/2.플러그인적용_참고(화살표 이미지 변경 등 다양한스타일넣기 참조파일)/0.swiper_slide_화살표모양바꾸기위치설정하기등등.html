@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+	<head>
+		<title>스와이퍼 슬라이드 연습하기.</title>
+		
+		<!--1. 연결 시켜야 할 파일을 연결 시킨다.(swiper slide의 경우에는 css파일과 js파일이다)-->
+		<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+		<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+		<style>
+			*{margin:0; padding:0;}
+			.swiper-slide img{width:100%;}
+			#news{width:1200px; margin:100px auto;}
+			
+			/*화살표 색상, 도트 색상 바꾸기*/
+			.mb .swiper-button-next, .mb .swiper-button-prev{color:red;}
+			.mb .swiper-pagination-bullet{background:red;}
+			
+			.card4 .swiper-button-next, .card4 .swiper-button-prev{color:green;}
+			.card4 .swiper-pagination-bullet{background:green;}
+			
+			/*화살표 크기 줄이기*/
+			.card4 .swiper-button-next:after, .card4 .swiper-button-prev:after{
+			font-size: 15px;}
+			
+			/*화살표 위치 변경*/
+			.card4 .swiper-button-next{right:0;}
+			.card4 .swiper-button-prev{left:0;}
+			
+			/*화살표 밖으로 뺄때 위치 지정 관련 부분*/
+			#arrow_relativ{width:1200px; margin:0 auto;
+				position:relative;/*화살표 포지션의 기준을 swiper밖에다가 다시 잡아 줍니다.*/}
+			.card4_out{width:1120px; margin:0 auto;}/*마진오토 기준등은 원하는 크기에 따라 달라집니다!*/
+			.card4_out_next{right:0;}
+			.card4_out_prev{left:0;}
+			.card4_out_next:after, .card4_out_prev:after{
+			font-size: 18px; font-weight:bold;}
+			
+			.card4_out_next, .card4_out_prev{color:pink;}
+			.card4_out .swiper-pagination-bullet{background:pink;}
+			
+			
+			
+			/*화살표 밖으로 + 이미지로 화살표 변환*/
+			#arrow_image{width:1200px; margin:0 auto;
+				position:relative;/*화살표 포지션의 기준을 swiper밖에다가 다시 잡아 줍니다.*/}
+			.card4_img{width:1050px; margin:0 auto;}/*마진오토 기준등은 원하는 크기에 따라 달라집니다!*/
+			.card4_img_next{right:0;}
+			.card4_img_prev{left:0;}
+			/*화살표를 이미지로 변경*/
+			.card4_img_next:after{content:url(img/arrow_next.png);}
+			.card4_img_prev:after{content:url(img/arrow_prev.png);}
+			.card4_img_next, .card4_img_prev{width:50px; height:50px;/*이미지크기와 동일하게 설정*/}
+			
+			.card4_img .swiper-pagination-bullet{background:pink;}
+		</style>
+	</head>
+	<body>
+		<!--3. 구조와 class의 이름을 알맞게 넣어준다.-->
+		<div id="main_banner" class="swiper mb">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="img/main1.jpg" alt="메인배너1"></div>
+				<div class="swiper-slide"><img src="img/main2.jpg" alt="메인배너2"></div>
+				<div class="swiper-slide"><img src="img/main3.jpg" alt="메인배너3"></div>
+				<div class="swiper-slide"><img src="img/main4.jpg" alt="메인배너4"></div>
+			</div>
+			<!--화살표추가-->
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<!--도트를 추가하고 싶을때-->
+			<div class="swiper-pagination"></div>
+		</div><!--mb E-->
+		
+		<div id="news" class="swiper card4">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><img src="img/main1.jpg" alt="메인배너1"></div>
+				<div class="swiper-slide"><img src="img/main2.jpg" alt="메인배너2"></div>
+				<div class="swiper-slide"><img src="img/main3.jpg" alt="메인배너3"></div>
+				<div class="swiper-slide"><img src="img/main4.jpg" alt="메인배너4"></div>
+			</div>
+			<!--화살표추가-->
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<!--도트를 추가하고 싶을때-->
+			<div class="swiper-pagination"></div>
+		</div><!--card E-->
+		
+		<h1 style="text-align:center; padding-bottom:50px;">*swiper는 기본적으로 화살표가 swiper영역의 안으로 들어갑니다.<br>
+		밑의 부분은(class가 card4_out)혹시 화살표를 swiper의 밖으로 보내고 싶을때 참조하세요!</h1>
+		
+		<div id="arrow_relativ"><!--화살표의 포지션 기준이 될 다른 박스요소-->
+			<div class="swiper card4_out">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="img/main1.jpg" alt="메인배너1"></div>
+					<div class="swiper-slide"><img src="img/main2.jpg" alt="메인배너2"></div>
+					<div class="swiper-slide"><img src="img/main3.jpg" alt="메인배너3"></div>
+					<div class="swiper-slide"><img src="img/main4.jpg" alt="메인배너4"></div>
+				</div>
+				<!--도트를 추가하고 싶을때-->
+				<div class="swiper-pagination"></div>
+			</div><!--card E-->
+			<!--화살표추가. 화살표 위치 변경 확인하세요! 반드시 추가클래스 더 넣어주세요-->
+			<div class="swiper-button-next card4_out_next"></div>
+			<div class="swiper-button-prev card4_out_prev"></div>
+		</div>
+		
+		<h1 style="text-align:center; padding:150px 0 50px;">화살표가 swiper 밖으로 + 화살표를 이미지로 변경</h1>
+		<div id="arrow_image"><!--화살표의 포지션 기준이 될 다른 박스요소-->
+			<div class="swiper card4_img">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="img/main1.jpg" alt="메인배너1"></div>
+					<div class="swiper-slide"><img src="img/main2.jpg" alt="메인배너2"></div>
+					<div class="swiper-slide"><img src="img/main3.jpg" alt="메인배너3"></div>
+					<div class="swiper-slide"><img src="img/main4.jpg" alt="메인배너4"></div>
+				</div>
+				<!--도트를 추가하고 싶을때-->
+				<div class="swiper-pagination"></div>
+			</div><!--card E-->
+			<!--화살표추가. 화살표 위치 변경 확인하세요! 반드시 추가이름 더 넣어주세요-->
+			<div class="swiper-button-next card4_img_next"></div>
+			<div class="swiper-button-prev card4_img_prev"></div>
+		</div>
+		
+		<!--2. 필수 옵션을 넣는 script부분을 body가장 끝에 넣어준다.-->
+		<!-- Initialize Swiper -->
+		<script>
+		  var swiper = new Swiper(".mb", {
+			navigation: {
+				 nextEl: ".swiper-button-next",
+				 prevEl: ".swiper-button-prev",
+				},
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+				},
+			autoplay: {
+				delay: 5000,
+				disableOnInteraction: false,
+			},
+			loop: true,/*4번째 이미지에서 다음 키를 누르면 바로 첫번째 이미지가 나오게 한다*/
+		  });
+		  
+		  /*".card" 부분의 class이름은, swiper클래스가 지정된 박스에 각각의 이름을 붙여 옵션을 각기 다르게 지정한다.(먼저 swiper옆에 클래스를 지정한뒤 해당 클래스를 넣어주세요)*/
+		  var swiper = new Swiper(".card4", {
+			navigation: {
+				 nextEl: ".swiper-button-next",
+				 prevEl: ".swiper-button-prev",
+				},
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+				},
+			autoplay: {
+				delay: 5000,
+				disableOnInteraction: false,
+			},
+			loop: true,/*4번째 이미지에서 다음 키를 누르면 바로 첫번째 이미지가 나오게 한다*/
+			slidesPerView: 4,/*한번에 보이는 slide개수 설정*/
+			spaceBetween: 30,/*슬라이드 사이의 공간 설정*/
+			slidesPerGroup: 4,/*한번에 넘어가는 slide의 개수 설정. 모든이미지갯수를 그룹으로 만들면 도트가 안나타날 수 있습니다!*/
+		  });
+		  
+		  /*화살표 영역을 밖으로 빼고싶을 때. navigation부분 확인합니다! 다른건 동일*/
+		  var swiper = new Swiper(".card4_out", {
+			navigation: {
+				 nextEl: ".card4_out_next",
+				 prevEl: ".card4_out_prev",
+				},
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+				},
+			autoplay: {
+				delay: 5000,
+				disableOnInteraction: false,
+			},
+			loop: true,/*4번째 이미지에서 다음 키를 누르면 바로 첫번째 이미지가 나오게 한다*/
+			slidesPerView: 3,/*한번에 보이는 slide개수 설정*/
+			spaceBetween: 30,/*슬라이드 사이의 공간 설정*/
+		  });
+		  
+		  /*화살표 영역을 밖으로 빼고싶을 때 + 이미지로 변경.*/
+		  var swiper = new Swiper(".card4_img", {
+			navigation: {
+				 nextEl: ".card4_img_next",
+				 prevEl: ".card4_img_prev",
+				},
+			pagination: {
+				el: ".swiper-pagination",
+				clickable: true,
+				},
+			autoplay: {
+				delay: 5000,
+				disableOnInteraction: false,
+			},
+			loop: true,/*4번째 이미지에서 다음 키를 누르면 바로 첫번째 이미지가 나오게 한다*/
+			slidesPerView: 3,/*한번에 보이는 slide개수 설정*/
+			spaceBetween: 30,/*슬라이드 사이의 공간 설정*/
+		  });
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유한양행 메뉴</title>
+    <style>
+        /*기본설정*/
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        body{
+            font-family: "맑은 고딕";
+            font-size: 16px;
+            line-height: 1.2;
+            color: #111;
+        }
+        #header{
+            border-bottom: 1px solid #ccc;
+        }
+        .inner{
+            width: 1000px;
+            margin: 0 auto;
+            background-color: antiquewhite;
+            display: flex;
+            /*로고와 #gnb가 정렬*/
+            justify-content: space-between;
+            align-items: center;
+        }
+        #gnb{
+            background-color: blue;
+        }
+        #gnb ul{
+            display: flex;
+            /*메뉴가 가로정렬되게 만듬.*/
+        }
+        #gnb ul li{
+            font-size: 20px;
+            font-weight: bold;
+            padding: 30px;
+        }
+        #gnb ul li:hover{
+            color: red;
+            transition: all 0.5s;
+        }
+    </style>
+</head>
+<body>
+    <header id="header"><!--보더바텀-->
+        <div class="inner"><!-- 가운데 정렬박스-->
+            <a href="#"><img src="./images/logo.gif" alt="유한양행로고"></a>
+            <nav id="gnb">
+                <ul><!--li안에는 메뉴의 목적상 꼭! a태그 안에 글자를 넣어주세요-->
+                    <li><a href="#">유한소개</a></li>
+                    <li><a href="#">제품정보</a></li>
+                    <li><a href="#">연구개발</a></li>
+                    <li><a href="#">투자정보</a></li>
+                    <li><a href="#">사회공헌</a></li>
+                </ul>
+            </nav>
+        </div><!--inner-->
+    </header>
+</body>
+</html>

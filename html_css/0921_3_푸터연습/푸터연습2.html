@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>푸터연습</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+        ul, ol{
+            list-style: none;
+        }
+        body{
+            font-family: "맑은 고딕";
+            font-size: 14px;
+            line-height: 1.2;
+            color: #111;
+        }
+        #footer{
+            background-color: #eee;
+            border-top: 1px solid #ccc;
+        }
+        .inner{
+            width: 1000px;
+            margin: 0px auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 30px 0;
+        }
+        .footer_text ul{
+            display: flex;
+            /*ul의 자식인 li를 정렬*/
+            gap: 10px;
+        }
+        .footer_text p{
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <footer id="footer"><!--배경색상, 보더탑-->
+        <div class="inner"><!--가운데정렬, 플렉스컨테이너-->
+            <div class="footer_text">
+                <!--플렉스아이템-->
+                <ul><!--li들의 플렉스컨테이너-->
+                    <li><!--li들이 플렉스 아이템-->
+                        <a href="#">푸터메뉴1</a></li>
+                    <li><a href="#">푸터메뉴2</a></li>
+                    <li><a href="#">푸터메뉴3</a></li>
+                    <li><a href="#">푸터메뉴4</a></li>
+                    <li><a href="#">푸터메뉴5</a></li>
+                </ul>
+                <p>
+                    나래디자인학원입니다<br>
+                    푸터 카피라이트내용등이 여기에 들어갑니다.
+                </p>
+            </div>
+            <div class="footer_logo">
+                <!--플렉스아이템-->
+                <a href="#"><img src="./images/foot_logo.gif" alt="롯데푸드푸터로고"></a>
+            </div>
+        </div><!--inner-->
+    </footer>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스와이퍼 js 가지고와서 사용해보기</title>
+
+    <!--1. Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css" />
+    <!--내가 만들 css파일보다 스와이퍼 파일이 위에 있게 해주세요!-->
+    <style>
+        img {
+            max-width: 100%;
+            /*이미지태그에 이 코드를 주면, 부모의 크기가 본인의 본래 크기보다 커지면 따라가지 않고, 부모의 크기가 본인의 본래 크기보다 작아지면 같이 작아짐.*/
+        }
+        .container{
+            width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!--2. 사이트에서 body안의 내용을 전부 복사해서 슬라이드가 필요한 곳에 붙여 넣는다.-->
+    <!-- Swiper 실제 슬라이드로 보이는 부분(div). swiper라는 이름은 수정하지 않습니다! 스타일을 꾸밀때 다른 클래스가 필요하다면 한개 더 붙여서 사용합니다-->
+    <div class="swiper main_banner"><!--3. mySwiper라는 이름을 다른 이름으로 변경한다.-->
+        <div class="swiper-wrapper">
+            <!--swiper-slide하나가 슬라이드 한개!-->
+            <div class="swiper-slide bg1"><img src="./s1.jpg" alt="배너1"></div>
+            <div class="swiper-slide"><img src="./s2.jpg" alt="배너2"></div>
+            <div class="swiper-slide"><img src="./s3.jpg" alt="배너3"></div>
+            <div class="swiper-slide"><img src="./s4.jpg" alt="배너4"></div>
+            <!--더 많은 슬라이드가 필요하다면 여기에 추가-->
+        </div><!--지우지 않게 조심!-->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="container">
+        <h2>카드형슬라이드</h2>
+        <!--두번째 이상의 슬라이드를 한페이지에 가져올때는, div구조만 먼저 가져와서 필요한 곳에 붙여 넣는다-->
+        <!-- Swiper -->
+        <div class="swiper card_slide">
+            <!--mySwiper이름을 다른이름으로 변경합니다.-->
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="./bn1.jpg" alt="카드이미지">
+                    <div class="text">
+                        <h3>제목입니다</h3>
+                        <p>내용입니다</p>
+                    </div>
+                </div><!--슬라이드-->
+                <div class="swiper-slide">
+                    <img src="./bn1.jpg" alt="카드이미지">
+                    <div class="text">
+                        <h3>제목입니다</h3>
+                        <p>내용입니다</p>
+                    </div>
+                </div><!--슬라이드-->
+                <div class="swiper-slide">
+                    <img src="./bn1.jpg" alt="카드이미지">
+                    <div class="text">
+                        <h3>제목입니다</h3>
+                        <p>내용입니다</p>
+                    </div>
+                </div><!--슬라이드-->
+                <div class="swiper-slide">
+                    <img src="./bn1.jpg" alt="카드이미지">
+                    <div class="text">
+                        <h3>제목입니다</h3>
+                        <p>내용입니다</p>
+                    </div>
+                </div><!--슬라이드-->
+                <div class="swiper-slide">
+                    <img src="./bn1.jpg" alt="카드이미지">
+                    <div class="text">
+                        <h3>제목입니다</h3>
+                        <p>내용입니다</p>
+                    </div>
+                </div><!--슬라이드-->
+                <div class="swiper-slide">
+                    <img src="./bn1.jpg" alt="카드이미지">
+                    <div class="text">
+                        <h3>제목입니다</h3>
+                        <p>내용입니다</p>
+                    </div>
+                </div><!--슬라이드-->
+                <!--슬라이드 추가시 여기에 추가-->
+            </div><!--슬라이드 래퍼 끝-->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div><!--container-->
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>/*4.mySwiper부분을 3번에서 바꾼 이름으로 변경해준다.*/
+        var swiper = new Swiper('.main_banner', {
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    <!--두번째 이상 슬라이드 가져올때는 initaialize swiper 부분만 가지고와서 여기에 붙인다.-->
+    <!-- Initialize Swiper -->
+    <script>/*mySwiper이름을 위에서 변경한이름으로 바꿔준다*/
+        var swiper = new Swiper('.card_slide', {
+            slidesPerView: 4,
+            /*한번에 보이는 슬라이드 갯수*/
+            spaceBetween: 30,
+            /*슬라이드와 슬라이드사이의 여백*/
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+        });
+    </script>
+</body>
+
+</html>
