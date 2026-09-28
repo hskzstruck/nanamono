@@ -6,7 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>요리에센스 연두</title>
-
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css"/>
+    
+    
 </head>
 
 <body>
@@ -25,6 +31,16 @@
         </div><!--header_inner-->
     </header><!--header-->
     <section class="main_banner">
+            <div class="swiper mb">
+            <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./images/mb1.jpg" alt="연두배너이미지1"></div>
+            <div class="swiper-slide"><img src="./images/mb2.jpg" alt="연두배너이미지2"></div>
+            </div>
+            <div class="swiper-button-next mb_next"></div>
+            <div class="swiper-button-prev mb_undo"></div>
+            <div class="swiper-pagination"></div>
+            </div>
+        <div class="banner_inner">
         <!--swiper autoplay슬라이드 한번 넣어봅시다! -->
     </section>
     <section id="studio">
@@ -102,7 +118,25 @@
             </div><!--footer_text-->
         </div><!--footer_inner-->
     </footer><!--footer-->
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"></script>
+        <script>
+      var swiper = new Swiper('.mb', {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    </script>
 </body>
 
 </html>

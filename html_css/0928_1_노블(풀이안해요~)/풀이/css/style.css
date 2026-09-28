@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+video,
+iframe {
+  display: block;
+}
+
+body {
+  font-family: 'SUIT', sans-serif;
+  font-size: 13px;
+  line-height: 1.2;
+  color: #666;
+}
+
+/*logo*/
+.logo {
+  background-color: bisque;
+  padding: 15px 0;
+}
+
+.inner {
+  width: 1180px;
+  margin: 0 auto;
+}
+
+.logo img {
+  margin: 0 auto
+}
+
+
+/*gnb*/
+.gnb {
+  background-color: #111;
+}
+
+
+.gnb ul {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.gnb ul li {
+  background-position: center -31px;
+}
+
+.gnb ul li a {
+  display: block;
+  padding: 15px 30px;
+}
+
+.gnb ul li:hover {
+  background: url(../images/gnb_on.png) no-repeat center 0px;
+  transition: all 0.5s;
+}
+
+.gnb ul li:hover a {
+  color: #fff;
+  transition: all 0.5s;
+}
+
+/*main_banner*/
+#main_banner a img {
+  width: 100%;
+}
+
+
+/*coffee*/
+#coffee {
+  text-align: center;
+  padding: 100px 0;
+}
+
+#coffee h2 {
+  font-size: 30px;
+  padding-bottom: 20px;
+}
+
+#coffee h3 {
+  font-size: 20px;
+  padding-bottom: 100px;
+}
+
+#coffee ul {
+  display: flex;
+  gap: 20px;
+
+}
+
+#coffee ul li {
+  border: 1px solid #ccc;
+}
+
+#coffee ul li p {
+  padding: 30px 0;
+}
+
+#coffee ul li:hover {
+  transform: translateY(-20px);
+  transition: all 0.5s;
+  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+}
+
+/*sub_banner*/
+#sub_banner {
+  background: url(../images/s1.jpg) no-repeat center center fixed;
+  height: 700px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /*이 속성은 축을 바꾸는 개념이라서, 주축을 기준으로 정렬하던 justify-content는 세로 정렬을 하게 되고, 교차축을 기준으로 정렬하던 align-items는 가로 정렬을 맡게 된다.*/
+  justify-content: center;
+}
+
+#sub_banner h1 {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 20px;
+  font-size: 40px;
+  line-height: 100%;
+}
+
+#sub_banner p {
+  color: #fff;
+  padding-top: 40px;
+}
+
+
+#map {
+  padding: 100px 0;
+}
+
+
+/*video*/
+#video {
+  background: url(../images/bg.jpg);
+  padding: 100px 0;
+}
+
+
+/* footer */
+#footer {
+  background-color: #333;
+  padding: 30px 0;
+}
+
+#footer .inner {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+#footer p {
+  text-align: right;
+}
