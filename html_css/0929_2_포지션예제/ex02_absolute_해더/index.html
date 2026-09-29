@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>예제 04 — 실무형 헤더 레이아웃</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      font-size: 14px;
+      background: #f8f8f6;
+    }
+
+    .inner {
+      width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    /* 공통 헤더 */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 900;
+      color: #111;
+      letter-spacing: 4px;
+    }
+
+    .gnb ul {
+      display: flex;
+      gap: 32px;
+    }
+
+    .gnb ul li a {
+      font-size: 14px;
+      color: #333;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .gnb ul li a:hover {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .icon_list {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .icon_list li a {
+      font-size: 18px;
+      transition: opacity 0.2s;
+    }
+
+    .icon_list li a:hover {
+      opacity: 0.6;
+    }
+
+    /* 패턴 레이블 */
+    .pattern_label {
+      background: #f0f0f0;
+      color: #888;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 40px;
+      letter-spacing: 1px;
+    }
+
+    .gap {
+      height: 40px;
+    }
+
+    .inner{
+      position: relative;
+    }
+
+    .logo{
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+    }
+
+
+    
+  </style>
+</head>
+
+<body>
+
+
+  <header class="header_c">
+    <div class="inner">
+      <nav class="gnb">
+        <ul>
+          <li><a href="#">신상품</a></li>
+          <li><a href="#">베스트</a></li>
+          <li><a href="#">세일</a></li>
+          <li><a href="#">브랜드</a></li>
+          <li><a href="#">기획전</a></li>
+        </ul>
+      </nav>
+      <h1 class="logo logo_center"><a href="#">NUEF</a></h1>
+      <ul class="icon_list">
+        <li><a href="#"><img src="./images/ico1_search.png" alt="검색"></a></li>
+        <li><a href="#"><img src="./images/ico2-cart.png" alt="장바구니"></a></li>
+        <li><a href="#"><img src="./images/ico3-user.png" alt="회원가입"></a></li>
+      </ul>
+    </div><!-- /inner -->
+  </header>
+
+</body>
+
+</html>
