@@ -1,0 +1,255 @@
+ /* ── Reset ─────────────────────────────── */
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ a {
+     text-decoration: none;
+     color: inherit;
+ }
+
+ ul {
+     list-style: none;
+ }
+
+ img {
+     display: block;
+     max-width: 100%;
+ }
+
+ /* ── Base ───────────────────────────────── */
+ body {
+     font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+     font-size: 15px;
+     line-height: 1.85;
+     color: #2c2018;
+     background: #f5f0ea;
+ }
+
+ /* ── 전체 레이아웃 ──────────────────────── */
+ .wrap {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 64px 40px 120px;
+     display: flex;
+     gap: 48px;
+     align-items: flex-start;
+ }
+
+ /* ── 본문 ───────────────────────────────── */
+ .post {
+     flex: 1;
+     min-width: 0;
+ }
+
+ /* ── 포스트 헤더 ────────────────────────── */
+ .post-head {
+     background: #fff;
+     padding: 44px 48px 36px;
+ }
+
+ .tags {
+     display: flex;
+     gap: 8px;
+     margin-bottom: 20px;
+ }
+
+ .tag {
+     font-size: 11px;
+     font-weight: 700;
+     letter-spacing: 0.1em;
+     text-transform: uppercase;
+     color: #c4683a;
+     background: #fdf0e8;
+     padding: 4px 12px;
+     border: 1px solid #f2d0b8;
+ }
+
+ .post-title {
+     font-family: 'Noto Serif KR', serif;
+     font-size: 34px;
+     font-weight: 700;
+     color: #1a110a;
+     line-height: 1.4;
+     letter-spacing: -0.02em;
+     margin-bottom: 28px;
+ }
+
+ .author {
+     display: flex;
+     align-items: center;
+     gap: 14px;
+     padding-top: 22px;
+     border-top: 1px solid #ede6de;
+ }
+
+ .author img {
+     width: 44px;
+     height: 44px;
+     border-radius: 50%;
+     object-fit: cover;
+     border: 2px solid #ede6de;
+ }
+
+ .author-name {
+     font-size: 14px;
+     font-weight: 700;
+     color: #1a110a;
+ }
+
+ .author-meta {
+     font-size: 13px;
+     color: #b0998a;
+     margin-top: 2px;
+ }
+
+ /* ── 히어로 이미지 ──────────────────────── */
+ .hero-img {
+     width: 100%;
+     height: 460px;
+     object-fit: cover;
+ }
+
+ /* ── 섹션 ───────────────────────────────── */
+ .section {
+     background: #fff;
+     padding: 10px 48px 44px;
+ }
+
+ .section+.section {
+     border-top: none;
+ }
+
+ .section:last-child {
+     border-bottom: 1px solid #ede6de;
+ }
+
+ .section h2 {
+     font-family: 'Noto Serif KR', serif;
+     font-size: 22px;
+     font-weight: 700;
+     color: #1a110a;
+     margin-bottom: 22px;
+     display: flex;
+     align-items: center;
+     gap: 12px;
+ }
+
+ .section h2 .num {
+     display: inline-flex;
+     align-items: center;
+     justify-content: center;
+     width: 28px;
+     height: 28px;
+     background: #c4683a;
+     color: #fff;
+     font-size: 13px;
+     font-weight: 700;
+     font-family: 'Malgun Gothic', sans-serif;
+     flex-shrink: 0;
+ }
+
+ .section p {
+     color: #4a3828;
+     margin-bottom: 18px;
+ }
+
+ .section p:last-child {
+     margin-bottom: 0;
+ }
+
+ /* ── 본문 이미지 ────────────────────────── */
+ .section .inline-img {
+     width: 100%;
+     height: 300px;
+     object-fit: cover;
+     margin: 24px 0 10px;
+ }
+
+ .section .img-caption {
+     font-size: 12px;
+     color: #b0998a;
+     text-align: center;
+     margin-bottom: 22px;
+     letter-spacing: 0.04em;
+ }
+
+ /* ══════════════════════════════════════════
+       TOC 사이드바
+    ══════════════════════════════════════════ */
+ .toc-wrap {
+     width: 250px;
+     flex-shrink: 0;
+     position:sticky;
+     top: 20px;
+     
+
+ }
+
+ .toc {
+     background: #fff;
+     border: 1px solid #ede6de;
+
+ }
+
+ .toc-head {
+     padding: 20px 22px 16px;
+ }
+
+ .toc-label {
+     font-size: 10px;
+     font-weight: 700;
+     letter-spacing: 2px;
+     text-transform: uppercase;
+     color: #b0998a;
+ }
+
+ .toc-list {
+     padding: 12px 0;
+ }
+
+ .toc-list li a {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     font-size: 13px;
+     color: #7a6255;
+     padding: 8px 22px;
+     border-left: 2px solid transparent;
+     transition: all 0.2s;
+ }
+
+ .toc-list li a .n {
+     font-size: 11px;
+     font-weight: 700;
+     color: #c4683a;
+     min-width: 18px;
+ }
+
+ .toc-profile {
+     padding: 18px 22px;
+     display: flex;
+     align-items: center;
+     gap: 12px;
+ }
+
+ .toc-profile img {
+     width: 42px;
+     height: 42px;
+     border-radius: 50%;
+     object-fit: cover;
+ }
+
+ .profile-name {
+     font-size: 13px;
+     font-weight: 700;
+     color: #1a110a;
+ }
+
+ .profile-desc {
+     font-size: 11px;
+     color: #b0998a;
+     margin-top: 2px;
+ }

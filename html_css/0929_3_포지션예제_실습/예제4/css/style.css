@@ -1,0 +1,180 @@
+ * { margin: 0; padding: 0; box-sizing: border-box; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+
+    body {
+      font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f8f8f8;
+    }
+
+    .inner { width: 1300px; margin: 0 auto; }
+
+    /* 섹션 */
+    .service_section { padding: 80px 0 100px; 
+    position: relative;
+    }
+
+    .section_header { margin-bottom: 48px; text-align: center; }
+
+    .section_sub {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section_header h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 12px;
+    }
+
+    .section_header p { font-size: 15px; color: #888; }
+
+    /* 서비스 카드 그리드 */
+    .service_grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .service_card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #eee;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+
+    .service_card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card_info { padding: 24px; }
+
+    .card_tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #eff6ff;
+      color: #2563eb;
+      margin-bottom: 12px;
+    }
+
+    .card_title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .card_desc { font-size: 13px; color: #777; line-height: 1.7; margin-bottom: 16px; }
+
+    .card_meta {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+      color: #bbb;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .card_meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* 추가 서비스 리스트 */
+    .extra_list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .extra_item {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+      border: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .extra_icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .extra_title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 4px; }
+    .extra_desc  { font-size: 13px; color: #888; }
+
+    /* 플로팅 상담 메뉴 (fixed) */
+    .float_menu {
+
+      display: flex;
+      flex-direction: column;
+      z-index: 200;
+      position: fixed;
+      right:0;
+      top: 50%;
+      transform:translateY(-50%)
+    }
+
+    .float_item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      width: 72px;
+      padding: 14px 0;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+
+    .float_item:hover { padding-right: 8px; }
+
+    .float_item .icon { font-size: 22px; }
+
+    .float_phone {
+      background: #2563eb;
+      color: #fff;
+      border-radius: 12px 0 0 0;
+    }
+
+    .float_phone:hover { background: #1d4ed8; }
+
+    .float_kakao {
+      background: #fee500;
+      color: #111;
+    }
+
+    .float_kakao:hover { background: #fdd800; }
+
+    .float_counsel {
+      background: #111;
+      color: #fff;
+      border-radius: 0 0 0 12px;
+    }
+
+    .float_counsel:hover { background: #333; }

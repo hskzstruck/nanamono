@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>본죽</title>
+	<link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.css"
+    >
+	<link rel="stylesheet" href="./css/base.css">
+</head>
+
+<body>
+	<div id="header">
+		<div class="header_in clearfix">
+			<a href="#" class="logo"><img src="images/logo_gnb.png" alt="로고"></a>
+			<ul class="clearfix">
+				<li><a href="#">본아이에프</a></li>
+				<li><a href="#">본죽&amp;비빔밥cafe</a></li>
+				<li><a href="#">본도시락</a></li>
+				<li><a href="#">베이비본죽</a></li>
+				<li><a href="#">본설렁탕</a></li>
+				<li><a href="#">창업안내</a></li>
+			</ul>
+		</div>
+		<!--header_in E-->
+	</div>
+	<!--header E-->
+	<div id="main_banner">
+		<div class="swiper mb">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="./images/main_banner.jpg"></div>
+        <div class="swiper-slide"><img src="./images/main_banner2.jpg"></div>
+        <div class="swiper-slide"><img src="./images/main_banner3.jpg"></div>
+      </div>
+      	
+    </div>
+		
+		<!-- pagination 슬라이드 넣기-->
+	</div>
+	<!--main_banner E-->
+	<div id="withbon">
+		<p class="red subtitle">Life Style</p>
+		<h1 class="first">본죽과 함께하는 일상</h1>
+		<div class="box">
+			<img src="images/bon_01.jpg" alt="bon_01" class="left">
+			<div class="text right">
+				<p class="red">본죽</p>
+				<h2>죽이 요리가 되는<br> 선물같은 시간</h2>
+				<p>프리미엄 토핑을 만나 죽이 요리가 되다!<br>
+					본죽만의 시그니처 별미 요리죽,<br>
+					죽의 새로운 경험으로 초대합니다.</p>
+				<a href="#" class="btn">자세히 보기</a>
+			</div>
+			<!--text E-->
+		</div>
+		<!--box E-->
+		<div class="box">
+			<div class="text left">
+				<p class="red">본죽&amp;비빔밥cafe</p>
+				<h2>한식으로 함께<br>한 곳에서 함께</h2>
+				<p>다채로운 한식을 만나는 새로운 공간.<br>
+					새로운 죽과 비빔밥<br>
+					더 풍성하고 맛있는 우리 음식 이야기를 만나보세요</p>
+				<a href="#" class="btn">자세히 보기</a>
+			</div>
+			<!--text E-->
+			<img src="images/bon_02.jpg" alt="bon_01" class="right">
+		</div>
+		<!--box E-->
+		<div class="box">
+			<div class="text right">
+				<p class="red">본도시락</p>
+				<h2>한식의 정성을 담은<br>잘 차린 한 상</h2>
+				<p>한식 전문가가 만든 밥, 국, 찬을<br>
+					자연을 생각한 그릇에 담습니다.</p>
+				<a href="#" class="btn">자세히 보기</a>
+			</div>
+			<!--text E-->
+			<img src="images/bon_03.jpg" alt="bon_03" class="left">
+		</div>
+		<!--box E-->
+	</div>
+	<!--withbon E-->
+	
+	<div id="success">
+		<p>Bon Start</p>
+		<h1>맛있는 도전, 성공 스토리</h1>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/_xbxrUB4PAM" frameborder="0"
+			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+			allowfullscreen></iframe>
+	</div>
+	<!--success E-->
+	<div id="footer">
+		<div class="footer_in">
+			<ul class="list1">
+				<li><a href="#">본오더(온라인 주문)전용 콜센터 | <span>1668-3944</span></a></li>
+				<li><a href="#">대표번호 | <span>1644-6288</span></a></li>
+				<li><a href="#">창업문의 | <span>1668-3007</span></a></li>
+			</ul>
+			<ul class="list2">
+				<li><a href="#">이용약관</a></li>
+				<li><a href="#">개인정보처리방침</a></li>
+				<li><a href="#">이메일 무단수집거부</a></li>
+				<li><a href="#">법적고지</a></li>
+			</ul>
+			<p>
+				본아이에프(주) 서울특별시 영등포구 선유로 165(양평동3가, 와이피센터)6층 대표자명:김철호, 이진희 <br>사업자등록번호 101-86-07256
+				통신판매업신고번호:2019-서울영등포-1230호<br>
+				COPYRIGHT 2018 BONIF CO.LTD.ALL RIGHTS RESERVED.
+			</p>
+		</div>
+		<!--footer_in E-->
+	</div>
+	<!--footer E-->
+	<div class="po_fixed">
+		<div class="top"><a href="#">TOP</a></div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@14.0.1/swiper-bundle.min.js"></script>
+	<script>
+      var swiper = new Swiper('.mb', {
+		spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+		  clickable: true,
+        },
+      });
+    </script>
+
+	
+</body>
+
+</html>
