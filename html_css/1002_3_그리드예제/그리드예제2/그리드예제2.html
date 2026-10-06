@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그리드예제2</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+
+        body{
+            font-family: "맑은 고딕";
+            font-size: 14px;
+            color:#111;
+            line-height: 24px;
+        }
+
+        .container{
+            width:1200px;
+            margin:0 auto;
+            background-color: pink;
+        }
+
+        h1{
+            text-align: center;
+            background-color: skyblue;
+            padding: 30px 0;
+        }
+
+        dl{
+            border: 3px solid;
+            height:500px;
+            padding:30px;
+        }
+
+        .grid_container{
+            background-color: chocolate;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap:30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"><!--가운데정렬-->
+        <h1>회사 소개</h1>
+        <div class="grid_container">
+            <dl class="bg1">
+                <dt>회사개요</dt>
+                <dd>피앤씨산업은 한국 마스크팩 시트 시장의 60%이상을 점유하고 있는 독보적인 선도업체입니다.</dd>
+            </dl>
+        
+        
+            <dl class="bg2">
+                <dt>회사개요</dt>
+                <dd>피앤씨산업은 한국 마스크팩 시트 시장의 60%이상을 점유하고 있는 독보적인 선도업체입니다.</dd>
+            </dl>
+        
+            
+            <dl class="bg3">
+                <dt>회사개요</dt>
+                <dd>피앤씨산업은 한국 마스크팩 시트 시장의 60%이상을 점유하고 있는 독보적인 선도업체입니다.</dd>
+            </dl>
+        </div>
+    </div>
+</body>
+</html>

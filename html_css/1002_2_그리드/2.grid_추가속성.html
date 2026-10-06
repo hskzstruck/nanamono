@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박스배치4 - Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+
+
+        #wrap {
+            width: 1320px;
+            margin: 40px auto;
+        }
+
+
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            padding: 1em 0 0;
+        }
+
+
+
+        h1 {
+            font-size: 40px;
+        }
+
+
+
+        h2 {
+            font-size: 30px;
+
+        }
+
+
+
+        h3 {
+            font-size: 25px;
+        }
+
+
+
+        h4 {
+            font-size: 18px;
+        }
+
+
+
+        h5 {
+            font-size: 16px;
+        }
+
+
+
+        h6 {
+            font-size: 14px;
+        }
+
+
+
+        p {
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+
+
+        .notice {
+            font-size: 13px;
+            color: #888;
+        }
+
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 50px;
+            font-size: 14px;
+        }
+
+
+
+        ul {
+            list-style: none;
+        }
+
+
+
+        th {
+            background: #f0f0f0;
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+
+
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+
+
+        td code {
+            font-family: monospace;
+            background: #f7f7f7;
+            padding: 2px 5px;
+        }
+
+
+
+        .ex-box {
+            width: 150px;
+            height: 70px;
+            border: 1px solid #ccc;
+            background: #fafafa;
+            display: grid;
+            gap: 4px;
+            padding: 6px;
+        }
+
+
+
+        .ex-item {
+            background: skyblue;
+            min-width: 18px;
+            min-height: 18px;
+        }
+
+
+
+        .ex-small {
+            width: 22px;
+            height: 22px;
+            background: coral;
+        }
+
+
+
+        .ex-justify-items {
+            grid-template-columns: 1fr 1fr 1fr;
+            justify-items: center;
+        }
+
+
+
+        .ex-align-items {
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+        }
+
+
+
+        .ex-place-items {
+            grid-template-columns: 1fr 1fr 1fr;
+            place-items: center;
+        }
+
+
+
+        .ex-justify-content {
+            grid-template-columns: 28px 28px 28px;
+            justify-content: center;
+        }
+
+
+
+        .ex-align-content {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-auto-rows: 18px;
+            align-content: center;
+        }
+
+
+
+        .ex-place-content {
+            grid-template-columns: 28px 28px;
+            grid-auto-rows: 18px;
+            place-content: center;
+        }
+
+
+
+        .ex-area {
+            grid-template-columns: 1fr 2fr;
+            grid-template-areas: "header header" "side main";
+        }
+
+
+
+        .ex-area .header {
+            grid-area: header;
+            background: coral;
+            text-align: center;
+            font-size: 11px;
+        }
+
+
+
+        .ex-area .side {
+            grid-area: side;
+            background: lightgreen;
+            text-align: center;
+            font-size: 11px;
+        }
+
+
+
+        .ex-area .main {
+            grid-area: main;
+            background: skyblue;
+            text-align: center;
+            font-size: 11px;
+        }
+
+
+
+        .ex-auto-rows {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-auto-rows: 26px;
+        }
+
+
+
+        .ex-auto-flow {
+            grid-template-rows: 1fr 1fr;
+            grid-auto-flow: column;
+        }
+
+
+
+        .ex-self {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+
+
+        .ex-self .target {
+            justify-self: center;
+            background: coral;
+        }
+
+
+
+        .ex-align-self {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+
+
+        .ex-align-self .target {
+            align-self: center;
+            background: coral;
+        }
+
+
+
+        .ex-place-self {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+
+
+        .ex-place-self .target {
+            place-self: center;
+            background: coral;
+        }
+
+
+
+        .ex-column-start {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+
+
+        .ex-column-start .target {
+            grid-column: 1 / 3;
+            background: coral;
+        }
+
+
+
+        .ex-row-start {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-auto-rows: 22px;
+        }
+
+
+
+        .ex-row-start .target {
+            grid-row: 1 / 3;
+            background: coral;
+        }
+
+
+
+        .ex-order {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+
+
+        .ex-order .first {
+            order: 2;
+            background: lightgreen;
+        }
+
+
+
+        .ex-order .second {
+            order: 1;
+            background: coral;
+        }
+
+
+
+        .ex-z {
+            position: relative;
+            display: block;
+        }
+
+
+
+        .ex-z .z1,
+        .ex-z .z2 {
+            position: absolute;
+            width: 55px;
+            height: 38px;
+        }
+
+
+
+        .ex-z .z1 {
+            left: 40px;
+            top: 12px;
+            background: skyblue;
+        }
+
+
+
+        .ex-z .z2 {
+            left: 65px;
+            top: 25px;
+            background: coral;
+            z-index: 2;
+        }
+
+
+
+        .po_wrap {
+            position: relative;
+            height: 300px;
+            margin-top: 30px;
+        }
+
+
+
+        .box {
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+            padding: 20px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(8, 1fr);
+
+        }
+
+
+
+        .box span {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 3px solid #111;
+            display: inline-block;
+            line-height: 1;
+            padding: 3px;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+
+
+
+        .box .grid_item:nth-child(3) {
+            grid-column: span 5;
+        }
+
+
+
+        .box .grid_item:nth-child(2) {
+            grid-column: span 2;
+        }
+
+
+
+        .box .grid_item:nth-child(4) {
+            grid-column: span 4;
+        }
+
+
+
+        .box .grid_item:nth-child(6) {
+            grid-column: span 2;
+        }
+
+
+
+        .grid_item {
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        .val-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+
+
+        .val-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            line-height: 1.5;
+        }
+
+
+
+        .val-tag {
+            font-family: monospace;
+            font-weight: 600;
+            background: #f3f4f6;
+            border: 1px solid #dde1e7;
+            border-radius: 4px;
+            padding: 2px 6px;
+            white-space: nowrap;
+        }
+
+
+
+        .val-desc {
+            color: #666;
+        }</style>
+</head>
+
+<body>
+    <section id="wrap">
+        <h1>CSS Grid</h1>
+        <p>내가 원하는 크기의 행과 열을 만들어 격자를 구성하고, 그 안에 요소를 배치하는 레이아웃 기능</p>
+        <div class="po_wrap">
+            <div class="box">
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <span>box<small>(grid container)</small></span>
+            </div>
+        </div>
+        <p><small>이 파일에서 부모의 이름은 클래스 .box로 통일</small></p>
+
+        <h2>[부모에게 주는 속성]</h2>
+        <p class="notice">사용 빈도가 비교적 높은 속성을 위쪽에 배치했다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>속성값</th>
+                    <th>설명</th>
+                    <th>예시</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>justify-items</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">셀 너비를 꽉 채움</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">셀 왼쪽 끝에 붙임</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end</span>
+                                <span class="val-desc">셀 오른쪽 끝에 붙임</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">셀 가운데 정렬</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>각 셀 안에서 아이템을 가로 방향으로 정렬</td>
+                    <td>
+                        <p>justify-items:center</p>
+                        <div class="ex-box ex-justify-items">
+                            <div class="ex-small"></div>
+                            <div class="ex-small"></div>
+                            <div class="ex-small"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>align-items</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">셀 높이를 꽉 채움</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">셀 위쪽 끝에 붙임</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end</span>
+                                <span class="val-desc">셀 아래쪽 끝에 붙임</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">셀 세로 가운데 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">baseline</span>
+                                <span class="val-desc">텍스트 기준선에 맞춤</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>각 셀 안에서 아이템을 세로 방향으로 정렬</td>
+                    <td>
+                        <div class="ex-box ex-align-items">
+                            <div class="ex-small"></div>
+                            <div class="ex-small"></div>
+                            <div class="ex-small"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>place-items</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">가로·세로 모두 중앙</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">start end</span>
+                                <span class="val-desc">세로 start / 가로 end</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">가로·세로 모두 채움</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>justify-items와 align-items를 한 번에 지정</td>
+                    <td>
+                        <div class="ex-box ex-place-items">
+                            <div class="ex-small"></div>
+                            <div class="ex-small"></div>
+                            <div class="ex-small"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-auto-rows</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">auto</span>
+                                <span class="val-desc">내용에 맞게 자동</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">80px</span>
+                                <span class="val-desc">고정 높이</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1fr</span>
+                                <span class="val-desc">남은 공간 비율로 분배</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">minmax(60px, auto)</span>
+                                <span class="val-desc">최소 60px, 최대는 내용에 맞춤</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>grid-template-rows로 정의되지 않은 행의 높이를 지정</td>
+                    <td>
+                        <div class="ex-box ex-auto-rows">
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-auto-columns</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">auto</span>
+                                <span class="val-desc">내용에 맞게 자동</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">120px</span>
+                                <span class="val-desc">고정 너비</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1fr</span>
+                                <span class="val-desc">남은 공간 비율로 분배</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">minmax(80px, 1fr)</span>
+                                <span class="val-desc">최소 80px, 최대는 비율</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>grid-template-columns로 정의되지 않은 열의 너비를 지정</td>
+                    <td>
+                        <div class="ex-box ex-auto-flow">
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>justify-content</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">왼쪽 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end</span>
+                                <span class="val-desc">오른쪽 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">가로 가운데 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">컨테이너 너비를 꽉 채움</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-between</span>
+                                <span class="val-desc">양 끝 고정, 사이 균등 분배</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-around</span>
+                                <span class="val-desc">각 트랙 양쪽에 동일한 여백</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-evenly</span>
+                                <span class="val-desc">모든 간격을 완전히 균등하게</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Grid 전체를 가로 방향으로 정렬</td>
+                    <td>
+                        <div class="ex-box ex-justify-content">
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>align-content</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">위쪽 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end</span>
+                                <span class="val-desc">아래쪽 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">세로 가운데 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">컨테이너 높이를 꽉 채움</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-between</span>
+                                <span class="val-desc">양 끝 고정, 사이 균등 분배</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-around</span>
+                                <span class="val-desc">각 행 위아래에 동일한 여백</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-evenly</span>
+                                <span class="val-desc">모든 간격을 완전히 균등하게</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Grid 전체를 세로 방향으로 정렬</td>
+                    <td>
+                        <div class="ex-box ex-align-content">
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>place-content</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">가로·세로 모두 중앙</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">start end</span>
+                                <span class="val-desc">세로 start / 가로 end</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">space-between center</span>
+                                <span class="val-desc">세로 간격 분배 / 가로 중앙</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">시작 위치 정렬</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>justify-content와 align-content를 한 번에 지정</td>
+                    <td>
+                        <div class="ex-box ex-place-content">
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-template-areas</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">"header header"<br>"side main"</span>
+                                <span class="val-desc">영역 이름을 문자열로 배치도처럼 작성</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">"a a a"<br>"b c c"<br>"b d d"</span>
+                                <span class="val-desc">3행 구조도 가능</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">.</span>
+                                <span class="val-desc">빈 셀 표시</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>문자열로 레이아웃 구조를 직접 그림</td>
+                    <td>
+                        <div class="ex-box ex-area">
+                            <div class="header">header</div>
+                            <div class="side">side</div>
+                            <div class="main">main</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-auto-flow</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">row</span>
+                                <span class="val-desc">가로로 채운 뒤 다음 행</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">column</span>
+                                <span class="val-desc">세로로 채운 뒤 다음 열</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">row dense</span>
+                                <span class="val-desc">가로 방향 + 빈 칸 자동 메움</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">column dense</span>
+                                <span class="val-desc">세로 방향 + 빈 칸 자동 메움</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>아이템이 자동 배치되는 방향을 지정</td>
+                    <td>
+                        <div class="ex-box ex-auto-flow">
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>자식에게 주는 속성</h2>
+
+        <p class="notice">사용 빈도가 비교적 높은 속성을 위쪽에 배치했다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>속성</th>
+                    <th>속성값</th>
+                    <th>설명</th>
+                    <th>예시</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>justify-self</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">셀의 왼쪽에 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end</span>
+                                <span class="val-desc">셀의 오른쪽에 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">셀의 가운데 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">셀 너비를 채움</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>해당 아이템만 가로 방향으로 정렬</td>
+                    <td>
+                        <div class="ex-box ex-self">
+                            <div class="ex-small target"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>align-self</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">start</span>
+                                <span class="val-desc">셀의 위쪽에 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end</span>
+                                <span class="val-desc">셀의 아래쪽에 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">셀의 세로 가운데 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">셀 높이를 채움</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>해당 아이템만 세로 방향으로 정렬</td>
+                    <td>
+                        <div class="ex-box ex-align-self">
+                            <div class="ex-small target"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>place-self</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">center</span>
+                                <span class="val-desc">가로·세로 모두 가운데 정렬</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">start center</span>
+                                <span class="val-desc">세로 시작 / 가로 가운데</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">end center</span>
+                                <span class="val-desc">세로 끝 / 가로 가운데</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">stretch</span>
+                                <span class="val-desc">가로·세로 모두 채움</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>해당 아이템만 가로·세로 방향으로 정렬</td>
+                    <td>
+                        <div class="ex-box ex-place-self">
+                            <div class="ex-small target"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-area</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">header</span>
+                                <span class="val-desc">header 영역에 배치</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">side</span>
+                                <span class="val-desc">side 영역에 배치</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">main</span>
+                                <span class="val-desc">main 영역에 배치</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>grid-template-areas에서 지정한 영역 이름을 적용</td>
+                    <td>
+                        <div class="ex-box ex-area">
+                            <div class="header">header</div>
+                            <div class="side">side</div>
+                            <div class="main">main</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-column-start/end</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">2</span>
+                                <span class="val-desc">2번 라인에서 시작</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1 / 3</span>
+                                <span class="val-desc">1번 라인부터 3번 라인 전까지</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">span 2</span>
+                                <span class="val-desc">현재 위치에서 2칸 차지</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1 / -1</span>
+                                <span class="val-desc">모든 열 차지</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>가로 방향의 시작선과 끝선을 지정</td>
+                    <td>
+                        <div class="ex-box ex-column-start">
+                            <div class="ex-item target"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>grid-row-start/end</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">2</span>
+                                <span class="val-desc">2번 라인에서 시작</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1 / 3</span>
+                                <span class="val-desc">1번 라인부터 3번 라인 전까지</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">span 2</span>
+                                <span class="val-desc">현재 위치에서 2칸 차지</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1 / -1</span>
+                                <span class="val-desc">모든 행 차지</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>세로 방향의 시작선과 끝선을 지정</td>
+                    <td>
+                        <div class="ex-box ex-row-start">
+                            <div class="ex-item target"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                            <div class="ex-item"></div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>order</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">0</span>
+                                <span class="val-desc">기본 순서</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1</span>
+                                <span class="val-desc">뒤쪽으로 이동</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">-1</span>
+                                <span class="val-desc">앞쪽으로 이동</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>아이템의 표시 순서를 변경</td>
+                    <td>
+                        <div class="ex-box ex-order">
+                            <div class="ex-item first">1</div>
+                            <div class="ex-item second">2</div>
+                            <div class="ex-item">3</div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>z-index</td>
+                    <td>
+                        <div class="val-list">
+                            <div class="val-item">
+                                <span class="val-tag">0</span>
+                                <span class="val-desc">기본값</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">1</span>
+                                <span class="val-desc">다른 요소보다 위에 표시</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">10</span>
+                                <span class="val-desc">더 높은 우선순위</span>
+                            </div>
+                            <div class="val-item">
+                                <span class="val-tag">-1</span>
+                                <span class="val-desc">다른 요소 뒤에 표시</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>겹쳤을 때 위아래 순서를 지정</td>
+                    <td>
+                        <div class="ex-box ex-z">
+                            <div class="z1"></div>
+                            <div class="z2"></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </section>
+</body>
+
+</html>

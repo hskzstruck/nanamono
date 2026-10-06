@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그리드예제1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul{
+            list-style: none;
+        }
+
+        body{
+            font-family: "Nanum Gothic", sans-serif;
+            font-size: 16px;
+            line-height: 26px;
+            color:#333;
+            background-color: #f5f2e1;
+        }
+
+      
+
+        .container{
+            width:1150px;
+            margin:0 auto;
+            background-color: pink;
+            display:grid; /*기본적으로 이 코드만 써서는 정렬이 안됨*/
+            grid-template-columns: 1fr 600px; /*속성값의 갯수만큼 가로칸이 생김. 속성값은 띄어쓰기로 구분 1fr 600px의 경우는 600px을 두번째 칸이 차지하고 나머지를 앞에칸이 차지함*/
+            gap: 50px;
+        }
+
+        .text,.img{
+            border: 3px solid;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container"><!--그리드 컨테이너, 가운데 정렬-->
+        <div class="text"><!--그리드아이템-->
+            <img src="./images/logo.jpg" alt="루나브루">
+            <h3>수제맥주 제조부터 유통까지</h3>
+            <h2>루나브루가 걸어온 길</h2>
+            <ul>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>
+                <li>HoppyBox 출시</li>     
+            </ul>
+        </div>
+        <div class="img"><!--그리드아이템2-->
+            <img src="./images/sect04-main.gif" alt="gif이미지">
+
+        </div>
+    </div>
+    
+</body>
+</html>

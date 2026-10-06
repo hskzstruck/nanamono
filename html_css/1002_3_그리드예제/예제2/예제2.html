@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그리드 예제</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        img{vertical-align: middle;
+            /*이미지밑에 여백 없애기*/
+            max-width: 100%;
+            /*모든 이미지들은 부모의 너비가 본래 자신의 크기보다 작으면 같이 줄어들고, 부모의 너비가 본래 자신의 크기보다 커지면 같이 늘어나지는 않는다*/
+        }
+        .grid_box{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .card{
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            text-align: center;
+            overflow: hidden;
+            /*자식들중 card의 영역을 벗어나는 부분만 안보이게 함*/
+        }
+        .gallery_box{
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .span1{
+            grid-column: span 2;
+        }
+        .span2{
+            grid-column: span 2;
+        }
+        .gallery_box img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /*이미지에 해당 속성을 주면, 이미지가 부모의 가로세로를 꽉 채워서 나오게 한다.(이미지가 좀 잘리더라도) .이 속성은 width, height를 둘다 같이 부여야 하는데 주로 둘다 100%를 준다*/
+        }
+    </style>
+</head>
+<body>
+    <h2>카드목록만들기</h2>
+    <div class="grid_box"><!--그리드컨테이너-->
+        <div class="card">
+            <img src="./images/card1.jpg" alt="카드1">
+            <h3>카드제목</h3>
+            <p>카드의 본문내용입니다. 글씨가 조금 길어야 느낌이 살거같아서 글을 여러줄 적는 중입니다.</p>
+        </div><!--card-->
+        <div class="card">
+            <img src="./images/grid2.jpg" alt="카드2">
+            <h3>카드제목</h3>
+            <p>카드의 본문내용입니다. 글씨가 조금 길어야 느낌이 살거같아서 글을 여러줄 적는 중입니다.</p>
+        </div><!--card-->
+        <div class="card">
+            <img src="./images/grid3.jpg" alt="카드3">
+            <h3>카드제목</h3>
+            <p>카드의 본문내용입니다. 글씨가 조금 길어야 느낌이 살거같아서 글을 여러줄 적는 중입니다.</p>
+        </div><!--card-->
+    </div>
+    <h2>갤러리</h2>
+    <div class="gallery_box"><!--그리드컨테이너-->
+        <div class="item span1">
+            <img src="./images/gallery1.jpg" alt="갤러리1">
+        </div><!--item-->
+        <div class="item">
+            <img src="./images/gallery2.jpg" alt="갤러리2">
+        </div><!--item-->
+        <div class="item">
+            <img src="./images/gallery3.jpg" alt="갤러리3">
+        </div><!--item-->
+        <div class="item">
+            <img src="./images/gallery4.jpg" alt="갤러리4">
+        </div><!--item-->
+        <div class="item span2">
+            <img src="./images/gallery5.jpg" alt="갤러리5">
+        </div><!--item-->
+        <div class="item">
+            <img src="./images/gallery6.jpg" alt="갤러리6">
+        </div><!--item-->
+    </div>
+</body>
+</html>

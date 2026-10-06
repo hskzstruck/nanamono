@@ -1,0 +1,20 @@
+[그리드 보충 설명]
+* 값이 몇개 들어가느냐가 가로 칸수를 결정
+grid-template-colums: 240px 250px 300px
+> 가로로 세칸(자식이 한줄에 3개 정렬. 남는 자식은 그다음줄에 들어감.)
+grid-template-colums: 240px 250px;
+> 가로로 두칸
+grid-template-colums: 240px;
+>가로 한칸
+
+[자식한테 설정하는 속성]
+ grid-column
+    해당 아이템이 가로 2칸 이상 차지하게 할때.
+
+ grid-column:span 3 > 3칸 차지해라.
+ grid-column:span 10 > 10칸 차지해라.
+
+위와 같은 방식으로 시작라인/끝라인 방식으로 설정하다면,
+  grid-column:1 / 4
+ grid-column : 1/ 11
+

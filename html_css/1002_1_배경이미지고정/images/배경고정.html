@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경고정</title>
+    <style>
+        *{margin: 0; padding: 0;}
+        header{
+            height: 70px;
+            background-color: aliceblue;
+        }
+        #main_banner{
+            height: 1000px;
+            background-color: skyblue;
+        }
+        #section1, #section2, #section3{
+            height: 2000px;
+            background-color: pink;
+        }
+        footer{
+            height: 300px;
+            background-color: #333;
+        }
+        #bg_at{
+            height: 600px;
+            background-image: url(./main_bg1.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+    <header>헤더</header>
+    <main>
+        <section id="main_banner">메인배너</section>
+        <section id="section1">내용1</section>
+        <section id="section2">내용2</section>
+        <section id="bg_at">배경고정</section>
+        <section id="section3">내용3</section>
+    </main>
+    <footer>푸터</footer>
+</body>
+</html>

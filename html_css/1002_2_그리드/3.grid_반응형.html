@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박스배치4 - Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+
+
+        #wrap {
+            width: 1320px;
+            margin: 40px auto;
+        }
+
+
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            padding: 1em 0 0;
+        }
+
+
+
+        h1 {
+            font-size: 40px;
+        }
+
+
+
+        h2 {
+            font-size: 30px;
+
+        }
+
+
+
+        h3 {
+            font-size: 25px;
+        }
+
+
+
+        h4 {
+            font-size: 18px;
+        }
+
+
+
+        h5 {
+            font-size: 16px;
+        }
+
+
+
+        h6 {
+            font-size: 14px;
+        }
+
+
+
+        p {
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+
+
+        .code {
+            background: #f5f5f5;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #999;
+            font-family: monospace;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+        }
+
+
+
+        .demo {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0 40px;
+        }
+
+
+
+        .demo div {
+            background: skyblue;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+
+        .big {
+            grid-column: span 2;
+            background: coral !important;
+        }
+
+
+
+        .tall {
+            grid-row: span 2;
+            background: lightgreen !important;
+        }
+
+
+
+        .po_wrap {
+            position: relative;
+            height: 300px;
+            margin-top: 30px;
+        }
+
+
+
+        .box {
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+            padding: 20px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(8, 1fr);
+
+        }
+
+
+
+        .box span {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 3px solid #111;
+            display: inline-block;
+            line-height: 1;
+            padding: 3px;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+
+
+
+        .box .grid_item:nth-child(3) {
+            grid-column: span 5;
+        }
+
+
+
+        .box .grid_item:nth-child(2) {
+            grid-column: span 2;
+        }
+
+
+
+        .box .grid_item:nth-child(4) {
+            grid-column: span 4;
+        }
+
+
+
+        .box .grid_item:nth-child(6) {
+            grid-column: span 2;
+        }
+
+
+
+        .grid_item {
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        .sample {
+            padding: 20px;
+            background-color: palegoldenrod;
+        }</style>
+</head>
+
+<body>
+    <section id="wrap">
+        <h1>CSS Grid</h1>
+        <p>내가 원하는 크기의 행과 열을 만들어 격자를 구성하고, 그 안에 요소를 배치하는 레이아웃 기능</p>
+        <div class="po_wrap">
+            <div class="box">
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <span>box<small>(grid container)</small></span>
+            </div>
+        </div>
+        <p><small>이 파일에서 부모의 이름은 클래스 .box로 통일</small></p>
+
+        <h2>[부모에게 주는 속성]</h2>
+
+
+        <h3>grid-template-columns</h3>
+
+
+        <h4>repeat 반응형 응용</h4>
+        <h5>① minmax()</h5>
+        <p>최소 크기와 최대 크기를 지정한다.</p>
+        <div class="sample">
+            minmax(최소크기, 최대크기)<br>
+
+        </div>
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(3, minmax(250px, 1fr));<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;/*최소 250px, 최대 1fr 크기를 가지는 열을 3개 만든다.<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;부모 공간이 충분하면 3개의 열이 남은 공간을 1:1:1 비율로 나눠 가진다. 하지만 부모 공간이 좁아져도 각 열은 250px보다 작아지지 않기
+            때문에,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;3열의 최소 너비 합인 750px보다 부모가 작아지면 그리드가
+            넘칠 수 있다.*/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 20px;
+            }</div>
+        <div class="demo" style="grid-template-columns:repeat(3,minmax(250px,1fr));gap:20px;">
+            <div>최소 250px</div>
+            <div>최소 250px</div>
+            <div>최소 250px</div>
+        </div>
+        <h5>② auto-fit</h5>
+        <p>화면 크기에 맞춰 들어갈 수 있는 만큼 열을 자동 생성한다.</p>
+
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;/*보통 repeat(), minmax()와 함께 이 형태로 사용. 화면 크기에 따라 열 개수를 자동으로 조절할 때 사용한다.*/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 20px;<br>
+            }</div>
+        <div class="demo" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+
+        <h5>③ auto-fill</h5>
+        <p>auto-fit과 비슷하지만 빈 칸의 공간을 유지한다.</p>
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;/*보통 repeat(), minmax()와 함께 사용하여 화면 크기에 따라 열 개수를 자동으로 조절할 때 사용.<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 20px;<br>
+            }</div>
+        <div class="demo" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </div>
+
+
+
+
+
+
+    </section>
+</body>
+
+</html>

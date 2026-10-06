@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>박스배치4 - Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+
+
+        #wrap {
+            width: 1320px;
+            margin: 40px auto;
+        }
+
+
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            padding: 1em 0 0;
+        }
+
+
+
+        h1 {
+            font-size: 40px;
+        }
+
+
+
+        h2 {
+            font-size: 30px;
+
+        }
+
+
+
+        h3 {
+            font-size: 25px;
+        }
+
+
+
+        h4 {
+            font-size: 18px;
+        }
+
+
+
+        h5 {
+            font-size: 16px;
+        }
+
+
+
+        h6 {
+            font-size: 14px;
+        }
+
+
+
+        p {
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+
+
+        .code {
+            background: #f5f5f5;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #999;
+            font-family: monospace;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+        }
+
+
+
+        .demo {
+            display: grid;
+            gap: 10px;
+            margin: 15px 0 40px;
+        }
+
+
+
+        .demo div {
+            background: skyblue;
+            padding: 20px;
+            text-align: center;
+        }
+
+
+
+        .big {
+            grid-column: span 2;
+            background: coral !important;
+        }
+
+
+
+        .tall {
+            grid-row: span 2;
+            background: lightgreen !important;
+        }
+
+
+
+        .po_wrap {
+            position: relative;
+            height: 300px;
+            margin-top: 30px;
+        }
+
+
+
+        .box {
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+            padding: 20px;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(8, 1fr);
+
+        }
+
+
+
+        .box span {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 3px solid #111;
+            display: inline-block;
+            line-height: 1;
+            padding: 3px;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+        }
+
+
+
+        .box .grid_item:nth-child(3) {
+            grid-column: span 5;
+        }
+
+
+
+        .box .grid_item:nth-child(2) {
+            grid-column: span 2;
+        }
+
+
+
+        .box .grid_item:nth-child(4) {
+            grid-column: span 4;
+        }
+
+
+
+        .box .grid_item:nth-child(6) {
+            grid-column: span 2;
+        }
+
+
+
+        .grid_item {
+            background-color: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+        .sample {
+            padding: 20px;
+            background-color: palegoldenrod;
+        }</style>
+</head>
+
+<body>
+    <section id="wrap">
+        <h1>CSS Grid</h1>
+        <p>내가 원하는 크기의 행과 열을 만들어 격자를 구성하고, 그 안에 요소를 배치하는 레이아웃 기능</p>
+        <div class="po_wrap">
+            <div class="box">
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <div class="grid_item">grid-item</div>
+                <span>box<small>(grid container)</small></span>
+            </div>
+        </div>
+        <p><small>이 파일에서 부모의 이름은 클래스 .box로 통일</small></p>
+
+        <h2>[부모에게 주는 속성]</h2>
+        <h3>1. display:grid</h3>
+        <p>부모 요소에 지정하여, Grid 레이아웃을 시작한다. 이 속성만 지정했을 때 가로 정렬이 저절로 되지 않아, grid-template-columns 등 다른 속성을 함께 써야 한다.</p>
+        <div class="code">
+            .box {<br>
+            &nbsp;&nbsp;&nbsp; display: grid;<br>
+            }
+        </div>
+
+        <h3>2. grid-template-columns</h3>
+        <p>가로 열의 개수와 크기를 지정한다.(가로로 몇개의 칸이 들어갈지 정함)</p>
+        <p></p>
+        <p class="sample">
+            <strong>기본 사용법 : 값의 개수 = 열의 개수</strong><br>
+            .box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 첫번째열너비 두번째열너비 세번째열너비;<br>
+            }
+        </p>
+
+
+        <h4>grid-template-columns 속성값</h4>
+        <h5>①fr (Fraction)</h5>
+        <p>Grid에서 남은 공간을 비율로 나누는 단위. gap과 고정너비열(px로 설정된 열)를 먼저 계산한 뒤 남은 공간을 비율로 나눈다.</p>
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns:500px 1fr 1fr;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 50px;<br>
+            }</div>
+        <p>* 고정너비열 500px과 gap 50px을 제외한 남은 공간을 비율대로 나눠가짐.</p>
+        <div class="demo" style="grid-template-columns:500px 1fr 1fr;gap:50px;">
+            <div>이미지 영역 500px</div>
+            <div>텍스트 영역 1fr</div>
+            <div>텍스트 영역 1fr</div>
+        </div>
+
+
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr 2fr 1fr;<br>
+            }</div>
+        <p>(고정너비, 갭이 없으므로) 부모 전체를 1 : 2 : 1 비율로 나눈다.</p>
+        <div class="demo" style="grid-template-columns:1fr 2fr 1fr;">
+            <div>1fr</div>
+            <div>2fr</div>
+            <div>1fr</div>
+        </div>
+        <h5>② repeat()</h5>
+        <p>같은 크기의 열을 반복해서 만든다.</p>
+        <div class="sample">
+            .box {<br>
+            &nbsp;&nbsp;&nbsp; display: grid;<br>
+            &nbsp;&nbsp;&nbsp; grid-template-columns: repeat(반복횟수, 반복할값);;<br>
+            }
+        </div>
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(4, 1fr);/*4개 열을 1:1:1:1 비율로 설정.
+            grid-template-columns:1fr 1fr 1fr 1fr과 같은뜻.*/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 20px;<br>
+            }</div>
+        <div class="demo" style="grid-template-columns:repeat(4,1fr);gap:20px;">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+        </div>
+
+
+
+
+
+        <h3>3. gap</h3>
+        <p>아이템 사이 간격을 지정한다. 플렉스에서 사용했을때와 같은역할</p>
+
+
+
+        <h2>자식에게 주는 속성</h2>
+        <h3>1. grid-column</h3>
+        <p>그리드 아이템이 가로(열)를 몇 칸 차지할지 지정</p>
+        <div class="code">
+            .item{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-column: span 숫자; /*특정 아이템이 가로로 지정한 칸만큼 차지하게 한다.*/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f5f5f5;">grid-column:</span> 시작 위치(라인 번호);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f5f5f5">grid-column:</span> 시작라인 / 끝라인;<br>
+            }
+        </div>
+        <h4>span 숫자 : 특정 아이템이 지정한 숫자 칸만큼 차지하게 한다.</h4>
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(4, 1fr);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 20px;
+            }
+            <br>
+            .item-big {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-column: span 2;<br>
+            }
+        </div>
+        <div class="demo" style="grid-template-columns:repeat(4,1fr);gap:20px;">
+            <div>1</div>
+            <div class="big">item-big, span 2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+        </div>
+
+        <h3>② grid-row</h3>
+        <p>그리드 아이템이 세로(행)를 몇 칸 차지할지 지정</p>
+        <div class="code">
+            .item{<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-row: span 숫자; /*특정 아이템이 가로로 지정한 칸만큼 차지하게 한다.*/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f5f5f5;">grid-row:</span> 시작 위치(라인 번호);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #f5f5f5">grid-row:</span> 시작라인 / 끝라인;<br>
+            }
+        </div>
+        <h4>span 숫자 : 특정 아이템이 지정한 숫자 칸만큼 차지하게 한다.</h4>
+        <div class="code">.box {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: grid;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: repeat(4, 1fr);<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-auto-rows: 80px;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;gap: 20px;<br>
+            }<br>
+
+            .item-tall {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;grid-row: span 2;<br>
+            }</div>
+        <div class="demo" style="grid-template-columns:repeat(4,1fr);grid-auto-rows:80px;gap:20px;">
+            <div>1</div>
+            <div class="tall">item-tall, span 2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+        </div>
+
+
+
+    </section>
+</body>
+
+</html>
