@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+/*가상요소(::before, ::after)로 한글을 입력했을때 화면상에서 정상표시 되게 하기 위해 사용, css에서 가장 위에 넣어 주세요!*/
+
+* {
+    margin: 0;
+    padding: 0;
+     box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+img,
+video,
+iframe {
+    vertical-align: middle;
+}
+table{
+    border-collapse: collapse;
+}
+

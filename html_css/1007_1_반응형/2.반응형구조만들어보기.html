@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8"><!--한국어를 사이트에서 제대로 표현하기 위해 들어가는 코드-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!--반응형 사이트 제작을 위한 필수코드-->
+    <title>반응형 구조 만들어보기</title>
+    <style>
+        /*max-width 미디어쿼리 설정방식으로 통일 - pc는 그냥 코딩, 나머지는  max-width이용해서 코딩*/
+        .flex_box{
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            /*레이아웃이 변경되면 세로 두줄이상 표현되어야 하므로 플렉스 쓸때 이 속성을 반드시 같이 쓴다*/
+            background-color: pink;
+            margin: 100px 0;
+        }
+        .flex_item{
+            background-color: skyblue;
+            font-size: 100px;
+            height: 200px;
+            /*플렉스 아이템에 들어간 css들은 실제로 이런식으로 쓰기보다는 화면에 잘 보이게 하기위해서 쓴것. 특히 높이는 px로 지정 안하는것이 좋음.*/
+            width: calc((100% - 16px * 3) / 4);
+            /*플렉스에서는 아이템의 너비를 결정한 속성이 레이아웃의 칸수를 결정. 해당 식은 갭을 제외한 나머지 공간을 4칸이 나눠가지게 함.*/
+        }
+        .grid_box{
+            background-color: pink;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /*이 속성이 그리드에서는 한줄에 몇개가 들어가는지 결정*/
+            gap: 16px;
+        }
+        .grid_item{
+            background-color: skyblue;
+            height: 200px;
+            font-size: 100px;
+        }
+
+
+
+        /*코드에서 미디어쿼리는 css의 가장 밑에 있는것이 좋다!*/
+        @media (max-width:1279px){
+            .flex_item{
+                width: calc((100% - 16px * 1) / 2);
+            }
+            .grid_box{
+                margin: 50px auto;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }/*이부분안에 바뀔 코드가 들어가야하고, 지워지지 않게 조심!*/
+
+        @media (max-width:767px){
+            .flex_item{width: 100%;}
+            .grid_box{
+                grid-template-columns:1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>반응형</h1>
+    <h2>1. 플렉스 구조</h2>
+    <p>pc에서는 한줄에 4개, 테블릿에서는 한줄에 2개, 모바일에서는 한줄에 1개</p>
+    <div class="flex_box">
+        <div class="flex_item">1</div>
+        <div class="flex_item">2</div>
+        <div class="flex_item">3</div>
+        <div class="flex_item">4</div>
+    </div>
+    <h2>2. 그리드 구조</h2>
+    <p>pc에서는 한줄에 4개, 테블릿에서는 한줄에 2개, 모바일에서는 한줄에 1개</p>
+    <div class="grid_box">
+        <div class="grid_item">1</div>
+        <div class="grid_item">2</div>
+        <div class="grid_item">3</div>
+        <div class="grid_item">4</div>
+    </div>
+</body>
+</html>
