@@ -1,0 +1,1180 @@
+@font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: 500;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: 700;
+    font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  color: #222;
+  font-size: 16px;
+  line-height: 1.7;
+  background: #f7f5f2;
+}
+
+img {
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#wrap {
+  width: 100%;
+  background: #f7f5f2;
+}
+
+/* 헤더 */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  color: #fff;
+  background: #111;
+}
+
+header .logo {
+  display: block;
+}
+
+header .logo img {
+  display: block;
+  height: 30px;
+  transition: opacity 0.3s;
+}
+
+/* 호버 ⑱ 로고: 살짝 투명해진다 */
+header .logo:hover img {
+  opacity: 0.7;
+}
+
+header nav ul {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+header nav a {
+  position: relative;
+  padding-bottom: 4px;
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: #e0c4a8;
+  transition: width 0.3s;
+}
+
+/* 호버 ① 메뉴: 글자색이 바뀌고 밑줄이 왼쪽에서 오른쪽으로 그어진다 */
+header nav a:hover {
+  color: #e0c4a8;
+}
+
+header nav a:hover::after {
+  width: 100%;
+}
+
+.util {
+  display: flex;
+  gap: 18px;
+  font-size: 15px;
+}
+
+.util_link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+/* 호버 ② 유틸 메뉴: 글자가 흰색이 된다 */
+.util_link:hover {
+  color: #fff;
+}
+
+/* 햄버거 버튼: 태블릿 이하에서만 보인다 */
+.menu_btn {
+  display: none;
+  align-items: center;
+  padding: 0;
+  color: #ccc;
+  background: none;
+  border: 0;
+}
+
+.util .cart #cart_count {
+  display: inline-block;
+  min-width: 22px;
+  padding: 0 6px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: #9c6b4e;
+  border-radius: 12px;
+}
+
+section {
+  padding: 100px 20px;
+}
+
+/* 섹션 공통 제목 */
+.sec_title {
+  font-family:  'GMarketSans', "Noto Sans KR", sans-serif;
+  font-size: 38px;
+  margin: 0 0 8px;
+  text-align: left;
+}
+
+.sec_desc {
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.center {
+  text-align: center;
+}
+
+/* 1. 메인 배너 */
+#banner {
+  position: relative;
+  height: 700px;
+  overflow: hidden;
+  padding: 0;
+}
+
+#banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0) 65%);
+}
+
+#banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s;
+}
+
+/* 호버 ③ 배너: 사진이 천천히 확대된다 */
+#banner:hover img {
+  transform: scale(1.05);
+}
+
+#banner .banner_text {
+  position: absolute;
+  left: 60px;
+  bottom: 60px;
+  z-index: 1;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.banner_text .small {
+  letter-spacing: 5px;
+  font-size: 14px;
+  color: #e0c4a8;
+}
+
+.banner_text h1 {
+  font-size: 48px;
+  /*3번 문제 정답*/
+  line-height: 1.3;
+  margin: 6px 0;
+}
+
+.banner_text p {
+  font-size: 18px;
+}
+
+.banner_link {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 12px 28px;
+  color: #fff;
+  text-decoration: none;
+  border: 2px solid #fff;
+  border-radius: 30px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.banner_link .arrow {
+  display: inline-block;
+  transition: transform 0.3s;
+}
+
+/* 호버 ④ 배너 링크: 배경이 흰색으로 차고 화살표가 오른쪽으로 움직인다 */
+.banner_link:hover {
+  color: #111;
+  background: #e0c4a8;
+  text-shadow: none;
+}
+
+.banner_link:hover .arrow {
+  transform: translateX(8px);
+}
+
+/* 2. 카테고리 */
+#category {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.cate_box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.cate {
+  position: relative;
+  display: block;
+  height: 380px;
+  overflow: hidden;
+  border-radius: 12px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.cate img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s, filter 0.6s;
+}
+
+.cate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 55%);
+}
+
+@media (max-width: 1024px) {
+  .cate_name {
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    white-space: nowrap;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.cate_name {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  z-index: 1;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  transition: transform 0.4s;
+}
+
+.cate_more {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  z-index: 1;
+  font-size: 15px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+/* 호버 ⑤ 카테고리: 사진이 확대되고 어두워지며 이름이 위로 올라가고 "보러가기" 글씨가 나타난다 */
+.cate:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.75);
+  /*brightness 숫자 1=원래상태. 0 = 완전까맣게*/
+}
+
+.cate:hover .cate_name {
+  transform: translateY(-12px);
+}
+
+.cate:hover .cate_more {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 상품 카드 공통 (베스트 슬라이드, 신상품 그리드) */
+.product {
+  background: transparent;
+}
+
+.product .thumb {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #eee;
+}
+
+.product .thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s, transform 0.6s;
+}
+
+.product .thumb .back {
+  opacity: 0;
+}
+
+.product .quick {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  padding: 14px 0;
+  background: rgba(60, 40, 35, 0.7);
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.product .quick button {
+  flex: 1;
+  font-size: 14px;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, color 0.3s;
+}
+
+.product .quick button i {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 18px;
+  font-style: normal;
+}
+
+.product .info {
+  padding: 16px 0 24px;
+}
+
+.product .info strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  color: #666;
+  transition: color 0.3s;
+}
+
+.product .info .size {
+  display: block;
+  padding-bottom: 12px;
+  font-size: 14px;
+  color: #999;
+  border-bottom: 1px solid #ddd;
+}
+
+.product .badge {
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.product .badge span {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.product .badge .hit {
+  color: #9b3d78;
+}
+
+.product .badge .new {
+  padding: 0 6px;
+  color: #fff;
+  background: #d9b99b;
+}
+
+.product .price {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #888;
+}
+
+.product .price del {
+  display: block;
+  color: #999;
+}
+
+.product .price b {
+  font-size: 15px;
+  color: #9c6b4e;
+}
+
+.product .price em {
+  font-style: normal;
+}
+
+/* 호버 ⑥ 사진 위에 올리면: 사진이 뒷모습 사진으로 바뀌고, 아래에서 장바구니·찜하기 박스가 올라온다 */
+.product:hover .thumb .back {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.product:hover .quick {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 호버 ⑦ 박스 안 버튼: 위로 살짝 뜨고 글자색이 바뀐다 */
+.product .quick button:hover {
+  color: #f0e0d4;
+  transform: translateY(-3px);
+}
+
+.product .btn_wish.on {
+  color: #9c6b4e;
+}
+
+.product:hover .info strong {
+  color: #111;
+}
+
+/* 3. 베스트 슬라이드 */
+#best {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.best_swiper {
+  --swiper-theme-color: #9c6b4e;
+  --swiper-navigation-size: 20px;
+  padding: 10px 6px 56px;
+}
+
+.best_swiper .swiper-slide {
+  height: auto;
+}
+
+.best_swiper .swiper-button-prev,
+.best_swiper .swiper-button-next {
+  top: 210px;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  color: #fff;
+  background: rgba(17, 17, 17, 0.6);
+  transition: background 0.3s;
+}
+
+/* 호버 ⑧ 슬라이드 화살표: 배경이 진해진다 */
+.best_swiper .swiper-button-prev:hover,
+.best_swiper .swiper-button-next:hover {
+  background: rgba(17, 17, 17, 0.95);
+}
+
+#best .info strong {
+  color: #111;
+}
+
+/* 4. 고정 배경 서브 배너 */
+#sub_banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 640px;
+  text-align: center;
+  color: #fff;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url("https://images.unsplash.com/photo-1766934587163-186d20bf3d40?auto=format&fit=crop&w=1600&h=900&q=80") center / cover no-repeat;
+  background-attachment: fixed;
+}
+
+.sub_text .sub_small {
+  letter-spacing: 6px;
+  font-size: 14px;
+  color: #e0c4a8;
+}
+
+.sub_text h2 {
+  font-size: 52px;
+  margin: 8px 0 12px;
+}
+
+.sub_link {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 32px;
+  color: #fff;
+  text-decoration: none;
+  background: #9c6b4e;
+  border-radius: 30px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+/* 호버 ⑨ 서브 배너 버튼: 색이 어두워지고 커진다 */
+.sub_link:hover {
+  background: #7a5239;
+  transform: scale(1.08);
+}
+
+/* 5. 신상품 그리드 */
+#new {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.product_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* 6. 기획전 */
+#promo {
+  background: #fff;
+}
+
+.promo_box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.promo {
+  position: relative;
+  display: block;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 4px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.promo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s, filter 0.7s;
+}
+
+.promo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 60%);
+}
+
+.promo_text {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  z-index: 1;
+}
+
+.promo_text h3 {
+  font-size: 28px;
+}
+
+.promo_text p,
+.promo_text .go {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+
+.promo_text .go {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: 700;
+  color: #e0c4a8;
+  transition-delay: 0.1s;
+}
+
+/* 호버 ⑩ 기획전: 사진이 확대되고 어두워지며 설명과 링크 글씨가 차례로 올라온다 */
+.promo:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.7);
+}
+
+.promo:hover .promo_text p,
+.promo:hover .promo_text .go {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 7. 쇼핑 혜택 */
+#benefit {
+  background: #f1ebe3;
+}
+
+.benefit_inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.benefit_box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.benefit {
+  padding: 24px 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.benefit strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 20px;
+  color: #9c6b4e;
+  transition: color 0.3s;
+}
+
+.benefit span {
+  color: #666;
+  transition: color 0.3s;
+}
+
+/* 호버 ⑪ 혜택 박스: 검은색으로 채워지고 글자색이 반전되며 위로 뜬다 */
+.benefit:hover {
+  background: #111;
+  transform: translateY(-8px);
+}
+
+.benefit:hover strong {
+  color: #e0c4a8;
+}
+
+.benefit:hover span {
+  color: #fff;
+}
+
+/* 8. 리뷰 */
+#review {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.review_box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.review_card {
+  overflow: hidden;
+  background: #fff;
+  border-radius: 12px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.review_img {
+  overflow: hidden;
+}
+
+.review_img img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.review_body {
+  padding: 24px;
+}
+
+.review_body .stars {
+  color: #9c6b4e;
+  letter-spacing: 2px;
+}
+
+.review_body h3 {
+  margin: 4px 0 8px;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+.review_body p {
+  color: #555;
+}
+
+.review_body .writer {
+  display: block;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #999;
+}
+
+/* 호버 ⑫ 리뷰 카드: 위로 뜨고 사진 확대, 제목 색 변경 */
+.review_card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15);
+}
+
+.review_card:hover img {
+  transform: scale(1.1);
+}
+
+.review_card:hover h3 {
+  color: #9c6b4e;
+}
+
+/* 9. 쇼핑 안내 */
+#notice {
+  background-color: #fff;
+  text-align: center;
+}
+
+.notice_inner .sec_title {
+  text-align: center;
+}
+
+.notice_inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.board {
+  margin-bottom: 48px;
+  border-top: 2px solid #111;
+  text-align: left;
+}
+
+.board ul {
+  list-style: none;
+}
+
+.board li {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s;
+}
+
+.board .head {
+  padding: 14px 10px;
+  font-weight: 700;
+  text-align: center;
+  background: #f7f5f2;
+}
+
+.board .no {
+  width: 70px;
+  text-align: center;
+  color: #888;
+}
+
+.board .kind {
+  width: 90px;
+  text-align: center;
+  color: #888;
+}
+
+.board .subject {
+  flex: 1;
+  text-align: center;
+  color: #222;
+  text-decoration: none;
+}
+
+.board a.subject {
+  text-align: left;
+}
+
+.board .subject b {
+  margin-right: 14px;
+  transition: color 0.3s, padding-left 0.3s;
+}
+
+.board .subject em {
+  font-style: normal;
+  font-size: 14px;
+  color: #888;
+}
+
+.board .date {
+  width: 110px;
+  text-align: center;
+  color: #888;
+}
+
+.board .top .no {
+  font-weight: 700;
+  color: #9c6b4e;
+}
+
+.board .top .subject b::after {
+  content: "N";
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 5px;
+  font-size: 11px;
+  color: #fff;
+  background: #9c6b4e;
+  border-radius: 3px;
+}
+
+/* 호버 ⑬ 게시판 줄: 배경이 깔리고 제목이 오른쪽으로 밀리며 색이 바뀐다 */
+.board li:not(.head):hover {
+  background: #f7f5f2;
+}
+
+.board li:not(.head):hover .subject b {
+  padding-left: 10px;
+  color: #9c6b4e;
+}
+
+/* 호버 ⑭ 제목 옆 설명: 마우스를 올린 줄의 설명 글씨가 진해진다 */
+.board li:hover .subject em {
+  color: #222;
+}
+
+#notice .notice_tip {
+  margin-bottom: 12px;
+  font-size: 22px;
+  color: #222;
+}
+
+.btn {
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 190px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  color: #fff;
+  background: #9c6b4e;
+  border-radius: 6px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: #111;
+  transform: translateX(-100%);
+  transition: transform 0.4s;
+}
+
+/* 호버 ⑮ 문의 버튼: 검은색이 왼쪽에서 밀려 들어오고 살짝 올라온다 */
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+.btn:hover::before {
+  transform: translateX(0);
+}
+
+footer {
+  padding: 40px 24px;
+  color: #cfcfcf;
+  background: #111;
+}
+
+footer .info {
+  display: flex;
+  justify-content: center;
+}
+
+footer .info span {
+  margin: 0 10px;
+  transition: color 0.2s;
+}
+
+/* 호버 ⑯ 푸터 정보: 마우스를 올린 항목만 흰색이 된다 */
+footer .info span:hover {
+  color: #fff;
+}
+
+footer .copy {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 14px;
+  color: #888;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  header nav {
+    display: none;
+  }
+
+  .menu_btn {
+    display: flex;
+  }
+
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  header::before {
+    content: "";
+  }
+
+  .util {
+    justify-self: end;
+  }
+
+  .cate_more {
+    display: none;
+  }
+
+  .cate:hover img {
+    transform: none;
+    filter: none;
+  }
+
+  .cate:hover .cate_name {
+    transform: translate(-50%, -50%);
+  }
+
+  .util_link .txt {
+    display: none;
+  }
+
+  .util {
+    gap: 20px;
+  }
+
+  .review_box {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .product_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .benefit_box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  header {
+    padding: 16px 20px;
+  }
+
+  header .logo img {
+    height: 20px;
+  }
+
+  .util {
+    gap: 8px;
+  }
+
+  section {
+    padding: 70px 16px;
+  }
+
+  #banner {
+    height: 500px;
+  }
+
+  #banner .banner_text {
+    left: 24px;
+    bottom: 36px;
+  }
+
+  .banner_text h1 {
+    font-size: 30px;
+  }
+
+  .cate_box {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .cate {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .promo_box,
+  .review_box {
+    grid-template-columns: 1fr;
+  }
+
+  .board .no,
+  .board .kind,
+  .board .date {
+    display: none;
+  }
+
+  .board .subject b,
+  .board .subject em {
+    display: block;
+    margin: 0;
+  }
+
+  .product_grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sub_text h2 {
+    font-size: 34px;
+  }
+
+  footer .info {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+/* SVG 아이콘 */
+.ico {
+  width: 1.2em;
+  height: 1.2em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.22em;
+}
+
+.banner_link .arrow .ico,
+.promo_text .go .ico {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.product .quick i .ico {
+  width: 22px;
+  height: 22px;
+}
+
+.product .btn_wish.on .ico {
+  fill: currentColor;
+}
+
+.benefit .benefit_ico {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 14px;
+  color: #9c6b4e;
+  stroke-width: 1.4;
+  transition: transform 0.4s, color 0.3s;
+}
+
+/* 호버 ⑰ 혜택 아이콘: 커지면서 살짝 기울어진다 */
+.benefit:hover .benefit_ico {
+  color: #e0c4a8;
+  transform: scale(1.2) rotate(-8deg);
+}
+
+/* TOP 버튼 */
+.top_btn {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+  text-decoration: none;
+  background: #111;
+  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.4s, visibility 0.4s, transform 0.4s, background 0.3s;
+}
+
+.top_btn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.top_btn .ico {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s;
+}
+
+/* 호버 ⑲ TOP 버튼: 배경이 모카색으로 바뀌고 화살표가 위로 움직인다 */
+.top_btn:hover {
+  background: #9c6b4e;
+}
+
+.top_btn:hover .ico {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 900px) {
+  .top_btn {
+    right: 16px;
+    bottom: 16px;
+    width: 48px;
+    height: 48px;
+  }
+}

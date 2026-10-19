@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS 변수와 :root</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --accent3: #d97706;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    #wrap {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* hero : 제목만 */
+    .hero {
+      background: var(--accent);
+      padding: 48px 48px 40px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+    }
+
+    .toc {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      border-bottom: 2px solid var(--border);
+      padding: 24px;
+    }
+
+    .toc_title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .toc_list {
+      list-style: none;
+    }
+
+    .toc_list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 6px 0;
+    }
+
+    .toc_list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc_num {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      min-width: 32px;
+      text-align: center;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding-bottom: 80px;
+    }
+
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section_header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section_num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .section_title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .intro_text {
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .card_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      font-size: 16px;
+      color: var(--muted);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.7;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .card li.col {
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .card li.col strong {
+      color: var(--text);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .step_num {
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step_body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .step_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step_desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .step_desc strong {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 14px;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .tag.blue {
+      background: #e8f0fe;
+      color: var(--accent);
+    }
+
+    .tag.green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info_box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 16px;
+      line-height: 1.7;
+      align-items: flex-start;
+    }
+
+    .info_box.tip {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .info_box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info_box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info_icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* 코드 + 결과 화면 */
+    .code_demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 12px 0;
+      align-items: stretch;
+    }
+
+    .code_label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .code_block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 18px 22px;
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.9;
+      color: #e2e8f0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .code_block + .code_label {
+      margin-top: 12px;
+    }
+
+    .code_block .comment {
+      color: #8a96ab;
+    }
+
+    .code_block .sel {
+      color: #63b3ed;
+    }
+
+    .code_block .tagname {
+      color: #fc8181;
+    }
+
+    .code_block .prop {
+      color: #68d391;
+    }
+
+    .code_block .val {
+      color: #fbd38d;
+    }
+
+    .code_block .var_name {
+      color: #f687b3;
+    }
+
+    .demo_box {
+      --main_color: #1a56db;
+      --box_radius: 10px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      height: 100%;
+    }
+
+    .demo_title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--main_color);
+    }
+
+    .demo_button {
+      align-self: flex-start;
+      border: 0;
+      padding: 10px 24px;
+      font-size: 16px;
+      font-family: var(--sans);
+      color: #fff;
+      background: var(--main_color);
+      border-radius: var(--box_radius);
+    }
+
+    .table_wrap {
+      overflow-x: auto;
+    }
+
+    .compare_table {
+      width: 100%;
+      min-width: 560px;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 16px;
+    }
+
+    .compare_table th,
+    .compare_table td {
+      border: 1.5px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .compare_table th {
+      background: var(--bg2);
+      font-weight: 700;
+    }
+
+    .compare_table td {
+      color: var(--muted);
+    }
+
+    .compare_table td.bad {
+      background: #fff8ec;
+    }
+
+    .compare_table td.good {
+      background: #ecfdf5;
+    }
+
+    .visual_row {
+      display: flex;
+      gap: 12px;
+      margin: 10px 0 16px;
+    }
+
+    .visual_box {
+      flex: 1;
+      padding: 18px 10px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .visual_box small {
+      display: block;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    .visual_label {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .qa_block {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .qa_q {
+      background: #fff8ec;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #92400e;
+      border-bottom: 1px solid #fde68a;
+    }
+
+    .qa_a {
+      background: var(--bg);
+      padding: 12px 16px;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .qa_a strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* 맨 위로 버튼 : 페이지가 짧아서 태블릿 이하에서만 표시 */
+    .top_btn {
+      display: none;
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 100;
+    }
+
+    .top_btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* 태블릿 이하 : 목차를 hero 바로 아래 맨 위에 */
+    @media (max-width: 1024px) {
+      .hero {
+        padding: 36px 24px 30px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .flex_box {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .toc {
+        position: static;
+        width: 100%;
+        border-bottom: 2px solid var(--border);
+      }
+
+      .content {
+        width: 100%;
+        padding: 0 24px 80px;
+      }
+
+      .code_demo {
+        grid-template-columns: 1fr;
+      }
+
+      .demo_box {
+        height: auto;
+      }
+
+      .top_btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 28px 16px 24px;
+      }
+
+      .hero h1 {
+        font-size: 24px;
+      }
+
+      .content {
+        padding: 0 16px 80px;
+      }
+
+      .step {
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .visual_row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="hero">
+      <h1>CSS 변수와 :root</h1>
+    </div>
+
+    <div class="flex_box">
+      <div class="toc">
+        <div class="toc_title">목차</div>
+        <ul class="toc_list">
+          <li><a href="#s1"><span class="toc_num">01</span> :root와 CSS 변수</a></li>
+          <li><a href="#s2"><span class="toc_num">02</span> 변수 만들기 / 쓰기</a></li>
+          <li><a href="#s3"><span class="toc_num">03</span> 왜 쓸까?</a></li>
+          <li><a href="#s4"><span class="toc_num">04</span> 어떤 값을 변수로 뺄까?</a></li>
+          <li><a href="#s5"><span class="toc_num">05</span> 추가 설명 · 주의사항</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+
+        <!-- 01 개념 -->
+        <div class="section" id="s1">
+          <div class="section_header">
+            <span class="section_num">01</span>
+            <span class="section_title">:root와 CSS 변수</span>
+          </div>
+          <p class="intro_text">
+            CSS 변수는 자주 쓰는 값(색, 크기 등)에 이름을 붙여 저장해 두는 기능이고, <span class="tag blue">:root</span>는
+            그 변수들을 모아 선언하는 자리예요. <span class="tag blue">:root</span>는 <span
+              class="tag blue">&lt;html&gt;</span> 태그를 가리키는 선택자라서, 여기에 선언한 변수는 페이지 어디서든 꺼내 쓸 수 있어요.
+          </p>
+          <div class="card">
+            <div class="card_title">핵심 용어 정리</div>
+            <ul>
+              <li><span class="tag blue">:root</span> &lt;html&gt;을 가리키는 선택자. 변수를 모아두는 자리</li>
+              <li><span class="tag blue">--이름</span> 내가 만드는 변수 이름. 앞에 <strong>--</strong>가 꼭 있어야 해요</li>
+              <li><span class="tag blue">var()</span> 저장해둔 변수 값을 꺼내 쓰는 함수</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 02 만들기 / 쓰기 -->
+        <div class="section" id="s2">
+          <div class="section_header">
+            <span class="section_num">02</span>
+            <span class="section_title">변수 만들기 / 쓰기</span>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step_num">1</div>
+              <div class="step_body">
+                <div class="step_title">:root 안에 변수 선언하기</div>
+                <div class="step_desc">
+                  <span class="tag blue">--이름: 값;</span> 형태로 적어요. <strong>--</strong>로 시작하면 "내가 직접 만든 이름"이라는 뜻이고,
+                  이름은 snake_case(<span class="tag blue">--main_color</span>)로 지어요.
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">2</div>
+              <div class="step_body">
+                <div class="step_title">var()로 꺼내 쓰기</div>
+                <div class="step_desc">
+                  값을 쓰고 싶은 자리에 <span class="tag blue">var(--이름)</span>을 넣어요.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="code_demo">
+            <div>
+              <div class="code_label">HTML</div>
+              <div class="code_block"><span class="comment">&lt;!-- 결과 화면에 보이는 요소 --&gt;</span>
+&lt;<span class="tagname">h2</span> <span class="prop">class</span>=<span class="val">"title"</span>&gt;제목&lt;/<span class="tagname">h2</span>&gt;
+&lt;<span class="tagname">button</span> <span class="prop">class</span>=<span class="val">"button"</span>&gt;버튼&lt;/<span class="tagname">button</span>&gt;</div>
+              <div class="code_label">CSS</div>
+              <div class="code_block"><span class="sel">:root</span> {
+  <span class="var_name">--main_color</span>: <span class="val">#1a56db</span>;
+  <span class="var_name">--box_radius</span>: <span class="val">10px</span>;
+}
+
+<span class="sel">.title</span> {
+  <span class="prop">color</span>: <span class="val">var(<span class="var_name">--main_color</span>)</span>;
+}
+
+<span class="sel">.button</span> {
+  <span class="prop">background</span>: <span class="val">var(<span class="var_name">--main_color</span>)</span>;
+  <span class="prop">border-radius</span>: <span class="val">var(<span class="var_name">--box_radius</span>)</span>;
+}</div>
+            </div>
+            <div>
+              <div class="code_label">결과 화면</div>
+              <div class="demo_box">
+                <div class="demo_title">제목</div>
+                <button class="demo_button" type="button">버튼</button>
+              </div>
+            </div>
+          </div>
+          <p class="intro_text">제목 글자색과 버튼 배경이 둘 다 <span class="tag blue">--main_color</span> 값을 가져다 쓰고 있어요.</p>
+        </div>
+
+        <!-- 03 왜 쓸까 -->
+        <div class="section" id="s3">
+          <div class="section_header">
+            <span class="section_num">03</span>
+            <span class="section_title">왜 쓸까?</span>
+          </div>
+          <p class="intro_text">같은 값을 여러 곳에 쓸 때, 나중에 바꾸기 쉬워지기 때문이에요.</p>
+          <div class="table_wrap">
+            <table class="compare_table">
+              <thead>
+                <tr>
+                  <th style="width:26%">상황</th>
+                  <th style="width:37%">변수 없이</th>
+                  <th style="width:37%">:root 변수 사용</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>포인트 색을 #1a56db에서 #e11d48로 변경</th>
+                  <td class="bad">파일 전체에서 #1a56db를 찾아 <strong>일일이 수정</strong> (빼먹을 위험)</td>
+                  <td class="good">:root의 <strong>한 줄만 수정</strong></td>
+                </tr>
+                <tr>
+                  <th>같은 색을 쓴 곳이 20군데</th>
+                  <td class="bad">20군데 수정</td>
+                  <td class="good">1군데 수정</td>
+                </tr>
+                <tr>
+                  <th>색 이름 파악</th>
+                  <td class="bad">#1a56db가 뭔지 알기 어려움</td>
+                  <td class="good">--main_color로 <strong>의미가 보임</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <div class="card_title">:root의 한 줄을 바꾸면</div>
+            <div class="visual_label">수정 전 : --main_color: #1a56db;</div>
+            <div class="visual_row">
+              <div class="visual_box" style="background:#1a56db;">박스 1<small>var(--main_color)</small></div>
+              <div class="visual_box" style="background:#1a56db;">박스 2<small>var(--main_color)</small></div>
+              <div class="visual_box" style="background:#1a56db;">박스 3<small>var(--main_color)</small></div>
+            </div>
+            <div class="visual_label">수정 후 : --main_color: #e11d48;</div>
+            <div class="visual_row" style="margin-bottom:0;">
+              <div class="visual_box" style="background:#e11d48;">박스 1<small>var(--main_color)</small></div>
+              <div class="visual_box" style="background:#e11d48;">박스 2<small>var(--main_color)</small></div>
+              <div class="visual_box" style="background:#e11d48;">박스 3<small>var(--main_color)</small></div>
+            </div>
+          </div>
+
+          <div class="info_box note">
+            <span class="info_icon">📝</span>
+            <span>이 자료의 &lt;style&gt; 맨 위에도 :root가 있어요. 크롬 개발자도구(F12)에서 &lt;html&gt;을 선택하고 Styles 패널의 <span
+                class="tag blue">--accent</span> 값을 바꿔 보면, 자료 전체의 파란색이 한 번에 바뀌는 걸 볼 수 있어요.</span>
+          </div>
+        </div>
+
+        <!-- 04 현업 기준 -->
+        <div class="section" id="s4">
+          <div class="section_header">
+            <span class="section_num">04</span>
+            <span class="section_title">어떤 값을 변수로 뺄까?</span>
+          </div>
+          <p class="intro_text">
+            모든 값을 변수로 만들 필요는 없어요. <strong>여러 곳에서 반복해서 쓰고, 나중에 바뀔 수 있는 값</strong>만 :root에 둬요.
+          </p>
+          <div class="table_wrap">
+            <table class="compare_table">
+              <thead>
+                <tr>
+                  <th style="width:26%">변수로 빼는 값</th>
+                  <th style="width:37%">변수 이름 예시</th>
+                  <th style="width:37%">이유</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>브랜드 색, 글자색, 배경색</th>
+                  <td><span class="tag blue">--main_color</span> <span class="tag blue">--text_color</span></td>
+                  <td>전체 분위기를 바꿀 때 한 곳만 수정</td>
+                </tr>
+                <tr>
+                  <th>폰트 종류</th>
+                  <td><span class="tag blue">--main_font</span></td>
+                  <td>폰트 교체가 한 줄로 끝남</td>
+                </tr>
+                <tr>
+                  <th>모서리 둥글기, 그림자</th>
+                  <td><span class="tag blue">--box_radius</span> <span class="tag blue">--box_shadow</span></td>
+                  <td>카드·버튼의 모양을 통일</td>
+                </tr>
+                <tr>
+                  <th>반복해서 쓰는 간격</th>
+                  <td><span class="tag blue">--section_gap</span></td>
+                  <td>섹션 간격을 한 번에 조절</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="info_box tip">
+            <span class="info_icon">✅</span>
+            <span><strong>한 번만 쓰는 값</strong>(예: 특정 박스 하나의 높이)은 변수로 만들지 않고 그냥 직접 적어요.</span>
+          </div>
+        </div>
+
+        <!-- 05 추가 설명 -->
+        <div class="section" id="s5">
+          <div class="section_header">
+            <span class="section_num">05</span>
+            <span class="section_title">추가 설명 · 주의사항</span>
+          </div>
+
+          <div class="card">
+            <div class="card_title">알아두면 좋은 것들</div>
+            <ul>
+              <li class="col">
+                <strong>:root와 html 선택자</strong>
+                <span>둘 다 &lt;html&gt;을 가리키지만 :root가 우선순위(명시도)가 더 높아요. 변수 선언은 관례적으로 :root를 써요.</span>
+              </li>
+              <li class="col">
+                <strong>다른 선택자 안에도 변수를 만들 수 있어요</strong>
+                <span><span class="tag blue">.card { --card_bg: #fff; }</span>처럼 선언하면 .card와 그 안쪽에서만 쓸 수 있어요. 사이트 전체에서 쓸 값만 :root에 둬요.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="qa_block">
+            <div class="qa_q">변수를 만들었는데 적용이 안 돼요 — 앞의 -- 를 빼먹지 않았나요?</div>
+            <div class="qa_a">
+              <span class="tag red">틀림</span> <span class="tag blue">main_color: red;</span> → 일반 속성으로 인식돼서 무시돼요.<br />
+              <span class="tag green">맞음</span> <span class="tag blue">--main_color: red;</span> → 이름 앞에 <strong>--</strong>를 꼭 붙여요.
+            </div>
+          </div>
+          <div class="qa_block">
+            <div class="qa_q">꺼내 쓸 때 var() 없이 이름만 썼어요</div>
+            <div class="qa_a">
+              <span class="tag red">틀림</span> <span class="tag blue">color: --main_color;</span><br />
+              <span class="tag green">맞음</span> <span class="tag blue">color: var(--main_color);</span> → 값 자리에는 <strong>var( )</strong>로 감싸야 해요.
+            </div>
+          </div>
+          <div class="qa_block">
+            <div class="qa_q">변수 이름에 오타가 났어요</div>
+            <div class="qa_a">
+              에러 메시지가 뜨지 않고 <strong>조용히 적용이 안 돼서</strong> 찾기 어려워요.<br />
+              개발자도구 Styles 패널에서 해당 속성에 <strong>취소선이나 경고</strong>가 뜨는지 확인하고, 선언한 이름과 쓰는 이름이 똑같은지(대소문자 포함) 비교해요.
+            </div>
+          </div>
+          <div class="qa_block">
+            <div class="qa_q">:root를 .root 또는 #root로 썼어요</div>
+            <div class="qa_a">
+              <span class="tag red">틀림</span> <span class="tag blue">.root</span> / <span class="tag blue">#root</span><br />
+              <span class="tag green">맞음</span> <span class="tag blue">:root</span> → 점(.)이나 샵(#)이 아니라 <strong>콜론(:)</strong>이에요.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <button class="top_btn" id="top_btn" type="button" aria-label="맨 위로">↑</button>
+
+  <script>
+    var top_btn = document.getElementById("top_btn");
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 300) {
+        top_btn.classList.add("show");
+      } else {
+        top_btn.classList.remove("show");
+      }
+    });
+    top_btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS 애니메이션 — @keyframes + animation</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --accent3: #d97706;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    #wrap {
+      width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* ---------- 공통 레이아웃 ---------- */
+    .hero {
+      background: var(--accent);
+      padding: 48px 48px 40px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 15px;
+      opacity: 0.85;
+      margin-bottom: 24px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 13px;
+      opacity: 0.9;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+      padding: 0 40px 80px 0;
+    }
+
+    .toc {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      border-bottom: 2px solid var(--border);
+      padding: 24px;
+    }
+
+    .toc-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toc-list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 0;
+    }
+
+    .toc-list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .compare-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 22px;
+    }
+
+    .compare-card.left {
+      border-top: 4px solid var(--accent);
+    }
+
+    .compare-card.right {
+      border-top: 4px solid var(--accent2);
+    }
+
+    .compare-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: var(--mono);
+    }
+
+    .compare-card.left .compare-card-title {
+      color: var(--accent);
+    }
+
+    .compare-card.right .compare-card-title {
+      color: var(--accent2);
+    }
+
+    .compare-card ul {
+      list-style: none;
+    }
+
+    .compare-card li {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 4px 0;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .compare-card li::before {
+      content: "•";
+      color: var(--muted);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card li {
+      font-size: 14px;
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.6;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .step-num {
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .step-desc strong {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .sub-steps {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sub-step {
+      background: var(--bg2);
+      border-left: 3px solid var(--accent);
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .sub-step strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .code-block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 16px 22px;
+      margin: 12px 0;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.9;
+      color: #e2e8f0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .code-block .cm {
+      color: #8a94a8;
+    }
+
+    .code-block .at {
+      color: #90cdf4;
+    }
+
+    .code-block .pr {
+      color: #68d391;
+    }
+
+    .code-block .vl {
+      color: #fbd38d;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .tag.blue {
+      background: #e8f0fe;
+      color: var(--accent);
+    }
+
+    .tag.green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.amber {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .tag.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info-box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 14px;
+      line-height: 1.7;
+      align-items: flex-start;
+    }
+
+    .info-box.tip {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .info-box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info-box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info-box.danger {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .info-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .read_table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 12px 0;
+      background: var(--bg);
+    }
+
+    .read_table th,
+    .read_table td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .read_table th {
+      background: var(--bg2);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .read_table td {
+      color: var(--muted);
+    }
+
+    .read_table td strong {
+      color: var(--text);
+    }
+
+    /* ---------- 데모 영역 ---------- */
+    .stage {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 12px 0;
+    }
+
+    .stage_head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .stage_title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .replay_btn {
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: #fff;
+      padding: 3px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .replay_btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .demo_row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .demo_row:last-child {
+      margin-bottom: 0;
+    }
+
+    .demo_label {
+      width: 150px;
+      flex-shrink: 0;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .demo_track {
+      flex: 1;
+      height: 36px;
+      background: var(--bg2);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .demo_dot {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--accent);
+    }
+
+    .example_row {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 14px;
+      align-items: stretch;
+      margin-bottom: 14px;
+    }
+
+    .example_demo {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      min-height: 150px;
+    }
+
+    .example_demo .replay_btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+
+    .example_code {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .example_code .example_title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .example_code .example_desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .example_code .code-block {
+      margin: 8px 0 0;
+      flex: 1;
+    }
+
+    /* ---------- 데모에 쓰는 keyframes (snake_case) ---------- */
+    @keyframes slide_x {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(450px);
+      }
+    }
+
+    @keyframes slide_steps {
+      0% {
+        transform: translateX(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateX(225px) rotate(180deg);
+      }
+
+      100% {
+        transform: translateX(450px) rotate(360deg);
+      }
+    }
+
+    @keyframes float_y {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    @keyframes blink_fade {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
+    }
+
+    @keyframes spin_round {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fade_up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse_scale {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    @keyframes stop_wiggle {
+
+      0%,
+      100% {
+        transform: rotate(-3deg);
+      }
+
+      50% {
+        transform: rotate(3deg);
+      }
+    }
+
+    /* ---------- 섹션 1~2 데모 ---------- */
+    .dot_intro {
+      animation: slide_x 2s ease-in-out infinite alternate;
+    }
+
+    .dot_fromto {
+      animation: slide_x 2s ease-in-out infinite alternate;
+    }
+
+    .dot_steps {
+      animation: slide_steps 4s linear infinite;
+    }
+
+    /* ---------- 섹션 5 예제 ---------- */
+    .card_float {
+      width: 120px;
+      height: 60px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      animation: float_y 2s ease-in-out infinite;
+    }
+
+    .live_badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #991b1b;
+    }
+
+    .live_dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ef391a;
+      animation: blink_fade 1s ease-in-out infinite;
+    }
+
+    .ring_spin {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 5px solid var(--border);
+      border-top-color: var(--accent);
+      animation: spin_round 1s linear infinite;
+    }
+
+    .replay_stage.run .card_fade_up {
+      animation: fade_up 0.8s ease-out 0.2s both;
+    }
+
+    .card_fade_up {
+      width: 150px;
+      padding: 14px 16px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0;
+    }
+
+    .btn_pulse {
+      border: none;
+      background: var(--accent2);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 26px;
+      border-radius: 30px;
+      animation: pulse_scale 1.5s ease-in-out infinite;
+    }
+
+    .card_stop {
+      width: 130px;
+      padding: 16px 18px;
+      background: #fff;
+      border: 2px solid var(--text);
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      animation: stop_wiggle 0.8s steps(1) infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="hero">
+      <h1>CSS 애니메이션 입문</h1>
+      <p>@keyframes + animation — 움직이는 효과를 만드는 기본 원리</p>
+      <div class="hero-meta">
+        <div class="meta-item">🎞️ CSS 기준</div>
+        <div class="meta-item">🧩 @keyframes와 animation은 항상 세트</div>
+      </div>
+    </div>
+
+    <div class="flex_box">
+      <div class="toc">
+        <div class="toc-title">목차</div>
+        <ul class="toc-list">
+          <li><a href="#s1"><span class="toc-num">01</span> 애니메이션이란</a></li>
+          <li><a href="#s2"><span class="toc-num">02</span> @keyframes 만들기</a></li>
+          <li><a href="#s3"><span class="toc-num">03</span> animation 속성 8가지</a></li>
+          <li><a href="#s4"><span class="toc-num">04</span> 한 줄로 합쳐 쓰기 (축약형)</a></li>
+          <li><a href="#s5"><span class="toc-num">05</span> 자주 쓰는 패턴 6가지</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+
+        <!-- 01 개념 -->
+        <div class="section" id="s1">
+          <div class="section-header">
+            <span class="section-num">01</span>
+            <span class="section-title">애니메이션이란</span>
+          </div>
+
+          <div class="compare">
+            <div class="compare-card left">
+              <div class="compare-card-title">@keyframes</div>
+              <ul>
+                <li>동작 시나리오를 적어두는 곳</li>
+                <li>"0%일 때는 여기, 100%일 때는 저기"를 정의</li>
+                <li>시나리오에 이름을 붙여서 저장</li>
+                <li>정의만 해서는 아무 일도 일어나지 않음</li>
+              </ul>
+            </div>
+            <div class="compare-card right">
+              <div class="compare-card-title">animation</div>
+              <ul>
+                <li>요소에 시나리오를 연결하는 속성</li>
+                <li>시간, 반복 횟수 같은 재생 방식을 정함</li>
+                <li>이름으로 @keyframes를 찾아서 재생</li>
+                <li>적용하면 페이지가 열릴 때 바로 실행됨</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="info-box note">
+            <span class="info-icon">💡</span>
+            <span><strong>비유로 이해하기 —</strong> 영상 편집 프로그램에서 키프레임을 찍어 움직임을 만들어 본 적이 있다면 같은 개념이다.
+              @keyframes는 "키프레임을 찍어둔 대본"이고, animation은 "재생 버튼 + 재생 옵션(속도, 반복 등)"이다.</span>
+          </div>
+
+          <div class="card">
+            <div class="card-title">가장 작은 애니메이션 코드</div>
+            <div class="code-block"><span class="cm">/* 1. 시나리오 만들기 — 이름은 move_box */</span>
+<span class="at">@keyframes</span> move_box {
+  <span class="vl">from</span> { <span class="pr">transform</span>: translateX(0); }
+  <span class="vl">to</span>   { <span class="pr">transform</span>: translateX(450px); }
+}
+
+<span class="cm">/* 2. 요소에 연결하기 — 같은 이름 move_box를 적는다 */</span>
+.box_move {
+  <span class="pr">animation</span>: <span class="vl">move_box</span> 2s ease-in-out infinite alternate;
+}</div>
+            <div class="stage">
+              <div class="stage_head"><span class="stage_title">▶ 위 코드의 실행 결과</span></div>
+              <div class="demo_row">
+                <div class="demo_label">.box_move</div>
+                <div class="demo_track"><div class="demo_dot dot_intro"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box warn">
+            <span class="info-icon">⚠️</span>
+            <span><strong>두 곳의 이름이 똑같아야 연결된다.</strong> @keyframes 뒤의 이름과 animation에 적은 이름이 한 글자라도 다르면 아무것도 움직이지 않는다.</span>
+          </div>
+
+          <div class="info-box note">
+            <span class="info-icon">📖</span>
+            <span><strong>코드 읽기용 안내 —</strong> 예제 안의 <span class="tag blue">translateX()</span> <span class="tag blue">rotate()</span>
+              <span class="tag blue">scale()</span>은 transform 속성의 값이다. 각각 가로 이동 / 회전 / 크기 변경이라는 뜻만 알고 읽으면 된다.
+              이 자료는 animation 사용법에 집중하고, transform 값 자체는 자세히 다루지 않는다.</span>
+          </div>
+        </div>
+
+        <!-- 02 keyframes -->
+        <div class="section" id="s2">
+          <div class="section-header">
+            <span class="section-num">02</span>
+            <span class="section-title">@keyframes 만들기</span>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <div class="step-title">이름 정하기</div>
+                <div class="step-desc">
+                  <span class="tag blue">@keyframes</span> 바로 뒤에 시나리오 이름을 적는다. 나중에 animation에서 이 이름으로 부른다.
+                  <div class="sub-steps">
+                    <div class="sub-step">
+                      <span class="tag green">추천</span> 영문 소문자 + 밑줄(snake_case) — <span class="tag blue">move_box</span>
+                      <span class="tag blue">fade_up</span> <span class="tag blue">spin_round</span>
+                    </div>
+                    <div class="sub-step">
+                      <span class="tag red">비추천</span> 띄어쓰기가 있거나 무슨 동작인지 알 수 없는 이름 — <span class="tag red">my box</span>
+                      <span class="tag red">a1</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <div class="step-title">단계가 2개면 from / to</div>
+                <div class="step-desc">
+                  시작과 끝만 있는 단순한 동작은 <strong>from</strong>(시작)과 <strong>to</strong>(끝)로 쓴다.
+                  <div class="code-block"><span class="at">@keyframes</span> slide_x {
+  <span class="vl">from</span> { <span class="pr">transform</span>: translateX(0); }
+  <span class="vl">to</span>   { <span class="pr">transform</span>: translateX(450px); }
+}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <div class="step-title">단계가 여러 개면 퍼센트(%)</div>
+                <div class="step-desc">
+                  전체 동작 시간을 100%로 보고, 몇 %일 때 어떤 모습인지 적는다. <strong>from은 0%, to는 100%와 같은 뜻</strong>이다.
+                  <div class="code-block"><span class="at">@keyframes</span> slide_steps {
+  <span class="vl">0%</span>   { <span class="pr">transform</span>: translateX(0) rotate(0deg); }
+  <span class="vl">50%</span>  { <span class="pr">transform</span>: translateX(225px) rotate(180deg); }
+  <span class="vl">100%</span> { <span class="pr">transform</span>: translateX(450px) rotate(360deg); }
+}</div>
+                  <div class="stage">
+                    <div class="stage_head"><span class="stage_title">▶ from / to 와 퍼센트 비교</span></div>
+                    <div class="demo_row">
+                      <div class="demo_label">from → to</div>
+                      <div class="demo_track"><div class="demo_dot dot_fromto"></div></div>
+                    </div>
+                    <div class="demo_row">
+                      <div class="demo_label">0% → 50% → 100%</div>
+                      <div class="demo_track"><div class="demo_dot dot_steps"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <div class="step-title">같은 모습은 쉼표로 묶기</div>
+                <div class="step-desc">
+                  "처음과 끝은 같고 중간만 다른" 동작은 <strong>0%, 100%</strong>를 한 번에 쓰면 짧아진다.
+                  <div class="code-block"><span class="at">@keyframes</span> float_y {
+  <span class="vl">0%, 100%</span> { <span class="pr">transform</span>: translateY(0); }
+  <span class="vl">50%</span>      { <span class="pr">transform</span>: translateY(-14px); }
+}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box tip">
+            <span class="info-icon">✅</span>
+            <span><strong>0%(from)를 생략하면</strong> 요소가 원래 가지고 있던 값에서 시작한다. 그래서 "원래 모습 → 이렇게 변해라"만 쓰고 싶을 때는 to(또는 100%)만 적어도 된다.</span>
+          </div>
+
+          <div class="info-box danger">
+            <span class="info-icon">🚫</span>
+            <span><strong>@keyframes는 선택자 안에 넣지 않는다.</strong> .box { } 같은 중괄호 안이 아니라, CSS 파일 바깥(최상위)에 따로 적는다.</span>
+          </div>
+        </div>
+
+        <!-- 03 animation 속성 -->
+        <div class="section" id="s3">
+          <div class="section-header">
+            <span class="section-num">03</span>
+            <span class="section-title">animation 속성 8가지</span>
+          </div>
+
+          <div class="step-desc" style="margin-bottom:8px">
+            @keyframes를 요소에 연결하고 재생 방식을 정하는 속성들이다. 이름 그대로 "어떤 시나리오를 / 얼마나 걸려 / 어떻게 반복할지"를 하나씩 정한다.
+          </div>
+
+          <table class="read_table">
+            <tr><th style="width:240px">속성</th><th>하는 일</th><th style="width:300px">자주 쓰는 값</th></tr>
+            <tr><td><span class="tag blue">animation-name</span></td><td>재생할 @keyframes 이름</td><td>move_box</td></tr>
+            <tr><td><span class="tag blue">animation-duration</span></td><td>1회 재생 시간</td><td>0.5s, 2s</td></tr>
+            <tr><td><span class="tag blue">animation-timing-function</span></td><td>속도의 흐름</td><td>linear, ease, ease-in-out</td></tr>
+            <tr><td><span class="tag blue">animation-delay</span></td><td>시작 전 대기 시간</td><td>0s, 0.2s</td></tr>
+            <tr><td><span class="tag blue">animation-iteration-count</span></td><td>반복 횟수</td><td>1, 3, infinite</td></tr>
+            <tr><td><span class="tag blue">animation-direction</span></td><td>재생 방향</td><td>normal, alternate</td></tr>
+            <tr><td><span class="tag blue">animation-fill-mode</span></td><td>끝난 뒤 모습 유지 여부</td><td>none, forwards, both</td></tr>
+            <tr><td><span class="tag blue">animation-play-state</span></td><td>재생 / 일시정지</td><td>running, paused</td></tr>
+          </table>
+
+          <div class="info-box note">
+            <span class="info-icon">💡</span>
+            <span>이 중 <strong>name과 duration</strong>만 써도 움직인다. 나머지는 쓰지 않으면 기본값이 적용된다.</span>
+          </div>
+        </div>
+
+        <!-- 04 축약형 -->
+        <div class="section" id="s4">
+          <div class="section-header">
+            <span class="section-num">04</span>
+            <span class="section-title">한 줄로 합쳐 쓰기 (축약형)</span>
+          </div>
+
+          <div class="step-desc" style="margin-bottom:8px">
+            위 속성들은 보통 <span class="tag blue">animation</span> 한 줄에 합쳐서 쓴다. AI가 만든 코드에서도 대부분 이 형태로 나온다.
+          </div>
+
+          <div class="code-block"><span class="pr">animation</span>: <span class="vl">이름  시간  속도곡선  지연  반복횟수  방향  fill-mode  재생상태</span>;
+
+<span class="cm">/* 예시 */</span>
+<span class="pr">animation</span>: move_box 2s ease-in-out 0.5s infinite alternate forwards;</div>
+
+          <div class="info-box tip">
+            <span class="info-icon">✅</span>
+            <span>시간 값이 두 번 나오면 <strong>앞이 duration, 뒤가 delay</strong>다.</span>
+          </div>
+        </div>
+
+        <!-- 05 패턴 -->
+        <div class="section" id="s5">
+          <div class="section-header">
+            <span class="section-num">05</span>
+            <span class="section-title">자주 쓰는 패턴 6가지</span>
+          </div>
+
+          <div class="example_row">
+            <div class="example_demo">
+              <div class="card_float">둥둥</div>
+            </div>
+            <div class="example_code">
+              <div class="example_title">① 둥둥 떠 있기 (float)</div>
+              <div class="example_desc">배너, 아이콘, 강조 카드에 많이 쓴다. 위아래로 천천히 반복.</div>
+              <div class="code-block"><span class="at">@keyframes</span> float_y {
+  <span class="vl">0%, 100%</span> { <span class="pr">transform</span>: translateY(0); }
+  <span class="vl">50%</span>      { <span class="pr">transform</span>: translateY(-14px); }
+}
+.card_float {
+  <span class="pr">animation</span>: float_y 2s ease-in-out infinite;
+}</div>
+            </div>
+          </div>
+
+          <div class="example_row">
+            <div class="example_demo">
+              <div class="live_badge"><span class="live_dot"></span>LIVE</div>
+            </div>
+            <div class="example_code">
+              <div class="example_title">② 깜빡이기 (blink)</div>
+              <div class="example_desc">LIVE 표시, 알림 점처럼 주의를 끄는 용도.</div>
+              <div class="code-block"><span class="at">@keyframes</span> blink_fade {
+  <span class="vl">0%, 100%</span> { <span class="pr">opacity</span>: 1; }
+  <span class="vl">50%</span>      { <span class="pr">opacity</span>: 0.2; }
+}
+.live_dot {
+  <span class="pr">animation</span>: blink_fade 1s ease-in-out infinite;
+}</div>
+            </div>
+          </div>
+
+          <div class="example_row">
+            <div class="example_demo">
+              <div class="ring_spin"></div>
+            </div>
+            <div class="example_code">
+              <div class="example_title">③ 계속 회전 (spin)</div>
+              <div class="example_desc">로딩 아이콘. 속도가 일정해야 자연스러워서 linear를 쓴다. 시작값(from)은 생략했다.</div>
+              <div class="code-block"><span class="at">@keyframes</span> spin_round {
+  <span class="vl">to</span> { <span class="pr">transform</span>: rotate(360deg); }
+}
+.ring_spin {
+  <span class="pr">animation</span>: spin_round 1s linear infinite;
+}</div>
+            </div>
+          </div>
+
+          <div class="example_row replay_stage" id="stage_fade">
+            <div class="example_demo">
+              <button class="replay_btn" onclick="replay_stage('stage_fade')">↻ 다시 재생</button>
+              <div class="card_fade_up">아래에서 쑥</div>
+            </div>
+            <div class="example_code">
+              <div class="example_title">④ 아래에서 떠오르며 등장 (fade up)</div>
+              <div class="example_desc">섹션 제목, 카드 등장 효과. 한 번만 재생하고 끝난 모습을 유지한다. 시작 전 대기 중에도 숨겨두려고 both를 썼다.</div>
+              <div class="code-block"><span class="at">@keyframes</span> fade_up {
+  <span class="vl">from</span> { <span class="pr">opacity</span>: 0; <span class="pr">transform</span>: translateY(30px); }
+  <span class="vl">to</span>   { <span class="pr">opacity</span>: 1; <span class="pr">transform</span>: translateY(0); }
+}
+.card_fade_up {
+  <span class="pr">animation</span>: fade_up 0.8s ease-out 0.2s both;
+}</div>
+            </div>
+          </div>
+
+          <div class="example_row">
+            <div class="example_demo">
+              <button class="btn_pulse">알림 받기</button>
+            </div>
+            <div class="example_code">
+              <div class="example_title">⑤ 두근두근 커졌다 작아지기 (pulse)</div>
+              <div class="example_desc">버튼을 눌러보라고 유도하는 CTA 버튼에 쓴다.</div>
+              <div class="code-block"><span class="at">@keyframes</span> pulse_scale {
+  <span class="vl">0%, 100%</span> { <span class="pr">transform</span>: scale(1); }
+  <span class="vl">50%</span>      { <span class="pr">transform</span>: scale(1.2); }
+}
+.btn_pulse {
+  <span class="pr">animation</span>: pulse_scale 1.5s ease-in-out infinite;
+}</div>
+            </div>
+          </div>
+
+          <div class="example_row">
+            <div class="example_demo">
+              <div class="card_stop">스톱모션</div>
+            </div>
+            <div class="example_code">
+              <div class="example_title">⑥ 스톱모션 (양옆으로 살짝 흔들기)</div>
+              <div class="example_desc">부드럽게 이어지지 않고 "뚝, 뚝" 끊겨 보이는 손맛 있는 움직임. 속도 곡선을 steps(1)로 바꿔서 중간 과정을 없앤다.</div>
+              <div class="code-block"><span class="at">@keyframes</span> stop_wiggle {
+  <span class="vl">0%, 100%</span> { <span class="pr">transform</span>: rotate(-3deg); }
+  <span class="vl">50%</span>      { <span class="pr">transform</span>: rotate(3deg); }
+}
+.card_stop {
+  <span class="pr">animation</span>: stop_wiggle 0.8s <span class="vl">steps(1)</span> infinite;
+}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function replay_stage(stage_id) {
+      var stage = document.getElementById(stage_id);
+      stage.classList.remove("run");
+      void stage.offsetWidth;
+      stage.classList.add("run");
+    }
+
+    var replay_list = document.querySelectorAll(".replay_stage");
+    var stage_observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          replay_stage(entry.target.id);
+          stage_observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+
+    replay_list.forEach(function (el) {
+      stage_observer.observe(el);
+    });
+  </script>
+</body>
+
+</html>

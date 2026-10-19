@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG 설명자료</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --accent3: #e11d48;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    #wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+      background: var(--accent);
+      padding: 48px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* ---------- layout ---------- */
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+      padding: 0 24px 80px;
+    }
+
+    .toc {
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 32px;
+    }
+
+    .toc_title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .toc_list {
+      list-style: none;
+    }
+
+    .toc_list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 6px 0;
+    }
+
+    .toc_list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc_num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ---------- section ---------- */
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section_header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section_num {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .section_title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .intro_text {
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .sub_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 28px 0 10px;
+    }
+
+    /* ---------- card / table ---------- */
+    .card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.6;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .card li strong {
+      color: var(--text);
+    }
+
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 15px;
+    }
+
+    .tbl th,
+    .tbl td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .tbl th {
+      background: var(--bg2);
+      font-weight: 700;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 13px;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 1px 8px;
+      border-radius: 4px;
+      background: #e8f0fe;
+      color: var(--accent);
+    }
+
+    .tag.green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* ---------- code / demo ---------- */
+    .demo_row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 14px;
+      margin: 12px 0 18px;
+      align-items: stretch;
+    }
+
+    .code_block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.8;
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre;
+      margin: 0;
+    }
+
+    .code_block .c_comment {
+      color: #718096;
+    }
+
+    .code_block .c_tag {
+      color: #68d391;
+    }
+
+    .code_block .c_attr {
+      color: #f6ad55;
+    }
+
+    .code_block .c_val {
+      color: #fbd38d;
+    }
+
+    .result_box {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .result_label {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .result_label strong {
+      color: var(--text);
+    }
+
+    .result_group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .result_item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ---------- compare ---------- */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .compare_card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+    }
+
+    .compare_card.left {
+      border-top: 4px solid var(--accent);
+    }
+
+    .compare_card.right {
+      border-top: 4px solid var(--accent2);
+    }
+
+    .compare_card_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .compare_card.left .compare_card_title {
+      color: var(--accent);
+    }
+
+    .compare_card.right .compare_card_title {
+      color: var(--accent2);
+    }
+
+    .compare_card ul {
+      list-style: none;
+    }
+
+    .compare_card li {
+      color: var(--muted);
+      padding: 4px 0;
+      display: flex;
+      gap: 8px;
+    }
+
+    .compare_card li::before {
+      content: "•";
+      flex-shrink: 0;
+    }
+
+    /* ---------- info box ---------- */
+    .info_box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 14px 0;
+      line-height: 1.7;
+      align-items: flex-start;
+    }
+
+    .info_box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info_box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info_icon {
+      flex-shrink: 0;
+    }
+
+    /* ---------- demo svg ---------- */
+    .pixel_canvas {
+      width: 120px;
+      height: 120px;
+      image-rendering: pixelated;
+    }
+
+    .hover_demo {
+      cursor: pointer;
+    }
+
+    .circle_fill_css {
+      fill: #1a56db;
+      transition: fill 0.2s;
+    }
+
+    .circle_fill_css:hover {
+      fill: #e11d48;
+    }
+
+    .icon_a:hover,
+    .icon_b:hover {
+      fill: #e11d48;
+    }
+
+    .icon_b {
+      fill: #1a56db;
+    }
+
+    .icon_text {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #1a56db;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .icon_text:hover {
+      color: #e11d48;
+    }
+
+    .compare_img,
+    .compare_svg {
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+
+    .compare_svg {
+      fill: #1a56db;
+      transition: fill 0.2s;
+    }
+
+    .compare_svg:hover {
+      fill: #e11d48;
+    }
+
+    .compare_img:hover {
+      fill: #e11d48;
+    }
+
+    .circle_pulse {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.4);
+      }
+    }
+
+    .rect_spin {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ---------- top button ---------- */
+    .top_button {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .top_button.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 1024px) {
+      .hero {
+        padding: 36px 24px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .flex_box {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 20px 60px;
+      }
+
+      .toc {
+        position: static;
+        width: 100%;
+      }
+
+      .toc_list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 16px;
+      }
+
+      .content {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .demo_row {
+        grid-template-columns: 1fr;
+      }
+
+      .compare {
+        grid-template-columns: 1fr;
+      }
+
+      .toc_list {
+        grid-template-columns: 1fr;
+      }
+
+      .tbl {
+        font-size: 14px;
+      }
+
+      .tbl th,
+      .tbl td {
+        padding: 8px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="hero">
+      <h1>SVG 설명자료</h1>
+    </div>
+
+    <div class="flex_box">
+      <div class="toc">
+        <div class="toc_title">목차</div>
+        <ul class="toc_list">
+          <li><a href="#s1"><span class="toc_num">01</span> SVG 개념과 원리</a></li>
+          <li><a href="#s2"><span class="toc_num">02</span> 색상 변경</a></li>
+          <li><a href="#s3"><span class="toc_num">03</span> img 태그 vs 코드로 넣기</a></li>
+          <li><a href="#s4"><span class="toc_num">04</span> 간단한 SVG 애니메이션</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+
+        <!-- 01 개념 -->
+        <div class="section" id="s1">
+          <div class="section_header">
+            <span class="section_num">01</span>
+            <span class="section_title">SVG 개념과 원리</span>
+          </div>
+
+          <p class="intro_text">
+            SVG는 이미지를 점이 아니라 "도형을 그리는 명령"으로 저장한 파일이다.
+            JPG, PNG는 가로세로 점마다 색을 저장하기 때문에 확대하면 점이 보이고,
+            SVG는 "여기에 원을 그려라"라는 명령을 저장해 두었다가 보여줄 때마다 새로 그리기 때문에 확대해도 선명하다.
+            확장자는 <span class="tag">.svg</span>이고, 메모장으로 열면 HTML과 비슷한 태그가 보인다.
+          </p>
+
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_tag">&lt;svg</span> <span class="c_attr">width</span>=<span class="c_val">"100"</span> <span class="c_attr">height</span>=<span class="c_val">"100"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_attr">fill</span>=<span class="c_val">"#1a56db"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span></pre>
+            <div class="result_box">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="#1a56db" />
+              </svg>
+              <div class="result_label">파란 원 하나</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <ul>
+              <li><strong>&lt;svg&gt;</strong> 도화지 역할. <span class="tag">width</span> <span class="tag">height</span>는 화면에 보이는 크기</li>
+              <li><strong>viewBox="0 0 100 100"</strong> 도화지 안쪽 좌표를 가로 100 × 세로 100으로 잡는다는 뜻. 화면 크기를 바꿔도 비율대로 늘어나고 줄어듦</li>
+              <li><strong>&lt;circle&gt;</strong> 원. <span class="tag">cx</span> <span class="tag">cy</span>는 중심 위치, <span class="tag">r</span>은 반지름, <span class="tag">fill</span>은 안쪽 색</li>
+            </ul>
+          </div>
+
+          <div class="sub_title">확대했을 때 차이</div>
+          <p class="intro_text">
+            왼쪽은 16×16 점으로 저장한 이미지를 120px로 늘린 것이고, 오른쪽은 같은 크기로 그린 SVG이다.
+            점으로 저장한 이미지는 계단 모양으로 깨지지만 SVG는 매끈하다.
+            (왼쪽은 확대 차이를 보여주려고 코드로 만든 예시 이미지이다.)
+          </p>
+          <div class="result_box" style="margin-bottom: 18px;">
+            <div class="result_group">
+              <div class="result_item">
+                <canvas id="pixel_canvas" class="pixel_canvas" width="16" height="16"></canvas>
+                <div class="result_label"><strong>점으로 저장</strong><br />(JPG, PNG 방식)</div>
+              </div>
+              <div class="result_item">
+                <svg width="120" height="120" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" fill="#1a56db" />
+                </svg>
+                <div class="result_label"><strong>SVG</strong><br />(도형 명령 방식)</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub_title">어떤 이미지에 쓰는지</div>
+          <table class="tbl">
+            <tr>
+              <th>이미지 종류</th>
+              <th>잘 맞는 파일 형식</th>
+            </tr>
+            <tr>
+              <td>아이콘, 로고, 단순한 일러스트</td>
+              <td>SVG</td>
+            </tr>
+            <tr>
+              <td>사진, 복잡한 이미지</td>
+              <td>JPG / WebP</td>
+            </tr>
+          </table>
+
+          <div class="info_box warn">
+            <span class="info_icon">⚠️</span>
+            <span>사진을 SVG로 바꾸면 도형 정보가 너무 많아져서 오히려 용량이 매우 커진다. 사진은 SVG로 만들지 않는다.</span>
+          </div>
+        </div>
+
+        <!-- 02 색상 변경 -->
+        <div class="section" id="s2">
+          <div class="section_header">
+            <span class="section_num">02</span>
+            <span class="section_title">색상 변경</span>
+          </div>
+
+          <p class="intro_text">
+            SVG의 색은 <span class="tag">fill</span>(안쪽 색)과 <span class="tag">stroke</span>(선 색)로 정해진다.
+            색을 바꾸는 방법은 두 가지이다.
+          </p>
+
+          <div class="sub_title">방법 ① SVG 코드 안의 값을 직접 수정</div>
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_comment">&lt;!-- 파란 원 --&gt;</span>
+<span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_attr">fill</span>=<span class="c_val">"#1a56db"</span> <span class="c_tag">/&gt;</span>
+
+<span class="c_comment">&lt;!-- fill 값만 바꾸면 빨간 원 --&gt;</span>
+<span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_attr">fill</span>=<span class="c_val">"#e11d48"</span> <span class="c_tag">/&gt;</span></pre>
+            <div class="result_box">
+              <div class="result_group">
+                <div class="result_item">
+                  <svg width="70" height="70" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#1a56db" /></svg>
+                  <div class="result_label">변경 전</div>
+                </div>
+                <div class="result_item">
+                  <svg width="70" height="70" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#e11d48" /></svg>
+                  <div class="result_label">변경 후</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub_title">방법 ② 인라인 SVG에서 CSS로 변경</div>
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_tag">&lt;svg</span> <span class="c_attr">class</span>=<span class="c_val">"circle_fill_css"</span> <span class="c_attr">width</span>=<span class="c_val">"100"</span> <span class="c_attr">height</span>=<span class="c_val">"100"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span>
+
+<span class="c_comment">/* CSS */</span>
+.circle_fill_css { fill: #1a56db; }
+.circle_fill_css:hover { fill: #e11d48; }</pre>
+            <div class="result_box">
+              <svg class="circle_fill_css hover_demo" width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+              <div class="result_label">마우스를 올리면 색이 바뀐다</div>
+            </div>
+          </div>
+
+          <div class="sub_title">CSS로 색을 바꿨는데 안 바뀔 때</div>
+          <p class="intro_text">
+            디자인 툴에서 뽑은 SVG는 도형 태그마다 <span class="tag">fill="…"</span>이 직접 박혀 있는 경우가 많다.
+            이 상태에서 바깥 <span class="tag">&lt;svg&gt;</span>에 CSS로 색을 주면 도형 자신의 값이 우선이라서 색이 바뀌지 않는다.
+            도형 태그의 <span class="tag">fill</span> 속성을 지우면 CSS가 적용된다.
+          </p>
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_comment">&lt;!-- A : 도형에 fill이 박혀 있음 → hover해도 안 바뀜 --&gt;</span>
+<span class="c_tag">&lt;svg</span> <span class="c_attr">class</span>=<span class="c_val">"icon_a"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_attr">fill</span>=<span class="c_val">"#1a56db"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span>
+
+<span class="c_comment">&lt;!-- B : fill 속성을 지움 → hover하면 바뀜 --&gt;</span>
+<span class="c_tag">&lt;svg</span> <span class="c_attr">class</span>=<span class="c_val">"icon_b"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span>
+
+<span class="c_comment">/* CSS */</span>
+.icon_a:hover, .icon_b:hover { fill: #e11d48; }
+.icon_b { fill: #1a56db; }</pre>
+            <div class="result_box">
+              <div class="result_group">
+                <div class="result_item">
+                  <svg class="icon_a hover_demo" width="70" height="70" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#1a56db" /></svg>
+                  <div class="result_label"><strong>A</strong><br />안 바뀜</div>
+                </div>
+                <div class="result_item">
+                  <svg class="icon_b hover_demo" width="70" height="70" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" /></svg>
+                  <div class="result_label"><strong>B</strong><br />바뀜</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sub_title">currentColor — 글자색 따라가기</div>
+          <p class="intro_text">
+            <span class="tag">fill="currentColor"</span>로 두면 부모 요소의 글자색(<span class="tag">color</span>)을 그대로 따라간다.
+            글자와 아이콘 색을 한 번에 맞출 때 쓴다.
+          </p>
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_tag">&lt;span</span> <span class="c_attr">class</span>=<span class="c_val">"icon_text"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;svg</span> <span class="c_attr">width</span>=<span class="c_val">"24"</span> <span class="c_attr">height</span>=<span class="c_val">"24"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+    <span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_attr">fill</span>=<span class="c_val">"currentColor"</span> <span class="c_tag">/&gt;</span>
+  <span class="c_tag">&lt;/svg&gt;</span>
+  메뉴 보기
+<span class="c_tag">&lt;/span&gt;</span>
+
+<span class="c_comment">/* CSS */</span>
+.icon_text { color: #1a56db; }
+.icon_text:hover { color: #e11d48; }</pre>
+            <div class="result_box">
+              <span class="icon_text">
+                <svg width="24" height="24" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="currentColor" /></svg>
+                메뉴 보기
+              </span>
+              <div class="result_label">글자와 아이콘 색이 같이 바뀐다</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 img vs 인라인 -->
+        <div class="section" id="s3">
+          <div class="section_header">
+            <span class="section_num">03</span>
+            <span class="section_title">img 태그 vs 코드로 넣기</span>
+          </div>
+
+          <p class="intro_text">
+            SVG를 페이지에 넣는 방법은 크게 두 가지이다. 이미지처럼 <span class="tag">&lt;img&gt;</span> 태그로 불러오는 방법과,
+            SVG 코드를 HTML 안에 직접 쓰는 방법(인라인)이다.
+          </p>
+
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_comment">&lt;!-- 방법 A : img 태그 --&gt;</span>
+<span class="c_tag">&lt;img</span> <span class="c_attr">class</span>=<span class="c_val">"compare_img"</span> <span class="c_attr">src</span>=<span class="c_val">"images/circle.svg"</span> <span class="c_attr">alt</span>=<span class="c_val">"파란 원"</span><span class="c_tag">&gt;</span>
+
+<span class="c_comment">&lt;!-- 방법 B : 인라인 코드 --&gt;</span>
+<span class="c_tag">&lt;svg</span> <span class="c_attr">class</span>=<span class="c_val">"compare_svg"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;circle</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"40"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span>
+
+<span class="c_comment">/* CSS */</span>
+.compare_img:hover { fill: #e11d48; }
+.compare_svg { fill: #1a56db; }
+.compare_svg:hover { fill: #e11d48; }</pre>
+            <div class="result_box">
+              <div class="result_group">
+                <div class="result_item">
+                  <img class="compare_img"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%231a56db'/%3E%3C/svg%3E"
+                    alt="파란 원" />
+                  <div class="result_label"><strong>A. img</strong><br />안 바뀜</div>
+                </div>
+                <div class="result_item">
+                  <svg class="compare_svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" /></svg>
+                  <div class="result_label"><strong>B. 인라인</strong><br />바뀜</div>
+                </div>
+              </div>
+              <div class="result_label">마우스를 올려 비교</div>
+            </div>
+          </div>
+
+          <div class="compare">
+            <div class="compare_card left">
+              <div class="compare_card_title">img 태그로 넣을 때</div>
+              <ul>
+                <li>HTML이 깔끔하게 유지된다. 코드가 길어지지 않는다.</li>
+                <li>파일로 따로 관리해서 교체가 쉽다. 파일만 바꾸면 모든 페이지에 반영된다.</li>
+                <li>브라우저가 파일을 저장(캐시)해 두므로 여러 페이지에 같은 로고를 쓸 때 효율적이다.</li>
+                <li><span class="tag">width</span>, <span class="tag">alt</span> 등 일반 이미지 속성을 그대로 쓴다.</li>
+              </ul>
+            </div>
+            <div class="compare_card right">
+              <div class="compare_card_title">코드(인라인)로 넣을 때</div>
+              <ul>
+                <li>페이지의 CSS가 SVG 안쪽까지 적용된다. hover 때 색을 바꿀 수 있다.</li>
+                <li><span class="tag">currentColor</span>로 부모의 글자색을 따라가게 할 수 있다.</li>
+                <li>페이지 CSS로 애니메이션을 자유롭게 제어할 수 있다.</li>
+                <li>단점은 HTML이 길어지고, 같은 아이콘을 여러 번 쓰면 코드가 반복된다는 점이다.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="info_box note">
+            <span class="info_icon">💡</span>
+            <span><strong>핵심 차이 한 줄 —</strong> img로 넣은 SVG는 "하나의 완성된 그림"으로 취급되어 페이지 CSS가 안쪽 도형에 닿지 않고,
+              인라인 SVG는 HTML의 일부라서 CSS가 닿는다.</span>
+          </div>
+
+          <table class="tbl">
+            <tr>
+              <th>구분</th>
+              <th>img 태그</th>
+              <th>인라인 코드</th>
+            </tr>
+            <tr>
+              <td>색 변경(CSS)</td>
+              <td>불가</td>
+              <td>가능</td>
+            </tr>
+            <tr>
+              <td>hover 효과</td>
+              <td>불가</td>
+              <td>가능</td>
+            </tr>
+            <tr>
+              <td>HTML 코드량</td>
+              <td>짧음</td>
+              <td>길어짐</td>
+            </tr>
+            <tr>
+              <td>교체·관리</td>
+              <td>파일만 교체</td>
+              <td>코드를 직접 수정</td>
+            </tr>
+            <tr>
+              <td>실무에서 쓰는 곳</td>
+              <td>로고, 일러스트 등 색이 안 바뀌는 이미지</td>
+              <td>hover 때 색이 바뀌는 아이콘</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 04 애니메이션 -->
+        <div class="section" id="s4">
+          <div class="section_header">
+            <span class="section_num">04</span>
+            <span class="section_title">간단한 SVG 애니메이션</span>
+          </div>
+
+          <p class="intro_text">
+            인라인 SVG의 도형에는 이미 알고 있는 CSS <span class="tag">@keyframes</span> 애니메이션을 그대로 쓸 수 있다.
+            새로 배울 문법은 없고, 도형 태그에 클래스를 주고 애니메이션을 연결하면 된다. 여기서는 원 하나, 사각형 하나로만 연습한다.
+          </p>
+
+          <div class="sub_title">예시 1. 커졌다 작아지는 원</div>
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_tag">&lt;svg</span> <span class="c_attr">width</span>=<span class="c_val">"100"</span> <span class="c_attr">height</span>=<span class="c_val">"100"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;circle</span> <span class="c_attr">class</span>=<span class="c_val">"circle_pulse"</span> <span class="c_attr">cx</span>=<span class="c_val">"50"</span> <span class="c_attr">cy</span>=<span class="c_val">"50"</span> <span class="c_attr">r</span>=<span class="c_val">"30"</span> <span class="c_attr">fill</span>=<span class="c_val">"#1a56db"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span>
+
+<span class="c_comment">/* CSS */</span>
+.circle_pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}</pre>
+            <div class="result_box">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle class="circle_pulse" cx="50" cy="50" r="30" fill="#1a56db" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="sub_title">예시 2. 빙글빙글 도는 사각형</div>
+          <div class="demo_row">
+            <pre class="code_block"><span class="c_tag">&lt;svg</span> <span class="c_attr">width</span>=<span class="c_val">"100"</span> <span class="c_attr">height</span>=<span class="c_val">"100"</span> <span class="c_attr">viewBox</span>=<span class="c_val">"0 0 100 100"</span><span class="c_tag">&gt;</span>
+  <span class="c_tag">&lt;rect</span> <span class="c_attr">class</span>=<span class="c_val">"rect_spin"</span> <span class="c_attr">x</span>=<span class="c_val">"30"</span> <span class="c_attr">y</span>=<span class="c_val">"30"</span> <span class="c_attr">width</span>=<span class="c_val">"40"</span> <span class="c_attr">height</span>=<span class="c_val">"40"</span> <span class="c_attr">fill</span>=<span class="c_val">"#0e9f6e"</span> <span class="c_tag">/&gt;</span>
+<span class="c_tag">&lt;/svg&gt;</span>
+
+<span class="c_comment">/* CSS */</span>
+.rect_spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}</pre>
+            <div class="result_box">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <rect class="rect_spin" x="30" y="30" width="40" height="40" fill="#0e9f6e" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="info_box warn">
+            <span class="info_icon">⚠️</span>
+            <span>SVG 도형에 <span class="tag">transform</span>을 쓸 때는 <span class="tag">transform-box: fill-box;</span>와
+              <span class="tag">transform-origin: center;</span>를 같이 써야 제자리에서 움직인다.
+              빼면 SVG 도화지의 왼쪽 위 모서리(0, 0)를 기준으로 움직여서 도형이 엉뚱한 곳으로 날아간다.</span>
+          </div>
+
+          <div class="info_box note">
+            <span class="info_icon">💡</span>
+            <span>위 코드는 인라인 SVG 기준이다. img 태그로 넣은 SVG는 페이지 CSS가 닿지 않으므로, 애니메이션을 쓰려면 SVG 파일 안에 직접 스타일을 넣어야 한다.
+              그래서 움직이는 SVG는 인라인으로 쓰는 것이 확실하다.</span>
+          </div>
+
+          <p class="intro_text">
+            실무에서는 로딩 스피너, 버튼 아이콘의 작은 움직임, 강조용 점 깜빡임 같은 포인트 효과에 쓴다.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="top_button" id="top_button" aria-label="맨 위로">TOP</button>
+
+  <script>
+    // 확대 비교용: 16x16 점 이미지에 원을 그린다
+    (function () {
+      var canvas = document.getElementById("pixel_canvas");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#1a56db";
+      ctx.beginPath();
+      ctx.arc(8, 8, 6.4, 0, Math.PI * 2);
+      ctx.fill();
+    })();
+
+    // 맨 위로 버튼
+    var top_button = document.getElementById("top_button");
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 300) {
+        top_button.classList.add("show");
+      } else {
+        top_button.classList.remove("show");
+      }
+    });
+    top_button.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+
+</html>

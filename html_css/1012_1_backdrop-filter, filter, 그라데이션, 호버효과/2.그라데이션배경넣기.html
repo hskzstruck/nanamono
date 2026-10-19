@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그라데이션 배경넣기</title>
+    <style>
+        .box{
+            width: 1200px;
+            height: 300px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .box>div{
+            
+            font-size: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*안에있는 자식이 해당 박스 크기를 기준으로 가로세로 정 중앙에 온다.(자식이 하나일경우)*/
+        }
+        .item1{
+            /*그라데이션은 배경이미지로 인식됨*/
+            background-image: linear-gradient(to left,pink,skyblue);
+        }
+        .item2{
+            background-image: linear-gradient(to top,pink,skyblue);
+        }
+        .item3{
+            background-image: linear-gradient(130deg,pink,skyblue);
+        }
+        .item4{
+            background-image: radial-gradient(pink,skyblue);
+        }
+    </style>
+</head>
+<body>
+    <h1>배경 그라데이션으로 넣기</h1>
+    <div class="box">
+        <div class="item1">1</div>
+        <div class="item2">2</div>
+        <div class="item3">3</div>
+        <div class="item4">4</div>
+    </div>    
+</body>
+</html>

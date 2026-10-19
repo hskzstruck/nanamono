@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>개발자 도구 2</title>
+    <style>
+        :root {
+            --bg: #fff;
+            --fg: #222;
+            --line: #ddd;
+            --muted: #666;
+            --accent: #c9733a;
+            --code: #f4eee7;
+            --teacher: #f7f3ee
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme=light]) {
+                --bg: #1c1a18;
+                --fg: #eee;
+                --line: #444;
+                --muted: #aaa;
+                --code: #2c2824;
+                --teacher: #25221f
+            }
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--fg);
+            font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
+            line-height: 1.75
+        }
+
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 16px 80px
+        }
+
+        h1 {
+            font-size: 26px;
+            margin: 0 0 16px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--accent)
+        }
+
+        .prep {
+            background: var(--code);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 0 0 8px
+        }
+
+        .q {
+            display: flex;
+            gap: 12px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin: 10px 0;
+            break-inside: avoid
+        }
+
+        .q .n {
+            flex: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            text-align: center;
+            line-height: 30px
+        }
+
+        .q .t {
+            flex: 1;
+            min-width: 0
+        }
+
+        .shots {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 28px;
+            margin-top: 12px
+        }
+
+        .shot {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .shot img {
+            display: block;
+            max-width: 100%;
+            height: auto
+        }
+
+        .shot.wide {
+            flex-direction: column;
+            align-items: center;
+            gap: 6px
+        }
+
+        .shot.wide figcaption {
+            text-align: center;
+            width: 100%
+        }
+
+        .shot.bd img {
+            border: 1px solid var(--line);
+            border-radius: 10px
+        }
+
+        .shot figcaption {
+            font-size: 14px;
+            color: var(--muted)
+        }
+
+        code {
+            background: var(--code);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: .92em
+        }
+
+        @media print {
+            .q {
+                border-color: #999
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>개발자 도구 2</h1>
+        <p class="prep"><strong>준비:</strong> Live Server로 사이트를 열고 <code>F12</code>로 개발자도구를 켠다. 브라우저 창은 최대화한다(폭 1920px
+            기준). VSCode에서 같은 폴더를 연다. DevTools에서 확인·수정한 내용은 VSCode의 CSS와 HTML, JS에도 반영한다.</p>
+        <div class="q"><span class="n">1</span>
+            <div class="t">브라우저 탭에 BIJOUPOP 파비콘(<code>images/favicon.png</code>)이 나오게 하려고 했는데, 실제로는 안 나온다. 파비콘을
+                연결한다.<!-- 스크린샷 삽입 위치: 문제 1 --></div>
+        </div>
+        <div class="q"><span class="n">2</span>
+            <div class="t">스타일 파일(<code>css/style.css</code>)을 연결해서 사이트 디자인이 적용되게 하려고 했는데, 실제로는 스타일이 하나도 적용되지 않았다. 원인을
+                파악하고 CSS 파일을 연결한다.<!-- 스크린샷 삽입 위치: 문제 2 --></div>
+        </div>
+        <div class="q"><span class="n">3</span>
+            <div class="t">페이지 전체 글꼴을 눈누의 프리텐다드(Pretendard) 웹폰트로 하려고 <code>body</code>에
+                <code>font-family: "Pretendard"</code>를 넣었는데, 실제로는 프리텐다드가 아닌 다른 글꼴로 구현되었다. 원인을 파악하고 웹폰트를
+                연결한다.<!-- 스크린샷 삽입 위치: 문제 3 -->
+            </div>
+        </div>
+        <div class="q"><span class="n">4</span>
+            <div class="t">헤더와 각 섹션의 내용을 가운데 정렬하는 박스(<code>.inner</code>)의 너비를 <code>1540px</code>로 하려고 했는데, 실제로는
+                <code>1200px</code>로 구현되었다. <code>1540px</code>로 변경한다.<!-- 스크린샷 삽입 위치: 문제 4 -->
+            </div>
+        </div>
+        <div class="q"><span class="n">5</span>
+            <div class="t">헤더의 로고(<code>BIJOUPOP</code>) 글자 크기를 <code>34px</code>로 하려고 했는데, 실제로는 <code>28px</code>로
+                구현되었다. 원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 5 --></div>
+        </div>
+        <div class="q"><span class="n">6</span>
+            <div class="t">상단 메뉴에 마우스를 올렸을 때 글자색을 <code>#6a1bd8</code>로 하려고 했는데, 실제로는 <code>#8f55e6</code>로 구현되었다.
+                <code>#6a1bd8</code>로 변경한다.
+            </div>
+        </div>
+        <div class="q"><span class="n">7</span>
+            <div class="t">맨 위 메인 비주얼(슬라이드)은 가운데 정렬 박스 없이 화면 전체 폭으로 나오도록 하려고 했는데, 실제로는 가운데 정렬 박스 안에 들어가 양옆 슬라이드가 잘려 보인다.
+                원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 7 --></div>
+        </div>
+        <div class="q"><span class="n">8</span>
+            <div class="t">상품 카드의 할인율(예: 25%) 글자색을 보라색 <code>#6a0dd8</code>로 하려고 <code>color: #6a0dd8</code>을 넣었는데, 실제로는
+                보라색이 적용되지 않았다. 원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 8 --></div>
+        </div>
+        <div class="q"><span class="n">9</span>
+            <div class="t">화면 폭이 <code>600px</code> 이하일 때 상품 목록이 한 줄에 <code>1</code>개씩 나오도록
+                <code>@media (max-width: 600px)</code>로 하려고 했는데, 실제로는 <code>400px</code> 이하에서 바뀌는 것으로 구현되었다.
+                <code>600px</code>로 변경한다.<!-- 스크린샷 삽입 위치: 문제 9 -->
+            </div>
+        </div>
+        <div class="q"><span class="n">10</span>
+            <div class="t">NEW ITEM의 <code>NEW</code> 태그를 모두 검정 배경·흰 글씨로 하려고 했는데, 실제로는 세 번째 상품의 태그만 회색 배경·진회색 글씨로 구현되었다.
+                원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 10 --></div>
+        </div>
+        <div class="q"><span class="n">11</span>
+            <div class="t">WEEKLY BEST 탭 버튼(목걸이, 귀걸이 등)의 좌우 안쪽 여백을 <code>13px</code>로 하려고 했는데, 실제로는 버튼 안쪽 여백이 없고 버튼 사이
+                바깥 간격만 넓게 구현되었다. 원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 11 --></div>
+        </div>
+        <div class="q"><span class="n">12</span>
+            <div class="t">에디토리얼 영역의 두 번째 큰 이미지(<code>images/ed/e2.jpg</code>)가 나오게 하려고 했는데, 실제로는 이미지 자리가 회색 빈 박스로 보인다.
+                원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 12 --></div>
+        </div>
+        <div class="q"><span class="n">13</span>
+            <div class="t">에디토리얼 제목 영역(Luxury Jewelry 등)에서 설명 글과 아래 구분선 사이의 안쪽 여백을 <code>33px</code>로 하려고 했는데, 실제로는
+                <code>3px</code>로 구현되었다. <code>33px</code>로 변경한다.
+            </div>
+        </div>
+        <div class="q"><span class="n">14</span>
+            <div class="t">인스타그램 이미지를 한 줄에 <code>8</code>개씩 나오도록 하려고 했는데, 실제로는 한 줄에 <code>6</code>개씩 나온다. 한 줄에
+                <code>8</code>개씩 나오도록 수정한다.<!-- 스크린샷 삽입 위치: 문제 14 -->
+            </div>
+        </div>
+        <div class="q"><span class="n">15</span>
+            <div class="t">리뷰 페이지 번호(‹ 1 2 3 … ›)를 가운데 정렬하려고 <code>justify-content: center</code>를 넣었는데, 실제로는 왼쪽에 붙어서
+                나온다. 원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 15 --></div>
+        </div>
+        <div class="q"><span class="n">16</span>
+            <div class="t">푸터 안내 링크(회사소개, 이용약관 등)의 글자색을 <code>#777</code>로 하려고 했는데, 실제로는 <code>#333</code>으로 구현되었다.
+                <code>#777</code>로 변경한다.
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

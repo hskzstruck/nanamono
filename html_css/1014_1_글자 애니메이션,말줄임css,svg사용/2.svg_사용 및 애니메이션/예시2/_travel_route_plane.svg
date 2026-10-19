@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1700" viewBox="0 0 1120 1700" fill="none">
+  <title>여행지를 연결하는 유려한 곡선 점선 동선</title>
+  <desc>왼쪽 위에서 시작해 오른쪽, 아래, 왼쪽, 아래, 오른쪽으로 이어지는 둥근 점선입니다.</desc>
+  <!-- HTML에서는 여행지 배치에 따라 이 경로의 좌표가 자동 계산됩니다.
+       이 파일은 PC 배치 기준으로 좌표를 고정한 독립 SVG입니다.
+       스크롤 드로잉 효과는 HTML의 JavaScript와 마스크로 적용합니다. -->
+  <path id="travel_route" d="M 294 260 C 538 228 1096 228 1096 531 C 1096 882 728 882 560 850 C 358 818 24 818 24 1121 C 24 1472 560 1472 826 1440"
+    stroke="#cc633e" stroke-width="8" stroke-dasharray="3 20" stroke-linecap="round"/>
+  <!-- 비행기는 시작점에 배치되어 있습니다. 스크롤 이동과 회전은 HTML의 JavaScript에서 적용합니다. -->
+  <g id="plane_position" transform="translate(294 260) rotate(0) scale(1.4)">
+    <path id="plane_icon" d="M 23 0 L 5 -5 L -7 -21 L -13 -21 L -5 -5 L -17 -5 L -23 -12 L -27 -12 L -23 0 L -27 12 L -23 12 L -17 5 L -5 5 L -13 21 L -7 21 L 5 5 Z" fill="#ffe58a" stroke="#96742b" stroke-width="1.5" stroke-linejoin="round" paint-order="stroke fill"/>
+  </g>
+</svg>

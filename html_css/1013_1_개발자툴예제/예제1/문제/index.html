@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOLEIL 솔레이</title>
+  <!--1. 파비콘 설정이 되어있지 않아 추가함-->
+  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="wrap">
+  <svg class="sprite" aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="i-sun" viewBox="0 0 32 32"><circle cx="16" cy="16" r="6"/><path d="M16 3v4M16 25v4M3 16h4M25 16h4M6.8 6.8l2.8 2.8M22.4 22.4l2.8 2.8M25.2 6.8l-2.8 2.8M9.6 22.4l-2.8 2.8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-4.7-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 2.5C20 15.300 12 20 12 20z"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V4M6 10l6-6 6 6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 32 32"><path d="M3 8h16v14H3zM19 13h6l4 4v5H19z"/><circle cx="9" cy="24" r="2.5"/><circle cx="24" cy="24" r="2.5"/></symbol>
+    <symbol id="i-return" viewBox="0 0 32 32"><path d="M8 12h14a6 6 0 0 1 0 12H10"/><path d="M13 7l-5 5 5 5"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 32 32"><path d="M16 4l3.6 7.6 8.4 1-6.2 5.8 1.7 8.3L16 22.500 8.500 26.700l1.700-8.300L4 12.600l8.400-1z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 32 32"><path d="M5 6h22v15H14l-6 5v-5H5z"/><path d="M11 12h10M11 16h6"/></symbol>
+  </svg>
+
+
+    <header>
+      <a class="logo" href="#banner"><img src="./images/logo.png" alt="SOLEIL"></a>
+      <nav>
+        <ul>
+          <li><a href="#new">신상품</a></li>
+          <li><a href="#best">베스트</a></li>
+          <li><a href="#promo">기획전</a></li>
+          <li><a href="#review">리뷰</a></li>
+          <li><a href="#notice">고객센터</a></li>
+        </ul>
+      </nav>
+      <div class="util">
+        <a href="#" class="util_link"><svg class="ico"><use href="#i-search"/></svg><span class="txt">검색</span></a>
+        <a href="#" class="util_link"><svg class="ico"><use href="#i-user"/></svg><span class="txt">로그인</span></a>
+        <a href="#" class="util_link cart"><svg class="ico"><use href="#i-bag"/></svg><span class="txt">장바구니</span> <span id="cart_count">0</span></a>
+        <button type="button" class="menu_btn" aria-label="메뉴"><svg class="ico"><use href="#i-menu"/></svg></button>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. 메인 배너 -->
+      <section id="banner">
+        <img alt="가을 신상품 메인 배너" src="https://images.unsplash.com/photo-1523297467724-f6758d7124c5?auto=format&fit=crop&w=1600&h=900&q=80">
+        <div class="banner_text">
+          <p class="small">2026 FALL COLLECTION</p>
+          <h1>가을, 가장 나다운 스타일</h1>
+          <p>신상품 최대 20% 할인 · 5만 원 이상 무료배송</p>
+          <a class="banner_link" href="#new">신상품 보러가기 <span class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></span></a>
+        </div>
+      </section>
+
+      <!-- 2. 카테고리 -->
+      <section id="category">
+        <h2 class="sec_title center">카테고리</h2>
+        <p class="sec_desc center">원하는 스타일을 골라 보세요.</p>
+        <div class="cate_box">
+          <a href="#" class="cate">
+            <img alt="아우터" src="https://images.unsplash.com/photo-1552256028-c51f32398295?auto=format&fit=crop&w=600&h=700&q=80">
+            <span class="cate_name">OUTER</span>
+            <span class="cate_more">아우터 보러가기</span>
+          </a>
+          <a href="#" class="cate">
+            <img alt="상의" src="https://images.unsplash.com/photo-1587999882859-34b3f313df77?auto=format&fit=crop&w=600&h=700&q=80">
+            <span class="cate_name">TOP</span>
+            <span class="cate_more">상의 보러가기</span>
+          </a>
+          <a href="#" class="cate">
+            <img alt="하의" src="https://images.unsplash.com/photo-1595528983318-73cdac415e2b?auto=format&fit=crop&w=600&h=700&q=80">
+            <span class="cate_name">BOTTOM</span>
+            <span class="cate_more">하의 보러가기</span>
+          </a>
+          <a href="#" class="cate">
+            <img alt="원피스" src="https://images.unsplash.com/photo-1721990336298-90832e791b5a?auto=format&fit=crop&w=600&h=700&q=80">
+            <span class="cate_name">DRESS</span>
+            <span class="cate_more">원피스 보러가기</span>
+          </a>
+          <a href="#" class="cate">
+            <img alt="가방" src="https://images.unsplash.com/photo-1560891958-68bb1fe7fb78?auto=format&fit=crop&w=600&h=700&q=80">
+            <span class="cate_name">BAG</span>
+            <span class="cate_more">가방 보러가기</span>
+          </a>
+          <a href="#" class="cate">
+            <img alt="신발" src="https://images.unsplash.com/photo-1531310197839-ccf54634509e?auto=format&fit=crop&w=600&h=700&q=80">
+            <span class="cate_name">SHOES</span>
+            <span class="cate_more">신발 보러가기</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 3. 베스트 상품 슬라이드 -->
+      <section id="best">
+        <h2 class="sec_title">베스트 상품</h2>
+        <p class="sec_desc">이번 주 가장 많이 팔린 상품입니다. 사진에 마우스를 올려 보세요.</p>
+        <div class="swiper best_swiper">
+          <div class="swiper-wrapper">
+            <figure class="swiper-slide product">
+              <div class="thumb">
+                <img class="front" alt="오버핏 울 코트" src="https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?auto=format&fit=crop&w=600&h=760&q=80">
+                <img class="back" alt="" src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?auto=format&fit=crop&w=600&h=760&q=80">
+                <div class="quick">
+                  <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                  <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+                </div>
+              </div>
+              <figcaption class="info">
+                <strong>오버핏 울 코트</strong>
+                <span class="size">[size:F(55~66)]</span>
+                <p class="badge"><span class="hit">BEST HIT</span><span class="new">NEW</span></p>
+                <p class="price">
+                  <del>₩270,000</del>
+                  <b>₩189,000</b> <em>30%</em>
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="swiper-slide product">
+              <div class="thumb">
+                <img class="front" alt="와이드 데님 팬츠" src="https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=600&h=760&q=80">
+                <img class="back" alt="" src="https://images.unsplash.com/photo-1621525157051-ecf5241693bf?auto=format&fit=crop&w=600&h=760&q=80">
+                <div class="quick">
+                  <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                  <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+                </div>
+              </div>
+              <figcaption class="info">
+                <strong>와이드 데님 팬츠</strong>
+                <span class="size">[size:F(55~66)]</span>
+                <p class="badge"><span class="hit">BEST HIT</span></p>
+                <p class="price">
+                  <del>₩62,000</del>
+                  <b>₩49,000</b> <em>21%</em>
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="swiper-slide product">
+              <div class="thumb">
+                <img class="front" alt="캐시미어 니트" src="https://images.unsplash.com/photo-1588271968087-4c51abe05afc?auto=format&fit=crop&w=600&h=760&q=80">
+                <img class="back" alt="" src="https://images.unsplash.com/photo-1563540153332-29de4b355f49?auto=format&fit=crop&w=600&h=760&q=80">
+                <div class="quick">
+                  <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                  <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+                </div>
+              </div>
+              <figcaption class="info">
+                <strong>캐시미어 블렌드 니트</strong>
+                <span class="size">[size:F(55~66)]</span>
+                <p class="badge"><span class="hit">BEST HIT</span></p>
+                <p class="price">
+                  <del>₩99,000</del>
+                  <b>₩79,000</b> <em>20%</em>
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="swiper-slide product">
+              <div class="thumb">
+                <img class="front" alt="레더 숄더백" src="https://images.unsplash.com/photo-1637759292654-a12cb2be085e?auto=format&fit=crop&w=600&h=760&q=80">
+                <img class="back" alt="" src="https://images.unsplash.com/photo-1473188588951-666fce8e7c68?auto=format&fit=crop&w=600&h=760&q=80">
+                <div class="quick">
+                  <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                  <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+                </div>
+              </div>
+              <figcaption class="info">
+                <strong>레더 숄더백</strong>
+                <span class="size">[size:F(55~66)]</span>
+                <p class="badge"><span class="hit">BEST HIT</span></p>
+                <p class="price">
+                  <del>₩159,000</del>
+                  <b>₩129,000</b> <em>19%</em>
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="swiper-slide product">
+              <div class="thumb">
+                <img class="front" alt="레더 앵클부츠" src="https://images.unsplash.com/photo-1575425939273-46ecee6d6931?auto=format&fit=crop&w=600&h=760&q=80">
+                <img class="back" alt="" src="https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?auto=format&fit=crop&w=600&h=760&q=80">
+                <div class="quick">
+                  <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                  <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+                </div>
+              </div>
+              <figcaption class="info">
+                <strong>레더 앵클부츠</strong>
+                <span class="size">[size:F(55~66)]</span>
+                <p class="badge"><span class="hit">BEST HIT</span></p>
+                <p class="price">
+                  <del>₩120,000</del>
+                  <b>₩99,000</b> <em>18%</em>
+                </p>
+              </figcaption>
+            </figure>
+            <figure class="swiper-slide product">
+              <div class="thumb">
+                <img class="front" alt="트렌치 코트" src="https://images.unsplash.com/photo-1633821879282-0c4e91f96232?auto=format&fit=crop&w=600&h=760&q=80">
+                <img class="back" alt="" src="https://images.unsplash.com/photo-1760551937537-a29dbbfab30b?auto=format&fit=crop&w=600&h=760&q=80">
+                <div class="quick">
+                  <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                  <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+                </div>
+              </div>
+              <figcaption class="info">
+                <strong>보송 트렌치 코트</strong>
+                <span class="size">[size:F(55~66)]</span>
+                <p class="badge"><span class="hit">BEST HIT</span></p>
+                <p class="price">
+                  <del>₩75,000</del>
+                  <b>₩59,000</b> <em>21%</em>
+                </p>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </section>
+
+      <!-- 4. 고정 배경 서브 배너 -->
+      <section id="sub_banner">
+        <div class="sub_text">
+          <p class="sub_small">SEASON OFF</p>
+          <h2>시즌 오프 최대 50%</h2>
+          <p>10월 31일까지, 놓치면 내년에 만나요.</p>
+          <a class="sub_link" href="#new">할인 상품 보기</a>
+        </div>
+      </section>
+
+      <!-- 5. 신상품 -->
+      <section id="new">
+        <h2 class="sec_title">신상품</h2>
+        <p class="sec_desc">이번 주에 새로 들어온 상품입니다.</p>
+        <div class="product_grid">
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="벨티드 코트" src="https://images.unsplash.com/photo-1608635680046-aebf91c1a9c8?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1583882358307-c46d9fdd6258?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>벨티드 코트</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="new">NEW</span></p>
+              <p class="price">
+                <b>₩139,000</b>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="그레이 니트" src="https://images.unsplash.com/photo-1574201635302-388dd92a4c3f?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1536992266094-82847e1fd431?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>그레이 니트</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="new">NEW</span></p>
+              <p class="price">
+                <b>₩69,000</b>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="체크 셔츠" src="https://images.unsplash.com/photo-1629580626780-7fe7fb0523e9?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1629737168222-baad8ecacebe?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>체크 셔츠</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="new">NEW</span></p>
+              <p class="price">
+                <b>₩45,000</b>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="스트레이트 데님" src="https://images.unsplash.com/photo-1608370946545-7d93571b5593?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1616956455145-7c40e34a1c2a?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>스트레이트 데님</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="hit">SALE</span></p>
+              <p class="price">
+                <del>₩65,000</del>
+                <b>₩52,000</b> <em>20%</em>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="크로스백" src="https://images.unsplash.com/photo-1605733513597-a8f8341084e6?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>미니 크로스백</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="new">NEW</span></p>
+              <p class="price">
+                <b>₩85,000</b>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="블랙 부츠" src="https://images.unsplash.com/photo-1605732440685-d0654d81aa30?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1605733513549-de9b150bd70d?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>블랙 부츠</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="hit">SALE</span></p>
+              <p class="price">
+                <del>₩74,000</del>
+                <b>₩59,000</b> <em>20%</em>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="롱 원피스" src="https://images.unsplash.com/photo-1789110853872-f416085557fa?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1786865573488-220ead0edf93?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>롱 원피스</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="new">NEW</span></p>
+              <p class="price">
+                <b>₩98,000</b>
+              </p>
+            </div>
+          </div>
+          <div class="product">
+            <div class="thumb">
+              <img class="front" alt="화이트 코트" src="https://images.unsplash.com/photo-1632149877166-f75d49000351?auto=format&fit=crop&w=600&h=760&q=80">
+              <img class="back" alt="" src="https://images.unsplash.com/photo-1652473291442-7a2e034a00d1?auto=format&fit=crop&w=600&h=760&q=80">
+              <div class="quick">
+                <button type="button" class="btn_cart"><i><svg class="ico"><use href="#i-bag"/></svg></i>장바구니</button>
+                <button type="button" class="btn_wish" aria-label="찜하기"><i><svg class="ico"><use href="#i-heart"/></svg></i>찜하기</button>
+              </div>
+            </div>
+            <div class="info">
+              <strong>화이트 코트</strong>
+              <span class="size">[size:F(55~66)]</span>
+              <p class="badge"><span class="new">NEW</span></p>
+              <p class="price">
+                <b>₩19,000</b>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. 기획전 -->
+      <section id="promo">
+        <h2 class="sec_title center">기획전</h2>
+        <p class="sec_desc center">테마별로 골라 담는 스타일 제안입니다.</p>
+        <div class="promo_box">
+          <a href="#" class="promo">
+            <img alt="출근룩 기획전" src="https://images.unsplash.com/photo-1760551600982-d8ecd70b709f?auto=format&fit=crop&w=900&h=600&q=80">
+            <div class="promo_text">
+              <h3>출근룩 기획전</h3>
+              <p>단정하지만 편한 오피스 룩 모음</p>
+              <span class="go">기획전 가기 <svg class="ico"><use href="#i-arrow"/></svg></span>
+            </div>
+          </a>
+          <a href="#" class="promo">
+            <img alt="주말 나들이 기획전" src="https://images.unsplash.com/photo-1760551732069-2c1cad56adf7?auto=format&fit=crop&w=900&h=600&q=80">
+            <div class="promo_text">
+              <h3>주말 나들이 기획전</h3>
+              <p>가볍게 걸치는 캐주얼 아이템</p>
+              <span class="go">기획전 가기 <svg class="ico"><use href="#i-arrow"/></svg></span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- 7. 쇼핑 혜택 -->
+      <section id="benefit">
+        <div class="benefit_inner">
+          <h2 class="sec_title center">솔레이 혜택</h2>
+          <p class="sec_desc center">안심하고 쇼핑하실 수 있도록 준비했어요.</p>
+          <div class="benefit_box">
+            <div class="benefit"><svg class="ico benefit_ico"><use href="#i-truck"/></svg><strong>무료배송</strong><span>5만 원 이상 구매 시</span></div>
+            <div class="benefit"><svg class="ico benefit_ico"><use href="#i-return"/></svg><strong>7일 교환·반품</strong><span>단순 변심도 가능</span></div>
+            <div class="benefit"><svg class="ico benefit_ico"><use href="#i-coin"/></svg><strong>최대 5% 적립</strong><span>리뷰 작성 시 추가 적립</span></div>
+            <div class="benefit"><svg class="ico benefit_ico"><use href="#i-chat"/></svg><strong>1:1 고객 상담</strong><span>평일 10:00 - 17:00</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. 리뷰 -->
+      <section id="review">
+        <h2 class="sec_title">생생 리뷰</h2>
+        <p class="sec_desc">구매하신 분들의 솔직한 후기입니다.</p>
+        <div class="review_box">
+          <article class="review_card">
+            <div class="review_img"><img alt="코트 리뷰 사진" src="https://images.unsplash.com/photo-1685571310105-73020ae623cd?auto=format&fit=crop&w=600&h=500&q=80"></div>
+            <div class="review_body">
+              <span class="stars">★★★★★</span>
+              <h3>오버핏 울 코트</h3>
+              <p>생각보다 훨씬 따뜻하고 핏이 예뻐요. 안에 두꺼운 니트를 입어도 여유가 있어요.</p>
+              <span class="writer">모**님 · 2026.10.03</span>
+            </div>
+          </article>
+          <article class="review_card">
+            <div class="review_img"><img alt="데님 리뷰 사진" src="https://images.unsplash.com/photo-1621525157051-ecf5241693bf?auto=format&fit=crop&w=600&h=500&q=80"></div>
+            <div class="review_body">
+              <span class="stars">★★★★☆</span>
+              <h3>와이드 데님 팬츠</h3>
+              <p>허리 밴딩이라 편해요. 길이는 조금 길어서 수선했지만 색상은 사진과 같아요.</p>
+              <span class="writer">김**님 · 2026.09.28</span>
+            </div>
+          </article>
+          <article class="review_card">
+            <div class="review_img"><img alt="부츠 리뷰 사진" src="https://images.unsplash.com/photo-1575425939273-46ecee6d6931?auto=format&fit=crop&w=600&h=500&q=80"></div>
+            <div class="review_body">
+              <span class="stars">★★★★★</span>
+              <h3>레더 앵클부츠</h3>
+              <p>하루 종일 신어도 발이 편합니다. 출근용으로 색상별로 하나 더 주문했어요.</p>
+              <span class="writer">이**님 · 2026.09.21</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 9. 쇼핑 안내 -->
+      <section id="notice">
+        <div class="notice_inner">
+          <h2 class="sec_title">공지사항</h2>
+          <p class="sec_desc">솔레이의 새로운 소식과 안내를 확인해 보세요.</p>
+          <div class="board">
+            <ul>
+              <li class="head">
+                <span class="no">번호</span>
+                <span class="kind">구분</span>
+                <span class="subject">제목</span>
+                <span class="date">등록일</span>
+              </li>
+              <li class="row top">
+                <span class="no">공지</span>
+                <span class="kind">공지</span>
+                <a class="subject" href="#"><b>[필독] 추석 연휴 배송 일정 안내</b><em>연휴 기간 주문은 10월 8일부터 순차 출고됩니다</em></a>
+                <span class="date">2026.10.01</span>
+              </li>
+              <li class="row top">
+                <span class="no">공지</span>
+                <span class="kind">공지</span>
+                <a class="subject" href="#"><b>[필독] 가을 신상품 교환·반품 정책 안내</b><em>수령 후 7일 이내 신청, 착용·세탁 후에는 불가</em></a>
+                <span class="date">2026.09.29</span>
+              </li>
+              <li class="row">
+                <span class="no">4</span>
+                <span class="kind">이벤트</span>
+                <a class="subject" href="#"><b>가을 맞이 신상품 20% 할인 이벤트</b><em>10월 31일까지 신상품 전 품목 할인</em></a>
+                <span class="date">2026.09.28</span>
+              </li>
+              <li class="row">
+                <span class="no">3</span>
+                <span class="kind">안내</span>
+                <a class="subject" href="#"><b>제주·도서산간 배송비 변경 안내</b><em>3,000원이 추가됩니다</em></a>
+                <span class="date">2026.09.25</span>
+              </li>
+              <li class="row">
+                <span class="no">2</span>
+                <span class="kind">이벤트</span>
+                <a class="subject" href="#"><b>리뷰 작성 시 최대 5% 적립</b><em>포토 리뷰 작성 시 적립금을 추가로 드립니다</em></a>
+                <span class="date">2026.09.22</span>
+              </li>
+              <li class="row">
+                <span class="no">1</span>
+                <span class="kind">안내</span>
+                <a class="subject" href="#"><b>고객센터 운영시간 안내</b><em>평일 10:00 - 17:00 (점심 12:00 - 13:00)</em></a>
+                <span class="date">2026.09.20</span>
+              </li>
+            </ul>
+          </div>
+
+          <h3 class="notice_tip">궁금한 점이 있으신가요?</h3>
+          <a class="btn" href="#">1:1 문의하기</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="info">
+        <span>서울시 ○○구 ○○로 12</span>
+        <span>사업자등록번호 000-00-00000</span>
+        <span>02-000-0000</span>
+      </div>
+      <div class="copy">© 2026 SOLEIL. All rights reserved.</div>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <a href="#wrap" class="top_btn" aria-label="맨 위로"><svg class="ico"><use href="#i-up"/></svg><span>TOP</span></a>
+
+  <script>
+    // 솔레이 스크립트
+    console.log("솔레이 페이지 로드 완료");
+
+    // 베스트 상품 슬라이드 (Swiper)
+    const bestSwiper = new Swiper(".best_swiper", {
+      slidesPerView: 1,
+      spaceBetween: 16,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        640: { slidesPerView: 2 },
+        1024: { slidesPerView: 4 },
+      },
+    });
+
+    // 장바구니 담기: 헤더의 숫자가 1씩 늘어난다
+    const cartCount = document.querySelector("#cart_count");
+    const cartBtns = document.querySelectorAll(".btn_cart");
+    cartBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        cartCount.textContent = Number(cartCount.textContent) + 1;
+      });
+    });
+
+    // 찜하기: 하트가 채워졌다 비워졌다 한다
+    const wishBtns = document.querySelectorAll(".btn_wish");
+    wishBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        btn.classList.toggle("on");
+        
+      });
+    });
+
+    // TOP 버튼: 스크롤이 300px 넘어가면 나타나고, 클릭하면 맨 위로 부드럽게 이동한다
+    const topBtn = document.querySelector(".top_btn");
+    window.addEventListener("scroll", function () {
+      topBtn.classList.toggle("show", window.scrollY > 300);
+    });
+    topBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // 1:1 문의 버튼 클릭 이벤트
+    const inquiryBtn = document.querySelector(".btn");
+    inquiryBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      alert("1:1 문의 페이지로 이동합니다.");
+    });
+  </script>
+</body>
+
+</html>

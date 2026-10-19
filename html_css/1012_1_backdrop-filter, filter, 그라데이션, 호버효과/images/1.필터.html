@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css로 필터효과 넣기</title>
+    <style>
+        .box{
+            width: 600px;
+            height: 666px;
+            background-image: url(./img_brand_about_4.jpg);
+        }
+        .box h3{
+            border: 1px solid #111;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 40px;
+            backdrop-filter: blur(50px);
+        }
+        .box p{
+            font-size: 30px;
+            text-align: center;
+            border: 1px solid red;
+            padding: 30px 0;
+            filter: blur(3px);
+            /*상위요소는 건들지 않고, 자기자신 및 하위요소에만 블러가 들어감.*/
+        }
+    </style>
+</head>
+<body>
+    <h1>css로 필터 효과 넣기(사진등에)</h1>
+    <h2>backdrop-filter</h2>
+    <p>해당 요소 뒤에 있는 배경에 필터효과 넣기
+        <br>
+        자주쓰는 필터효과 : 블러, 밝기, 대비, 흑백, 채도
+    </p>
+    <h2>filter</h2>
+    <p>
+        해당 요소에 필터 적용(안에있는 내용물까지)<br>
+        자주쓰는 필터효과 : 블러, 밝기, 대비, 흑백, 채도
+    </p>
+    <div class="box">
+        <h3>글제목</h3>
+        <p>글자내용입니다</p>
+    </div>
+
+</body>
+</html>

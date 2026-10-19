@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>느리게, 여행 — 스크롤로 잇는 여정</title>
+<style>
+/* 수정 포인트: 색상, 사진 URL, 여행지 글을 변경해 보세요. */
+:root{--bg:#f5f3eb;--ink:#203a32;--muted:#737b6f;--line:#d7dbcc;--accent:#cc633e;--paper:#fffdf7}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,"Malgun Gothic",sans-serif}a{color:inherit;text-decoration:none}.inner{width:min(1120px,calc(100% - 64px));margin:auto}.site_header{padding:26px 0;border-bottom:1px solid var(--line)}.header_inner{display:flex;align-items:center;justify-content:space-between}.brand{font-size:22px;font-weight:800}.header_note{font-size:12px;color:var(--muted)}.hero{padding:110px 0 85px}.eyebrow{font-size:12px;font-weight:700;color:var(--accent)}h1{font-size:clamp(48px,7vw,88px);line-height:1.15;letter-spacing:-.065em;margin:25px 0 28px;font-weight:700}.hero_bottom{display:flex;align-items:end;justify-content:space-between;gap:30px}.intro{line-height:1.9;color:var(--muted);font-size:15px;margin:0}.scroll_link{border-bottom:1px solid var(--ink);padding:12px 0;font-size:13px;white-space:nowrap}.route_header{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding:25px 0;font-size:12px}.route_header h2{font-size:13px;margin:0}.route_header span{color:var(--muted)}.route_map{position:relative;padding:60px 80px 120px}.route_svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.plane_svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:2}.route_base,.route_color{fill:none;stroke-width:8;stroke-dasharray:3 20;stroke-linecap:round}.route_base{stroke:var(--line)}.route_color{stroke:var(--accent)}.plane_icon{fill:#ffe58a;stroke:#96742b;stroke-width:1.5;stroke-linejoin:round;paint-order:stroke fill}.reveal_line{fill:none;stroke:white;stroke-width:18;stroke-linecap:round}.stops{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:160px;row-gap:200px}.stop:nth-child(3){grid-column:2;grid-row:2}.stop:nth-child(4){grid-column:1;grid-row:2}.stop:nth-child(5){grid-column:1;grid-row:3}.stop:nth-child(6){grid-column:2;grid-row:3}.stop{min-width:0;background:transparent;padding:14px;position:relative}.photo_wrap{position:relative;aspect-ratio:4/3;overflow:hidden;background:#d9dfd1}.stop img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}.stop:hover img{transform:scale(1.04)}.number{position:absolute;top:14px;left:14px;background:var(--paper);width:38px;height:38px;display:grid;place-items:center;font-size:12px;border-radius:50%;color:var(--ink)}.stop_info{padding:24px 0 2px}.place_meta{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted)}.place_meta span:last-child{color:var(--accent)}h3{font-size:26px;margin:12px 0 14px;letter-spacing:-.04em}.description{font-size:13px;line-height:1.9;color:var(--muted);margin:0}/* 여행지 묶음 등장: 사진, 번호, 제목, 설명을 함께 움직입니다. */
+body.motion_ready .stop{opacity:0;transform:translateY(-40px);transition:opacity .85s ease,transform .85s cubic-bezier(.22,1,.36,1)}
+body.motion_ready .stop.is_visible{opacity:1;transform:translateY(0)}
+.stop.is_reached .number{background:var(--accent);color:white}.stop.is_reached h3{color:var(--accent)}.end{padding:70px 0 100px;text-align:center;border-top:1px solid var(--line)}.end p{color:var(--muted);font-size:13px;line-height:1.9}.end h2{font-size:clamp(28px,4vw,45px);letter-spacing:-.05em}.site_footer{border-top:1px solid var(--line);padding:25px 0;font-size:11px;color:var(--muted)}.footer_inner{display:flex;justify-content:space-between;gap:20px}.progress{position:fixed;left:0;bottom:0;height:3px;background:var(--accent);width:0;z-index:10}
+@media(max-width:760px){.inner{width:calc(100% - 36px)}.header_note{font-size:10px}.hero{padding:75px 0 60px}.hero_bottom{align-items:start;flex-direction:column;gap:24px}.intro{font-size:13px}.route_map{padding:40px 0 80px 34px}.stops{grid-template-columns:1fr;row-gap:110px}.stop:nth-child(n){grid-column:auto;grid-row:auto}.stop{padding:12px}.route_base,.route_color{stroke-width:6;stroke-dasharray:2 16}h3{font-size:25px}.footer_inner{flex-direction:column;gap:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.stop img{transition:none}body.motion_ready .stop{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<header class="site_header"><div class="inner header_inner"><a class="brand" href="#">느리게, 여행.</a><span class="header_note">A LITTLE JOURNEY, A LONG MEMORY</span></div></header><!-- //site_header -->
+<main>
+<section class="hero"><div class="inner"><span class="eyebrow">FOLLOW THE LITTLE DOTTED LINE</span><h1>길을 따라,<br>마음을 따라.</h1><div class="hero_bottom"><p class="intro">낯선 풍경 사이로 이어지는 여섯 번의 쉼표.<br>스크롤을 내려 우리만의 여행길을 그려보세요.</p><a class="scroll_link" href="#journey">여정 시작하기 ↓</a></div></div></section><!-- //hero -->
+<section id="journey" class="journey"><div class="inner"><div class="route_header"><h2>여섯 장면으로 떠나는 여행</h2><span>01 — 06 / SCROLL TO EXPLORE</span></div>
+<div class="route_map">
+<!-- 점선은 그대로 두고, 흰 실선 마스크의 길이를 바꿔 조금씩 드러냅니다. -->
+<svg class="route_svg" aria-hidden="true"><defs><mask id="route_mask" maskUnits="userSpaceOnUse"><path class="reveal_line"/></mask></defs><path class="route_base"/><path class="route_color" mask="url(#route_mask)"/></svg>
+<!-- 별도 SVG 레이어라 비행기가 여행지 사진 위에서도 보입니다. -->
+<svg class="plane_svg" aria-hidden="true"><g class="plane_position"><path class="plane_icon" d="M 23 0 L 5 -5 L -7 -21 L -13 -21 L -5 -5 L -17 -5 L -23 -12 L -27 -12 L -23 0 L -27 12 L -23 12 L -17 5 L -5 5 L -13 21 L -7 21 L 5 5 Z"/></g></svg>
+<div class="stops">
+<!-- Unsplash 사진은 분위기를 위한 예시이며 여행지의 실제 촬영 장소를 보증하지 않습니다. -->
+<article class="stop"><div class="photo_wrap"><img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=900&q=85" alt="산과 호수 사이의 평온한 풍경" fetchpriority="high"><span class="number">01</span></div><div class="stop_info"><div class="place_meta"><span>SWITZERLAND</span><span>호수 곁에서</span></div><h3>루체른, 고요한 아침</h3><p class="description">잔잔한 물결 위로 번지는 아침빛.<br>오늘은 서두르지 않고 천천히 걸어요.</p></div></article>
+<article class="stop"><div class="photo_wrap"><img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=900&q=85" alt="해안 절벽에 모여 있는 색색의 마을" loading="lazy"><span class="number">02</span></div><div class="stop_info"><div class="place_meta"><span>ITALY</span><span>색을 만나는 길</span></div><h3>친퀘테레, 작은 골목</h3><p class="description">알록달록한 집과 바다를 향한 계단.<br>골목 끝에서 새로운 풍경을 만나요.</p></div></article>
+<article class="stop"><div class="photo_wrap"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=900&q=85" alt="파리의 건물과 도시 풍경" loading="lazy"><span class="number">03</span></div><div class="stop_info"><div class="place_meta"><span>FRANCE</span><span>도시의 느린 오후</span></div><h3>파리, 오후의 산책</h3><p class="description">익숙한 이름 속에 숨어 있는 낯선 순간.<br>잠깐 멈춰 도시의 일상을 바라봐요.</p></div></article>
+<article class="stop"><div class="photo_wrap"><img src="https://images.unsplash.com/photo-1519558260268-cde7e03a0152?auto=format&fit=crop&w=900&q=85" alt="물길과 오래된 건물이 어우러진 풍경" loading="lazy"><span class="number">04</span></div><div class="stop_info"><div class="place_meta"><span>ITALY</span><span>물길을 따라서</span></div><h3>베네치아, 물 위의 시간</h3><p class="description">작은 다리 너머로 이어지는 이야기.<br>발걸음 대신 물결의 속도를 따라가요.</p></div></article>
+<article class="stop"><div class="photo_wrap"><img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?auto=format&fit=crop&w=900&q=85" alt="하얀 건물과 푸른 바다가 펼쳐진 풍경" loading="lazy"><span class="number">05</span></div><div class="stop_info"><div class="place_meta"><span>GREECE</span><span>푸른빛의 쉼표</span></div><h3>산토리니, 바람의 색</h3><p class="description">하얀 벽에 기대어 바라보는 푸른 바다.<br>아무것도 하지 않는 순간도 여행이에요.</p></div></article>
+<article class="stop"><div class="photo_wrap"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=85" alt="산으로 둘러싸인 호수와 자연 풍경" loading="lazy"><span class="number">06</span></div><div class="stop_info"><div class="place_meta"><span>INTO THE NATURE</span><span>다시, 자연으로</span></div><h3>마지막은, 깊은 숨</h3><p class="description">여행 끝에 남는 건 장소보다 마음.<br>다음 길을 위한 여백을 가져가요.</p></div></article>
+</div></div></div></section><!-- //journey -->
+<section class="end"><div class="inner"><span class="eyebrow">THE JOURNEY CONTINUES</span><h2>다음 길은 어디로 이어질까요?</h2><p>점선 끝에 남겨둔 작은 여백.<br>그곳에 당신의 다음 여행을 적어보세요.</p><a class="scroll_link" href="#">처음으로 돌아가기 ↑</a></div></section><!-- //end -->
+</main>
+<footer class="site_footer"><div class="inner footer_inner"><span>느리게, 여행. / SCROLL DRAWING DEMO</span><span>Photos: Unsplash · 여행지와 사진은 분위기 예시입니다.</span></div></footer><!-- //site_footer -->
+<div class="progress" aria-hidden="true"></div>
+<script>
+/* 외부 애니메이션 라이브러리 없이 작동합니다. 사진은 인터넷 연결이 필요합니다. */
+const map = document.querySelector('.route_map');
+const stops = [...document.querySelectorAll('.stop')];
+const svg = document.querySelector('.route_svg');
+const paths = [...svg.querySelectorAll('path')];
+const reveal = document.querySelector('.reveal_line');
+const progressBar = document.querySelector('.progress');
+const planeSvg = document.querySelector('.plane_svg');
+const plane = document.querySelector('.plane_position');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion:reduce)');
+let length = 0, anchors = [], ticking = false;
+const clamp = (value,min,max) => Math.min(max,Math.max(min,value));
+function buildRoute(){
+  const width = map.clientWidth, height = map.clientHeight;
+  svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+  planeSvg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+  const mask = svg.querySelector('mask');
+  mask.setAttribute('x','-10'); mask.setAttribute('y','-10');
+  mask.setAttribute('width',width+20); mask.setAttribute('height',height+20);
+  const points = stops.map(stop => ({x:stop.offsetLeft+stop.offsetWidth/2+map.querySelector('.stops').offsetLeft,y:stop.offsetTop+stop.offsetHeight/2+map.querySelector('.stops').offsetTop}));
+  let d = '', distances = [];
+  if(window.matchMedia('(max-width:760px)').matches){
+    d = `M 16 ${points[0].y} L 16 ${points[5].y}`;
+    distances = points.map(p => p.y-points[0].y);
+  }else{
+    const left = 24, right = width-24;
+    const y1 = points[0].y, y2 = points[2].y, y3 = points[4].y;
+    const bend = (y2-y1)*.46;
+    // 완만한 곡선을 큰 곡률의 굽이로 연결합니다.
+    d = `M ${points[0].x} ${y1}
+      C ${width*.48} ${y1-32}, ${right} ${y1-32}, ${right} ${y1+bend}
+      C ${right} ${y2+32}, ${width*.65} ${y2+32}, ${width*.5} ${y2}
+      C ${width*.32} ${y2-32}, ${left} ${y2-32}, ${left} ${y2+bend}
+      C ${left} ${y3+32}, ${width*.5} ${y3+32}, ${points[5].x} ${y3}`;
+  }
+  paths.forEach(path => path.setAttribute('d',d));
+  length = reveal.getTotalLength();
+  // 각 여행지 중심에 가장 가까운 경로 위치를 구합니다.
+  if(!distances.length){distances = points.map(point => {let best=0,bestDist=Infinity;for(let s=0;s<=length;s+=3){const p=reveal.getPointAtLength(s);const distance=Math.hypot(p.x-point.x,p.y-point.y);if(distance<bestDist){bestDist=distance;best=s}}return best})}
+  anchors = points.map((point,i) => ({y:point.y,s:distances[i]}));
+  reveal.style.strokeDasharray = String(length);
+  updateRoute();
+}
+function updateRoute(){
+  // 타이밍 수정: 화면 높이의 55% 지점에서 진행하고, 같은 줄은 240px 스크롤로 연결합니다.
+  const rect=map.getBoundingClientRect();
+  const guide=window.innerHeight*.55-rect.top;
+  const mobile=window.matchMedia('(max-width:760px)').matches;
+  const keys=anchors.map((a,i)=>({y:a.y+(mobile?0:(i%2?120:-120)),s:a.s}));
+  let drawn=0;
+  if(keys.length){
+    if(guide>=keys[keys.length-1].y) drawn=length;
+    else for(let i=0;i<keys.length-1;i++){if(guide>=keys[i].y && guide<keys[i+1].y){const t=clamp((guide-keys[i].y)/(keys[i+1].y-keys[i].y),0,1);drawn=keys[i].s+(keys[i+1].s-keys[i].s)*t;break}}
+  }
+  reveal.style.strokeDashoffset=String(length-drawn);
+  // 점선과 비행기는 같은 경로와 진행 길이(drawn)를 공유합니다.
+  const position = reveal.getPointAtLength(drawn);
+  const before = reveal.getPointAtLength(Math.max(0,drawn-2));
+  const after = reveal.getPointAtLength(Math.min(length,drawn+2));
+  const angle = Math.atan2(after.y-before.y,after.x-before.x)*180/Math.PI;
+  const size = mobile ? 1.1 : 1.4;
+  plane.setAttribute('transform',`translate(${position.x} ${position.y}) rotate(${angle}) scale(${size})`);
+  plane.style.visibility = guide >= keys[0].y-80 ? 'visible' : 'hidden';
+  stops.forEach((stop,i)=>{
+    stop.classList.toggle('is_reached',guide>=keys[i].y);
+    // 경로상 도착 지점 90px 전부터 여행지 전체를 나타냅니다.
+    const approaching = i === 0 ? guide >= keys[0].y-80 : drawn >= Math.max(0,anchors[i].s-90);
+    stop.classList.toggle('is_visible',reducedMotion.matches || approaching);
+  });
+  const scrollable=document.documentElement.scrollHeight-window.innerHeight;
+  progressBar.style.width=`${scrollable>0?clamp(window.scrollY/scrollable,0,1)*100:0}%`;
+  ticking=false;
+}
+window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(updateRoute)}},{passive:true});
+window.addEventListener('resize',buildRoute);
+window.addEventListener('load',buildRoute);
+buildRoute();
+document.body.classList.add('motion_ready');
+</script>
+</body>
+</html>

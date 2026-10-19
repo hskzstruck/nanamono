@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>개발자 도구 1</title><style>
+:root{--bg:#fff;--fg:#222;--line:#ddd;--muted:#666;--accent:#c9733a;--code:#f4eee7;--teacher:#f7f3ee}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1c1a18;--fg:#eee;--line:#444;--muted:#aaa;--code:#2c2824;--teacher:#25221f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.75}
+main{max-width:960px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:26px;margin:0 0 16px;padding-bottom:12px;border-bottom:3px solid var(--accent)}
+h2{font-size:19px;margin:36px 0 12px;color:var(--accent)}
+.prep{background:var(--code);border-radius:8px;padding:12px 16px;margin:0 0 8px}
+.q{display:flex;gap:12px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0;break-inside:avoid}
+.q .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;text-align:center;line-height:30px}
+.q .t{flex:1;min-width:0}
+.shots{display:flex;flex-wrap:wrap;align-items:center;gap:12px 28px;margin-top:12px}
+.shot{margin:0;display:flex;align-items:center;gap:12px}
+
+.shot img{display:block;max-width:100%;height:auto}
+.shot.wide{flex-direction:column;align-items:center;gap:6px}
+.shot.wide figcaption{text-align:center;width:100%}
+.shot.bd img{border:1px solid var(--line);border-radius:10px}
+.shot figcaption{font-size:14px;color:var(--muted)}
+code{background:var(--code);padding:1px 6px;border-radius:4px;font-size:.92em}
+@media print{.q{border-color:#999}}
+</style></head><body><main>
+<h1>개발자 도구 1</h1>
+<p class="prep"><strong>준비:</strong> Live Server로 사이트를 열고 <code>F12</code>로 개발자도구를 켠다. VSCode에서 같은 폴더를 연다. DevTools에서 확인·수정한 내용은 VSCode의 CSS와 HTML에도 반영한다.</p>
+<div class="q"><span class="n">1</span><div class="t">브라우저 탭에 SOLEIL 파비콘(<code>images/favicon.png</code>)이 나오게 하려고 했는데, 실제로는 안 나온다. 파비콘을 연결한다.<!-- 스크린샷 삽입 위치: 문제 1 --></div></div>
+<div class="q"><span class="n">2</span><div class="t">헤더의 로고 이미지(<code>images/logo.png</code>)가 나오게 하려고 했는데, 실제로는 이미지 대신 대체 텍스트 "SOLEIL"만 작은 글씨로 보인다. 원인을 파악하고 수정한다.</div></div>
+<div class="q"><span class="n">3</span><div class="t">메인 배너 제목("가을, 가장 나다운 스타일")의 글자 크기를 <code>48px</code>로 하려고 했는데, 실제로는 <code>40px</code>로 구현되었다. <code>48px</code>로 변경한다.</div></div>
+<div class="q"><span class="n">4</span><div class="t">각 섹션 제목("카테고리", "베스트 상품" 등)에 눈누의 지마켓 산스 Bold 웹폰트가 적용되도록 <code>font-family: "GmarketSansBold"</code>를 넣었는데, 실제로는 기본 글꼴로 구현되었다. 원인을 파악하고 웹폰트를 연결한다.<!-- 스크린샷 삽입 위치: 문제 4 --></div></div>
+<div class="q"><span class="n">5</span><div class="t">카테고리 카드에 마우스를 올렸을 때 사진 밝기 <code>brightness(0.75)</code>, 이름이 위로 올라가는 높이 <code>30px</code>로 하려고 했는데, 실제로는 <code>brightness(0.5)</code>, <code>12px</code>로 구현되었다. 변경한다.<!-- 스크린샷 삽입 위치: 문제 5 --></div></div>
+<div class="q"><span class="n">6</span><div class="t">베스트 상품명을 회색(<code>#666</code>)으로 하려고 <code>.product .info strong</code>에 <code>color: #666</code>을 넣었는데, 실제로는 검정(<code>#111</code>)으로 구현되었다. 원인을 파악하고 수정한다.</div></div>
+<div class="q"><span class="n">7</span><div class="t">"시즌 오프" 서브배너의 높이를 <code>540px</code>로 하려고 했는데, 실제로는 <code>640px</code>로 구현되었다. <code>540px</code>로 변경한다.<!-- 스크린샷 삽입 위치: 문제 7 --></div></div>
+<div class="q"><span class="n">8</span><div class="t">신상품 카드 사이의 간격을 <code>28px</code>로 하려고 했는데, 실제로는 <code>16px</code>로 구현되었다. <code>28px</code>로 변경한다.</div></div>
+<div class="q"><span class="n">9</span><div class="t">기획전 카드의 모서리 둥글기를 <code>14px</code>로 하려고 했는데, 실제로는 <code>4px</code>로 구현되었다. <code>14px</code>로 변경한다.<!-- 스크린샷 삽입 위치: 문제 9 --></div></div>
+<div class="q"><span class="n">10</span><div class="t">혜택 박스의 위아래 안쪽 여백을 <code>40px</code>로 하려고 했는데, 실제로는 <code>24px</code>로 구현되었다. <code>40px</code>로 변경한다.</div></div>
+<div class="q"><span class="n">11</span><div class="t">리뷰 카드 사진의 높이를 <code>260px</code>로 하려고 했는데, 실제로는 <code>200px</code>로 구현되었다. <code>260px</code>로 변경한다.<!-- 스크린샷 삽입 위치: 문제 11 --></div></div>
+<div class="q"><span class="n">12</span><div class="t">공지사항 게시판 한 줄의 위아래 안쪽 여백을 <code>18px</code>로 하려고 했는데, 실제로는 <code>10px</code>로 구현되었다. <code>18px</code>로 변경한다.</div></div>
+<div class="q"><span class="n">13</span><div class="t">태블릿(<code>1024px</code> 이하)에서 리뷰 카드가 한 줄에 <code>2</code>개씩 나오도록 하려고 했는데, 실제로는 한 줄에 <code>3</code>개씩 나온다. 한 줄에 <code>2</code>개씩 나오도록 수정한다.<!-- 스크린샷 삽입 위치: 문제 13 --></div></div>
+<div class="q"><span class="n">14</span><div class="t">화면 폭이 <code>600px</code> 이하일 때 모바일 레이아웃(카드 1열 배치 등)으로 바뀌도록 <code>@media (max-width: 600px)</code>로 하려고 했는데, 실제로는 <code>900px</code> 이하에서 바뀌는 것으로 구현되었다. <code>600px</code>로 변경한다.<!-- 스크린샷 삽입 위치: 문제 14 --></div></div>
+<div class="q"><span class="n">15</span><div class="t">태블릿·모바일(<code>1024px</code> 이하)에서 카테고리 이름이 호버 효과 없이 사진 위 가로·세로 정가운데에 나오도록 <code>@media (max-width: 1024px)</code> 안에 <code>.cate_name</code>의 <code>left: 50%</code>, <code>top: 50%</code> 등을 넣었는데, 실제로는 이름이 왼쪽 아래에서 위치가 바뀌지 않는다. 원인을 파악하고 수정한다.<!-- 스크린샷 삽입 위치: 문제 15 --></div></div>
+<div class="q"><span class="n">16</span><div class="t">모바일(<code>600px</code> 이하)에서 "솔레이 혜택"의 카드(무료배송, 7일 교환·반품, 최대 5% 적립, 1:1 고객 상담)가 한 줄에 <code>1</code>개씩 나오도록 하려고 했는데, 실제로는 한 줄에 <code>2</code>개씩 나온다. 한 줄에 <code>1</code>개씩 나오도록 수정한다.<!-- 스크린샷 삽입 위치: 문제 16 --></div></div>
+</main></body></html>

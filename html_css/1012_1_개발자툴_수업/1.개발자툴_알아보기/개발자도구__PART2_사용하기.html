@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>크롬 개발자도구 요약 ② 각 부분 사용하기</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --accent3: #d97706;
+      --mono: "JetBrains Mono", "Noto Sans KR", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    #wrap {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: var(--accent);
+      padding: 48px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+      padding: 0 24px 80px;
+    }
+
+    .toc {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      border-bottom: 2px solid var(--border);
+      padding: 24px;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .toc_title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .toc_list {
+      list-style: none;
+    }
+
+    .toc_list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 6px 0;
+    }
+
+    .toc_list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc_num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      min-width: 36px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section_header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section_num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .section_title {
+      font-size: 18px;
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    .sub_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 28px 0 12px;
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+      line-height: 1.4;
+    }
+
+    .intro {
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .card_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      font-size: 16px;
+      color: var(--muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.7;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .card li strong {
+      color: var(--text);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 10px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .step_num {
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step_body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .step_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step_desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .step_desc strong {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .sub_steps {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+
+    .sub_step {
+      background: var(--bg2);
+      border-left: 3px solid var(--accent);
+      padding: 8px 12px;
+      border-radius: 0;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .sub_step strong {
+      color: var(--text);
+    }
+
+    .code_block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin: 12px 0;
+      font-family: var(--mono);
+      font-size: 16px;
+      line-height: 1.9;
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code_block .cm {
+      color: #94a3b8;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 15px;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 1px 8px;
+      border-radius: 4px;
+    }
+
+    .tag.blue {
+      background: #e8f0fe;
+      color: var(--accent);
+    }
+
+    .tag.green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.amber {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .tag.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .key {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 15px;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-bottom-width: 3px;
+      border-radius: 5px;
+      padding: 0 8px;
+      color: var(--text);
+    }
+
+    .info_box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 14px 0;
+      font-size: 16px;
+      line-height: 1.7;
+      align-items: flex-start;
+    }
+
+    .info_box>span:last-child {
+      min-width: 0;
+    }
+
+    .info_box.tip {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .info_box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info_box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info_box.danger {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    .info_icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .tbl_wrap {
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    table.tbl {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      font-size: 16px;
+    }
+
+    table.tbl th,
+    table.tbl td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    table.tbl th {
+      background: var(--bg2);
+      font-weight: 700;
+    }
+
+    /* ---------- 예시 이미지(개발자도구 모형) ---------- */
+    .shot {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+
+    .shot_scroll {
+      overflow-x: auto;
+    }
+
+    .shot_in {
+      min-width: 520px;
+    }
+
+    .shot_label {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .shot_cap {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .legend {
+      list-style: none;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+
+    .legend li {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .legend li>span:last-child {
+      min-width: 0;
+    }
+
+    .co {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent3);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .dt_panel {
+      background: #fff;
+      border: 1px solid #c8cfdc;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.8;
+      color: #1f2430;
+      overflow: hidden;
+    }
+
+    .dt_tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #edf2fa;
+      border-bottom: 1px solid #c8cfdc;
+      padding: 0 8px;
+    }
+
+    .dt_tab {
+      padding: 4px 10px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: #4b5365;
+      white-space: nowrap;
+    }
+
+    .dt_tab.on {
+      color: var(--accent);
+      font-weight: 700;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .dt_icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      color: #4b5365;
+      border-radius: 4px;
+    }
+
+    .dt_icon.on {
+      background: #cfe0fc;
+      color: var(--accent);
+    }
+
+    .dt_split {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+    }
+
+    .dt_split>div {
+      min-width: 0;
+    }
+
+    .dt_dom {
+      padding: 8px 12px;
+      border-right: 1px solid #c8cfdc;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .dt_dom .sel {
+      background: #cfe0fc;
+      display: block;
+      width: max-content;
+      min-width: calc(100% + 24px);
+      margin: 0 -12px;
+      padding: 0 12px;
+    }
+
+    .dt_tag {
+      color: #8a2a8f;
+    }
+
+    .dt_attr {
+      color: #b8561a;
+    }
+
+    .dt_val {
+      color: #1a56db;
+    }
+
+    .dt_subtabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid #c8cfdc;
+      background: #f6f8fb;
+      padding: 0 8px;
+    }
+
+    .dt_subtabs span {
+      padding: 2px 10px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: #4b5365;
+    }
+
+    .dt_subtabs span.on {
+      color: var(--accent);
+      font-weight: 700;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .dt_filter {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 10px;
+      border-bottom: 1px solid #e3e7ef;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: #6b7385;
+    }
+
+    .dt_filter .box {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #c8cfdc;
+      border-radius: 4px;
+      padding: 0 8px;
+      background: #fff;
+    }
+
+    .dt_filter .hov {
+      font-family: var(--mono);
+      border: 1.5px solid var(--accent3);
+      border-radius: 4px;
+      padding: 0 6px;
+      color: #92400e;
+      background: #fef3c7;
+    }
+
+    .dt_rule {
+      padding: 6px 12px;
+      border-bottom: 1px solid #e3e7ef;
+    }
+
+    .dt_row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .dt_row .src {
+      color: #6b7385;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .dt_row>span:first-child {
+      white-space: nowrap;
+    }
+
+    .dt_in {
+      padding-left: 20px;
+    }
+
+    .dt_p {
+      color: #b3261e;
+    }
+
+    .dt_v {
+      color: #1a56db;
+    }
+
+    .dt_off {
+      text-decoration: line-through;
+      color: #7a828f;
+    }
+
+    .dt_rule.bad {
+      background: #fee2e2;
+    }
+
+    .dt_rule.warn {
+      background: #fef3c7;
+    }
+
+    .dt_rule.dim .dt_in span.mute {
+      color: #9aa3b2;
+    }
+
+    .dt_chk {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid #6b7385;
+      border-radius: 3px;
+      margin-right: 6px;
+      vertical-align: -2px;
+      background: #fff;
+      position: relative;
+    }
+
+    .dt_chk.on::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: -1px;
+      width: 4px;
+      height: 8px;
+      border: solid var(--accent);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+    .dt_chip {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border: 1px solid #6b7385;
+      vertical-align: -1px;
+      margin-right: 4px;
+    }
+
+    .dt_edit {
+      border: 1.5px solid var(--accent);
+      background: #fff;
+      border-radius: 3px;
+      padding: 0 6px;
+      color: #1f2430;
+    }
+
+    .dt_menu {
+      display: inline-block;
+      min-width: 200px;
+      background: #fff;
+      border: 1px solid #c8cfdc;
+      border-radius: 6px;
+      padding: 4px 0;
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .dt_menu div {
+      padding: 3px 16px;
+      color: #1f2430;
+    }
+
+    .dt_menu div.hl {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .dt_menu hr {
+      border: none;
+      border-top: 1px solid #e3e7ef;
+      margin: 4px 0;
+    }
+
+    .page_mock {
+      background: #fff;
+      border: 1px solid #c8cfdc;
+      border-radius: 8px;
+      padding: 18px;
+      font-family: var(--sans);
+    }
+
+    .page_mock .btn_demo {
+      display: inline-block;
+      padding: 8px 22px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .box_model {
+      background: #f9cc9d;
+      border: 1px dashed #c47f2a;
+      padding: 8px 8px 10px;
+      font-family: var(--mono);
+      font-size: 14px;
+      text-align: center;
+      max-width: 360px;
+      margin: 0 auto;
+      color: #3b2a10;
+    }
+
+    .box_model .bm_border {
+      background: #fddd9b;
+      border: 1px solid #c9a23a;
+      padding: 8px;
+    }
+
+    .box_model .bm_padding {
+      background: #c3d08b;
+      border: 1px dashed #7e9142;
+      padding: 8px;
+    }
+
+    .box_model .bm_content {
+      background: #8cb6c0;
+      border: 1px solid #4f8795;
+      padding: 8px 0;
+      color: #12333c;
+    }
+
+    .bm_name {
+      display: block;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .hl_overlay {
+      display: inline-block;
+      position: relative;
+      background: #f9cc9d;
+      padding: 8px;
+    }
+
+    .hl_overlay .in1 {
+      background: #fddd9b;
+      padding: 0;
+    }
+
+    .hl_overlay .in2 {
+      background: #8cb6c0;
+      padding: 8px 22px;
+      color: #12333c;
+      font-weight: 700;
+    }
+
+    .hl_tip {
+      display: inline-block;
+      margin-left: 12px;
+      vertical-align: top;
+      background: #1f2430;
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 14px;
+      border-radius: 4px;
+      padding: 2px 10px;
+    }
+
+    .ladder {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 6px;
+    }
+
+    .ladder_row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ladder_bar {
+      border-radius: 4px;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .ladder_note {
+      font-size: 14px;
+      color: var(--muted);
+      min-width: 0;
+    }
+
+    .vs_row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .vs_row>div {
+      min-width: 0;
+    }
+
+    .net_row {
+      display: grid;
+      grid-template-columns: 1.6fr 0.6fr 0.8fr;
+      gap: 8px;
+      padding: 3px 12px;
+      border-bottom: 1px solid #e3e7ef;
+    }
+
+    .net_row.head {
+      background: #f6f8fb;
+      font-family: var(--sans);
+      font-weight: 700;
+      color: #4b5365;
+    }
+
+    .net_row.err {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .con_row {
+      padding: 4px 12px;
+      border-bottom: 1px solid #e3e7ef;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .con_row.err {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .con_row .src {
+      color: #6b7385;
+      white-space: nowrap;
+    }
+
+    .con_row.err .src {
+      color: #b3261e;
+      text-decoration: underline;
+    }
+
+    .dev_wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 150px;
+      border: 5px solid #1f2430;
+      border-radius: 20px;
+      background: #fff;
+      padding: 12px 10px;
+      font-family: var(--sans);
+      text-align: center;
+    }
+
+    .phone .p_bar {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 4px;
+      font-size: 14px;
+      padding: 2px 0;
+      margin-bottom: 8px;
+    }
+
+    .phone .p_block {
+      background: #e8f0fe;
+      border-radius: 4px;
+      height: 34px;
+      margin-bottom: 6px;
+    }
+
+    .dev_bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 14px;
+      background: #eef1f6;
+      border: 1px solid #c8cfdc;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-family: var(--sans);
+      font-size: 14px;
+      color: #1f2430;
+      margin-bottom: 12px;
+    }
+
+    .dev_bar .dd {
+      background: #fff;
+      border: 1px solid #c8cfdc;
+      border-radius: 4px;
+      padding: 0 8px;
+    }
+
+
+    .cap_area {
+      outline: 2px dashed #dc2626;
+      outline-offset: 4px;
+      border-radius: 6px;
+      margin: 8px 4px 14px;
+    }
+
+    .cap_tip {
+      display: inline-block;
+      background: #1f2430;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      border-radius: 4px;
+      padding: 4px 10px;
+      margin: 0 12px 8px 32px;
+      max-width: calc(100% - 44px);
+    }
+
+    .chat_mock {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .chat_bubble {
+      background: #e8f0fe;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .chat_attach {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 10px;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .chat_attach i {
+      display: inline-block;
+      width: 18px;
+      height: 14px;
+      background: #c3d08b;
+      border-radius: 2px;
+    }
+
+
+    .tr {
+      white-space: pre;
+      padding: 0 12px;
+    }
+
+    .tri {
+      display: inline-block;
+      width: 18px;
+      color: #6b7385;
+    }
+
+    .tr.sel2 {
+      background: #cfe0fc;
+    }
+
+    .tr.sib {
+      background: #fef3c7;
+    }
+
+    .dt_crumb {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      white-space: nowrap;
+      overflow-x: auto;
+      border-top: 1px solid #c8cfdc;
+      background: #f6f8fb;
+      padding: 3px 12px;
+      font-size: 14px;
+    }
+
+    .dt_crumb .now {
+      background: #cfe0fc;
+      border-radius: 3px;
+      padding: 0 6px;
+    }
+
+
+    .shot_in.w600 {
+      min-width: 700px;
+    }
+
+    .shot_in.w600 .dt_split {
+      grid-template-columns: max-content minmax(260px, 1fr);
+    }
+
+    .shot_in.w600 .dt_in,
+    .shot_in.w600 .dt_row {
+      white-space: nowrap;
+    }
+
+    .dt_subtabs span {
+      white-space: nowrap;
+    }
+
+    .dt_subtabs span.co {
+      padding: 0;
+      margin-right: 4px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      align-self: center;
+    }
+
+    .dt_inh {
+      background: #eef1f6;
+      border-bottom: 1px solid #e3e7ef;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      color: #4b5365;
+      padding: 2px 12px;
+    }
+
+
+    .dock_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      padding: 6px 16px;
+      font-family: var(--sans);
+      font-size: 14px;
+    }
+
+    .dock_btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dock_ic {
+      position: relative;
+      width: 34px;
+      height: 26px;
+      border: 1.5px solid #6b7385;
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .dock_ic i {
+      position: absolute;
+      background: #9db8f5;
+    }
+
+    .dock_ic.on {
+      border-color: var(--accent);
+      background: #cfe0fc;
+    }
+
+    .dock_ic.l i { left: 0; top: 0; bottom: 0; width: 12px; }
+    .dock_ic.b i { left: 0; right: 0; bottom: 0; height: 9px; }
+    .dock_ic.r i { right: 0; top: 0; bottom: 0; width: 12px; }
+    .dock_ic.u i { left: 8px; top: 6px; width: 16px; height: 10px; background: #fff; border: 1.5px solid #6b7385; }
+
+
+    .dt_filter .plus {
+      border: 1.5px solid var(--accent3);
+      background: #fef3c7;
+      border-radius: 4px;
+      padding: 0 8px;
+      color: #92400e;
+      font-family: var(--mono);
+      font-weight: 700;
+    }
+
+    .dt_sug {
+      display: inline-block;
+      min-width: 170px;
+      margin: 2px 0 6px 20px;
+      background: #fff;
+      border: 1px solid #c8cfdc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .dt_sug div {
+      padding: 0 10px;
+    }
+
+    .dt_sug .hl {
+      background: var(--accent);
+      color: #fff;
+    }
+
+
+    .click_zone {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px dashed var(--accent3);
+      background: #fef3c7;
+      border-radius: 4px;
+      margin: 2px 0 2px 20px;
+      padding: 0 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      color: #92400e;
+    }
+
+    .click_zone svg {
+      flex-shrink: 0;
+    }
+
+
+    .pick_wrap {
+      position: relative;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .dock_ic {
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .dock_ic.pick {
+      outline: 3px solid #dc2626;
+      outline-offset: 3px;
+    }
+
+    .pick_tag {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-top: 8px;
+      color: #dc2626;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+
+    .real_shot {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .real_shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .real_shot .red_box {
+      position: absolute;
+      border: 3px solid #dc2626;
+      border-radius: 4px;
+    }
+
+    .real_shot .red_box.b1 {
+      left: 90.6%;
+      top: 0.9%;
+      width: 6.65%;
+      height: 23.3%;
+    }
+
+    .real_shot .red_box.b2 {
+      left: 53.5%;
+      top: 36.2%;
+      width: 7.76%;
+      height: 24.1%;
+    }
+
+    .red_note {
+      color: #dc2626;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 8px;
+    }
+
+
+    .dt_icon_img {
+      display: block;
+      height: 31px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .inline_icon {
+      height: 26px;
+      width: auto;
+      vertical-align: middle;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin: 0 2px;
+    }
+
+    .real_shot.icon_shot {
+      width: 102px;
+    }
+
+    .real_shot .red_box.b3 {
+      left: 5.9%;
+      top: 3.2%;
+      width: 38.2%;
+      height: 77.4%;
+    }
+
+
+    .state_row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .state_item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .state_img {
+      width: 50px;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .state_name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .state_name.on {
+      color: var(--accent);
+    }
+
+
+    .shot_in.w600 {
+      min-width: 880px;
+    }
+
+    .dtx_spacer {
+      flex: 1;
+    }
+
+    .dtx_badge {
+      background: #fde7e9;
+      color: #c5221f;
+      border-radius: 10px;
+      padding: 0 8px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    .dtx_dots {
+      color: #4b5365;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 0 6px;
+    }
+
+    .dtx_body {
+      display: grid;
+      grid-template-columns: max-content minmax(320px, 1fr);
+    }
+
+    .dtx_left {
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #c8cfdc;
+      min-width: 0;
+    }
+
+    .dtx_dom {
+      flex: 1;
+      padding: 6px 0;
+      min-width: 360px;
+    }
+
+    .dtx_right {
+      min-width: 0;
+    }
+
+    .dtx_gray {
+      color: #6b7385;
+    }
+
+
+    .icon_pick {
+      display: inline-block;
+      line-height: 0;
+      outline: 3px solid #dc2626;
+      outline-offset: 0;
+      border-radius: 4px;
+    }
+
+
+    #s2 .co {
+      width: 18px;
+      height: 18px;
+    }
+
+    .cb_wrap {
+      position: relative;
+      display: inline-block;
+      line-height: 0;
+      flex-shrink: 0;
+    }
+
+    #s2 .cb_wrap .co {
+      position: absolute;
+      left: -6px;
+      top: 0;
+      z-index: 2;
+    }
+
+    #s2 .dt_tabs>.co {
+      position: relative;
+      z-index: 2;
+      margin-right: -4px;
+    }
+
+    #s2 .dt_subtabs span.co {
+      position: relative;
+      z-index: 2;
+      margin: 0 -6px 0 2px;
+    }
+
+
+    .site_shot {
+      display: block;
+      width: 100%;
+      max-width: 843px;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .hl_chip {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #6b7385;
+      border-radius: 3px;
+      vertical-align: -3px;
+      margin-right: 6px;
+    }
+
+
+    .two_col {
+      display: flex;
+      align-items: stretch;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .two_col>.card,
+    .two_col>.open_group {
+      flex: 1;
+      min-width: 0;
+      margin-bottom: 0;
+    }
+
+    .open_group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .open_group>.card {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 1001px) {
+      .mo_only {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .pc_only {
+        display: none;
+      }
+
+      .two_col {
+        display: block;
+        margin-bottom: 0;
+      }
+
+      .two_col>.card,
+      .open_group>.card {
+        margin-bottom: 14px;
+      }
+
+      .open_group {
+        display: block;
+      }
+    }
+
+    .part_header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      margin-top: 64px;
+      scroll-margin-top: 20px;
+    }
+
+    .part_header:first-child {
+      margin-top: 32px;
+    }
+
+    .part_header+.section {
+      margin-top: 28px;
+    }
+
+    .part_label {
+      font-family: var(--mono);
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.22);
+      padding: 2px 10px;
+      border-radius: 20px;
+      flex-shrink: 0;
+    }
+
+    .part_title {
+      font-size: 20px;
+      font-weight: 700;
+      min-width: 0;
+    }
+
+    .toc_part {
+      margin-top: 12px;
+    }
+
+    .toc_part:first-child {
+      margin-top: 0;
+    }
+
+    .toc_list .toc_part a {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    @media (min-width: 1001px) {
+      .toc {
+        max-height: 100vh;
+        overflow-y: auto;
+      }
+    }
+
+    .small_shot {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .rel_grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .rel_item {
+      flex: 1 1 290px;
+      min-width: 0;
+    }
+
+    .rel_item .dt_panel {
+      overflow-x: auto;
+    }
+
+    .rel_name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tr.has_cursor {
+      position: relative;
+    }
+
+    .cursor_ic {
+      position: absolute;
+      left: 36px;
+      top: 10px;
+      pointer-events: none;
+    }
+
+    .warn_ic {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      vertical-align: -2px;
+      margin-right: 2px;
+      text-decoration: none;
+    }
+
+    .styles_fig .co {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+
+
+
+    .dt_inh_row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #6b7385;
+      font-family: var(--sans);
+      font-size: 14px;
+    }
+
+    .cm_note {
+      color: #92400e;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .dt_in .co,
+    .dt_in .cm_note {
+      vertical-align: middle;
+    }
+
+    .styles_fig .dt_in .co {
+      margin-left: 8px;
+    }
+
+    .dt_row.cm_host {
+      position: relative;
+    }
+
+    .cm_under {
+      position: absolute;
+      right: 0;
+      top: 100%;
+      margin-top: 2px;
+      z-index: 3;
+    }
+
+    .cm_under .cm_note {
+      display: inline-block;
+      margin-left: 0;
+      text-align: right;
+    }
+
+    .styles_fig .shot_in {
+      min-width: 0;
+    }
+
+    .styles_fig .dt_panel {
+      max-width: 620px;
+    }
+
+    .styles_fig .cm_note {
+      white-space: normal;
+      max-width: 340px;
+      line-height: 1.45;
+    }
+
+    .co+.cm_note {
+      margin-left: 6px;
+    }
+
+    .styles_fig .dt_row.cm_flow {
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .styles_fig .dt_row.cm_flow>.co {
+      margin-left: 8px;
+    }
+
+    .styles_fig .dt_in.cm_line {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .styles_fig .dt_in.cm_line .co {
+      margin-left: 4px;
+    }
+
+    .styles_fig .dt_inh_row {
+      flex-wrap: wrap;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .dt_row.cm_host {
+        flex-wrap: wrap;
+      }
+
+      .cm_under {
+        position: static;
+        flex-basis: 100%;
+        text-align: right;
+        margin: 4px 0 2px;
+      }
+    }
+
+    .top_btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--sans);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 50;
+    }
+
+    .top_btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 1000px) {
+      .hero {
+        padding: 32px 24px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .flex_box {
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 0;
+        padding: 0 16px 80px;
+      }
+
+      .toc {
+        width: 100%;
+        position: static;
+        margin: 0 -16px;
+        width: calc(100% + 32px);
+      }
+
+      .section_title {
+        font-size: 18px;
+      }
+
+      .vs_row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    @media (max-width: 600px) {
+      .step {
+        padding: 14px;
+        gap: 10px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .code_block {
+        font-size: 15px;
+        padding: 12px;
+      }
+
+      .shot {
+        padding: 10px;
+      }
+
+      .top_btn {
+        right: 14px;
+        bottom: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="wrap">
+<div class="hero">
+<h1>크롬 개발자도구 요약 ② 각 부분 사용하기</h1>
+</div>
+<div class="flex_box">
+<div class="toc">
+<div class="toc_title">목차</div>
+<ul class="toc_list"><li class="toc_part"><a href="#p2">PART 2 · 각 부분 사용하기</a></li><li><a href="#s3"><span class="toc_num">03</span> HTML 구조 읽기</a></li><li><a href="#s4"><span class="toc_num">04</span> 요소 선택하기</a></li><li><a href="#s5"><span class="toc_num">05</span> HTML 수정하기</a></li><li><a href="#s6"><span class="toc_num">06</span><span>Styles 읽기 <span style="color: #dc2626; font-weight: 700">- 내가 쓴 CSS 중 일부만 안 먹을 때 참조</span></span></a></li><li><a href="#s7" style="color: #dc2626; font-weight: 700"><span class="toc_num">07</span> Styles 수정하기</a></li><li><a href="#s8" style="color: #dc2626; font-weight: 700"><span class="toc_num">08</span> Computed (고칠 곳 찾기 — 여백·글씨 등)</a></li><li><a href="#s9"><span class="toc_num">09</span> Console / Network</a></li></ul>
+</div>
+<div class="content"><div class="part_header" id="p2"><span class="part_label">PART 2</span><span class="part_title">각 부분 사용하기</span></div><div class="section" id="s3"><div class="section_header"><span class="section_num">03</span><span class="section_title">HTML 구조 읽기</span></div><div class="shot">
+<span class="shot_label">예시 이미지 · HTML 구조 (h2를 선택한 상태)</span>
+<div class="shot_scroll" style="overflow: hidden">
+<div class="shot_in">
+<div class="dt_panel">
+<div style="padding: 8px 0">
+<div class="tr"><span class="tri">▼</span><span class="dt_tag">&lt;body&gt;</span></div>
+<div class="tr" style="padding-left: 30px"><span class="co">1</span> <span class="tri">▼</span><span class="dt_tag">&lt;div</span> <span class="dt_attr">class</span>=<span class="dt_val">"box"</span><span class="dt_tag">&gt;</span></div>
+<div class="tr sel2" style="padding-left: 66px"><span class="co">3</span> <span class="tri"></span><span class="dt_tag">&lt;h2&gt;</span>제목<span class="dt_tag">&lt;/h2&gt;</span></div>
+<div class="tr sib" style="padding-left: 66px"><span class="co" style="visibility:hidden">3</span> <span class="tri"></span><span class="dt_tag">&lt;p&gt;</span>설명<span class="dt_tag">&lt;/p&gt;</span></div>
+<div class="tr sib" style="padding-left: 66px"><span class="co">2</span> <span class="tri">▶</span><span class="dt_tag">&lt;ul&gt;</span> … <span class="dt_tag">&lt;/ul&gt;</span></div>
+<div class="tr" style="padding-left: 30px"><span class="tri"></span><span class="dt_tag">&lt;/div&gt;</span></div>
+<div class="tr" style="padding-left: 30px"><span class="tri">▶</span><span class="dt_tag">&lt;footer&gt;</span> … <span class="dt_tag">&lt;/footer&gt;</span></div>
+<div class="tr"><span class="tri"></span><span class="dt_tag">&lt;/body&gt;</span></div>
+</div>
+<div class="dt_crumb"><span class="co">4</span><span>html</span> <span>›</span> <span>body</span> <span>›</span> <span>div.box</span> <span>›</span> <span class="now">h2</span></div>
+</div>
+</div>
+</div>
+<ul class="legend">
+<li><span class="co">1</span><span><strong>▼ (아래 삼각형)</strong> — 펼쳐져 있다는 뜻. 안에 자식 요소들이 보여요. 클릭하면 접혀요.</span></li>
+<li><span class="co">2</span><span><strong>▶ (오른쪽 삼각형)</strong> — 접혀 있다는 뜻. 안에 자식이 있는데 <code>…</code>로 숨겨져 있어요. 클릭하면 펼쳐져요.</span></li>
+<li><span class="co">3</span><span><strong>삼각형이 없는 줄</strong> — 자식 요소가 없어요. 글자만 있거나(<code>&lt;h2&gt;제목&lt;/h2&gt;</code>), <code>&lt;img&gt;</code>처럼 안이 비어 있는 태그예요.</span></li>
+<li><span class="co">4</span><span><strong>맨 아래 경로 표시줄</strong> — 선택한 요소의 부모를 따라 올라간 경로예요.</span></li>
+</ul>
+</div><div class="steps">
+<div class="step">
+<div class="step_num">1</div>
+<div class="step_body">
+<div class="step_title">펼치기 / 접기 요령</div>
+<div class="step_desc">
+<div class="sub_steps">
+<div class="sub_step"><strong>삼각형 클릭</strong> — 해당 요소 하나만 펼치기/접기</div>
+<div class="sub_step"><span class="key">↑</span> <span class="key">↓</span> — 위아래 요소로 선택 이동   <span class="key">←</span> <span class="key">→</span> — 접기/펼치기</div>
+</div>
+</div>
+</div>
+</div><div class="step">
+<div class="step_num">2</div>
+<div class="step_body">
+<div class="step_title">태그의 관계 확인하기</div>
+<div class="shot" style="margin: 10px 0 12px">
+<span class="shot_label">예시 이미지 · 삼각형을 눌러 펼치기</span>
+<div class="rel_grid">
+<div class="rel_item">
+<div class="rel_name">접힌 상태 (▶)</div>
+<div class="dt_panel">
+<div style="padding: 8px 0">
+<div class="tr"><span class="tri">▼</span><span class="dt_tag">&lt;body&gt;</span></div>
+<div class="tr sel2 has_cursor" style="padding-left: 30px"><span class="tri">▶</span><span class="dt_tag">&lt;div</span> <span class="dt_attr">class</span>=<span class="dt_val">"box"</span><span class="dt_tag">&gt;</span> … <span class="dt_tag">&lt;/div&gt;</span><svg aria-hidden="true" class="cursor_ic" height="22" viewbox="0 0 18 22" width="18"><path d="M3 2v15l4-4 3 7 2.5-1-3-7h5.5z" fill="#fff" stroke="#111" stroke-linejoin="round" stroke-width="1.4"></path></svg></div>
+<div class="tr"><span class="tri"></span><span class="dt_tag">&lt;/body&gt;</span></div>
+</div>
+</div>
+</div>
+<div class="rel_item">
+<div class="rel_name">펼친 상태 (▼)</div>
+<div class="dt_panel">
+<div style="padding: 8px 0">
+<div class="tr"><span class="tri">▼</span><span class="dt_tag">&lt;body&gt;</span></div>
+<div class="tr sel2" style="padding-left: 30px"><span class="tri">▼</span><span class="dt_tag">&lt;div</span> <span class="dt_attr">class</span>=<span class="dt_val">"box"</span><span class="dt_tag">&gt;</span></div>
+<div class="tr sib" style="padding-left: 48px"><span class="tri"></span><span class="dt_tag">&lt;h2&gt;</span>제목<span class="dt_tag">&lt;/h2&gt;</span></div>
+<div class="tr sib" style="padding-left: 48px"><span class="tri"></span><span class="dt_tag">&lt;p&gt;</span>설명<span class="dt_tag">&lt;/p&gt;</span></div>
+<div class="tr sib" style="padding-left: 48px"><span class="tri">▶</span><span class="dt_tag">&lt;ul&gt;</span> … <span class="dt_tag">&lt;/ul&gt;</span></div>
+<div class="tr" style="padding-left: 30px"><span class="tri"></span><span class="dt_tag">&lt;/div&gt;</span></div>
+<div class="tr"><span class="tri"></span><span class="dt_tag">&lt;/body&gt;</span></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="step_desc"><strong>부모</strong> <span class="tag blue">div.box</span> → <strong>자식</strong> <span class="tag blue">h2</span> <span class="tag blue">p</span> <span class="tag blue">ul</span> → 자식끼리는 <strong>형제</strong> (들여쓰기가 같은 줄)</div>
+</div>
+</div></div></div><div class="section" id="s4"><div class="section_header"><span class="section_num">04</span><span class="section_title">요소 선택하기</span></div><div class="sub_title">요소 고르는 방법 2가지</div><div style="margin-bottom: 14px">
+<img alt="화면에서 요소가 선택되어 색으로 강조된 모습" class="site_shot" src="data:image/png;base64,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" style="margin-top: 0"/>
+<div class="shot_cap">화면상에서 선택되어 강조되어 있는 상태</div>
+</div><div class="steps">
+<div class="step">
+<div class="step_num">1</div>
+<div class="step_body">
+<div class="step_title">화면에서 직접 클릭 (추천)</div>
+<div class="step_desc">요소 선택 아이콘이 <strong>켜져 있는지</strong> 확인하고, 꺼져 있으면 클릭해요. (<span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">C</span>)</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 요소 선택 아이콘</span>
+<div class="shot_scroll" style="overflow: hidden">
+<div class="shot_in w600" style="min-width: 0">
+<div class="dt_panel">
+<div class="dt_tabs">
+<span class="icon_pick"><img alt="요소 선택 아이콘 (빨간 네모)" class="dt_icon_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAfCAYAAABplKSyAAACtElEQVR42u3WXUhTYRzH8e/aVM4WDMZedBPd8SXR7M7Cqwi6j8AKCoIgvOlKKiqGxmyp9Er3XURBjrRB1EUIhhUSU2faNtudOt9ym2du4jRNWTcmhG6zk6SBz825eP7PeT7nnN//4SikueUkOzz2sQvGHuKPEbPRKABz8RiBIR+h0DQAUUkiMOQjKkkAhELTBIZ8zMVjAMRjs3+PWFr6ju1aHS+czwDw+7w47Da6OjsA6HF347Db6HF3A9DV2YHDbsPv8wLgfP6U+huX+bG8LB8RlSQEQSDPbAFAq9VSXlGJwWgCQKfTU15RiU6nB8BgNFFeUYlWqwUgz2whJycHSZpJuYfiv2jRRGKewJCPqckJWRt4et242p1EImH5iLHRERx2G69fvZSH6HPjamtlJhxKWaPKdBO90UTNmXMUFoqyEFWHqzEYTejXMrRrM5HxTUQiYT6+f0dhoUjVkeoN88+ePCY4Opxxo/MXarGKRfIQM+EQrrZWjh47vikiODpM4Ks/I2JxIfFvMmHKzeNi7SWUSuWGuQKrKB9hMBipOX2WrdSFpr/R8fYNdVdtm0Jkt2gkEsbV7sTT605bd+V6A1axmH5PL4/uN7O6urp9iF+Z8PSlQCgUAKg1Ghoam7GKRfR7enl4t4mVlZXtQRRYRRrszZw4eWrzgmRy7ZJEENTU25sRi0oY+Ny3ZUhGhEazn/KDhzBb8rf0VGq1hnp7E1axiMEBD/dabmWEZETMRqO/ZWJ8LIir3YnfO5hyjSCoaWhsoaS0DJ93gAd3bqeFZESoNWo+dX9Yz8T4WBBXWyt+35e06wRBje2mg+KSA6iyVOufTfaxnUjME4/FMFvymYvHmJwYR6c3YDLlMjoyzOJCgpLSMrKyszceUosLZGfnpG1Zxd4v/x5iD7GbEaqpuHLHET8BlHgW42nbCUcAAAAASUVORK5CYII="/></span><img alt="기기 툴바 아이콘" class="dt_icon_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAfCAYAAABtYXSPAAABDUlEQVR42mN8++nXf4ZBApgYBhEYdcyoY0gFLKRqOHxwH8PqFUsY3rx5TZaFtQ1tDJrautRxzMJ5sxi+ffs6OELm27evDCIiogyTps8beMcQC75//8bw4P49Bob/qGUqDy8fg6ycPH0dU16UgzNdZeUVM9jYOtDPMW/evGZgZWVlUFFVh4t9+PCe4fmzpwwvXzynb8gwMDAw8PMLMNQ2tsP5hw7sZZgxdcJooTfqmBFcN12/epnh2rUrSKXwN4a1q5djqNPS0kGpd9DVPbh/l3LHXLt2hWHtqmUoVQIyHw7CouCOYWRkxKmOkd7RpKWjh1WcmZkZZ63NONogH3XMqGNGHTOi6qZnH5kHjWMANghemurNZi0AAAAASUVORK5CYII="/>
+<span class="dt_tab on">Elements</span>
+<span class="dt_tab">Console</span>
+<span class="dt_tab">Sources</span>
+<span class="dt_tab">Network</span>
+<span class="dt_tab">Performance</span>
+<span class="dt_tab">Application</span>
+<span class="dt_tab">»</span>
+<span class="dtx_spacer"></span>
+<span class="dtx_badge">✖ 1</span>
+<span class="dt_icon" title="설정"><svg aria-hidden="true" height="18" viewbox="0 0 18 18" width="18"><circle cx="9" cy="9" fill="none" r="3" stroke="#4b5365" stroke-width="1.6"></circle><g stroke="#4b5365" stroke-linecap="round" stroke-width="2.2"><path d="M9 1.5v2M9 14.5v2M1.5 9h2M14.5 9h2M3.7 3.7l1.4 1.4M12.9 12.9l1.4 1.4M3.7 14.3l1.4-1.4M12.9 5.1l1.4-1.4"></path></g></svg></span>
+<span class="dtx_dots">⋮</span>
+</div>
+</div>
+</div>
+</div>
+<div class="red_note">현재 꺼진 상태예요. 이때 아이콘을 클릭해서 파랗게 만들거나, <span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">C</span>를 눌러 켜주세요.</div>
+<div class="state_row">
+<div class="state_item"><img alt="요소 선택 아이콘 꺼진 상태" class="state_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAfCAYAAABplKSyAAACtElEQVR42u3WXUhTYRzH8e/aVM4WDMZedBPd8SXR7M7Cqwi6j8AKCoIgvOlKKiqGxmyp9Er3XURBjrRB1EUIhhUSU2faNtudOt9ym2du4jRNWTcmhG6zk6SBz825eP7PeT7nnN//4SikueUkOzz2sQvGHuKPEbPRKABz8RiBIR+h0DQAUUkiMOQjKkkAhELTBIZ8zMVjAMRjs3+PWFr6ju1aHS+czwDw+7w47Da6OjsA6HF347Db6HF3A9DV2YHDbsPv8wLgfP6U+huX+bG8LB8RlSQEQSDPbAFAq9VSXlGJwWgCQKfTU15RiU6nB8BgNFFeUYlWqwUgz2whJycHSZpJuYfiv2jRRGKewJCPqckJWRt4et242p1EImH5iLHRERx2G69fvZSH6HPjamtlJhxKWaPKdBO90UTNmXMUFoqyEFWHqzEYTejXMrRrM5HxTUQiYT6+f0dhoUjVkeoN88+ePCY4Opxxo/MXarGKRfIQM+EQrrZWjh47vikiODpM4Ks/I2JxIfFvMmHKzeNi7SWUSuWGuQKrKB9hMBipOX2WrdSFpr/R8fYNdVdtm0Jkt2gkEsbV7sTT605bd+V6A1axmH5PL4/uN7O6urp9iF+Z8PSlQCgUAKg1Ghoam7GKRfR7enl4t4mVlZXtQRRYRRrszZw4eWrzgmRy7ZJEENTU25sRi0oY+Ny3ZUhGhEazn/KDhzBb8rf0VGq1hnp7E1axiMEBD/dabmWEZETMRqO/ZWJ8LIir3YnfO5hyjSCoaWhsoaS0DJ93gAd3bqeFZESoNWo+dX9Yz8T4WBBXWyt+35e06wRBje2mg+KSA6iyVOufTfaxnUjME4/FMFvymYvHmJwYR6c3YDLlMjoyzOJCgpLSMrKyszceUosLZGfnpG1Zxd4v/x5iD7GbEaqpuHLHET8BlHgW42nbCUcAAAAASUVORK5CYII="/><span class="state_name">꺼진 상태 (회색)</span></div>
+<div class="state_item"><img alt="요소 선택 아이콘 켜진 상태" class="state_img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAdCAYAAADPa766AAACa0lEQVR42u2Xz0sUYRjHP+84o1tu4iZik9thT/6ggsBzhz128FpEp9WLRBQduvUHdIgoiIVoPUTWxVMQEcIUdkhROgT+2LL1kLJu5q6uC207P94OLwahszvqEgo+lzl8h5fPPO9nnndGrBUrkgNQGgekjkAOL8iPorrmS5LpRY+lgnI7twHTix65DZUvFVSeL6l8rSTrA/LLllx+XOHRmA3AZEaSSNmMTnkAjM24JFI2YzMuAKNTHomUzWRGATx463AlWaFi7xMktwHNIUGsXQDQ1gx9MY1oROUdLYK+mEZHi8qjEZW3Nas81i443ihYKQbrjDjwc2SzrPZ8cXVvnNacR9JyWV6X+wNJZ5UTqXFnbyCzLknLIVsIBqL7BWZEMBTX6TLFnkDivQ10RjTMiDhcjvh2ZHld8uqTR5cpiPds38F7rx3SK7Wf4c4lne4AXfUFyRYkScuh/4K2I0h6Rclcq0plCYj/48iZk4K7/Tp6w/YsqGO+IJ2tgqF4Q80FOlsF3/OSlxMu968a6Fqd58jyuiRpuVhz1dv/8JpBjyl4N+9x+4WN49UZZMsRa9atukA4JEgNGnSbgvfzHrdGHBy3jiBdpmB4wGDgol51AYkk3KTu7T0tGE+73Byxdw3jC3IipA61rUOvVoVDgqcDqjMfvnhcf7Y7GF+Q1SL/OLKQU85MLPhLEG4SDA8anItqfPzmceN5cBhfkPAxyZvP7l9HvuaUMxOZ6kMs3CR4ktA5G9Vo1MELOLerjvjNsuTnpvq2yJckmVXJqVZBNCKYz0pKZcn5qEajscMg+y0JGSLw6yyO/muOQA4LyB9NKA1es0fVewAAAABJRU5ErkJggg=="/><span class="state_name on">켜진 상태 (파란색)</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">2</div>
+<div class="step_body">
+<div class="step_title">개발자툴 HTML 구조에서 클릭</div>
+<div class="step_desc">HTML 구조에서 태그를 클릭하면 화면에서 그 요소가 선택돼요. 얇은 요소를 고를 때 편해요.</div>
+</div>
+</div>
+</div></div><div class="section" id="s5"><div class="section_header"><span class="section_num">05</span><span class="section_title">HTML 수정하기</span></div><div class="card">
+<ul>
+<li><strong>글자 / 속성 수정</strong> — HTML 구조의 태그 안 텍스트나 class 같은 속성을 더블클릭하면, 복사하거나 수정할 수 있는 입력칸이 생겨요.</li>
+<li><strong>삭제 / 숨기기</strong> — 요소를 선택하고 <span class="key">Delete</span> 키 = 삭제, <span class="key">H</span> 키 = 숨기기(다시 누르면 보임)</li>
+<li><strong>되돌리기</strong> — <span class="key">Ctrl</span> + <span class="key">Z</span>. 새로고침하면 전부 원래대로 돌아가요.</li>
+</ul>
+</div></div><div class="section" id="s6"><div class="section_header"><span class="section_num">06</span><span class="section_title">Styles 읽기 - 내가 쓴 CSS 중 일부만 안 먹을 때 참조</span></div><p class="intro">요소를 선택하면 Styles에 걸린 규칙이 모두 나와요. 같은 속성이 겹치면 하나만 적용되고 나머지엔 <strong>취소선</strong>이 그어져요. "내가 쓴 CSS인데 왜 안 먹지?"를 풀 때 가장 먼저 볼 곳이에요. (<a href="#s4">04. 요소 선택하기</a>)</p><div class="sub_title">Styles 영역 읽는 법</div><div class="shot styles_fig">
+<span class="shot_label">예시 이미지 · Styles 영역 전체</span>
+<div class="shot_scroll">
+<div class="shot_in">
+<div class="dt_panel">
+<div class="dt_rule">
+<div class="dt_row cm_flow"><span>element.style {</span><span class="co">1</span><span class="cm_note">HTML에 직접 쓴 인라인 스타일 — 보통 가장 세요. 해당 요소 하나에만 직접 넣어주는 방식이에요.</span></div>
+<div>}</div>
+</div>
+<div class="dt_rule">
+<div class="dt_row cm_host"><span>#header .btn {</span><span class="src"><span class="co">2</span> style.css:20</span><span class="cm_under"><span class="cm_note">파일명:줄 번호 — 클릭하면 그 코드로 이동</span></span></div>
+<div class="dt_in"><span class="dt_p">background</span>: <span class="dt_v">blue</span>;</div>
+<div>}</div>
+</div>
+<div class="dt_rule bad">
+<div class="dt_row"><span>.btn {</span><span class="src">style.css:12</span></div>
+<div class="dt_in cm_line"><span class="dt_off"><span class="dt_p">background</span>: red;</span> <span class="co">3</span><span class="cm_note">취소선 — 덮어씌워져서 적용 안 됨</span></div>
+<div>}</div>
+</div>
+<div class="dt_rule warn">
+<div class="dt_row"><span>.btn {</span><span class="src">style.css:15</span></div>
+<div class="dt_in cm_line"><span class="dt_off"><svg aria-hidden="true" class="warn_ic" height="14" viewbox="0 0 16 16" width="14"><path d="M8 1.6L15 14H1z" fill="#f9ab00" stroke="#f9ab00" stroke-linejoin="round" stroke-width="1.2"></path><rect fill="#fff" height="4.4" width="1.6" x="7.2" y="6"></rect><rect fill="#fff" height="1.6" width="1.6" x="7.2" y="11.2"></rect></svg> colr: red;</span> <span class="co">4</span><span class="cm_note">노란 느낌표 — 오타 등으로 브라우저가 무시한 속성 (마우스를 올리면 이유가 나와요)</span></div>
+<div>}</div>
+</div>
+<div class="dt_rule">
+<div class="dt_inh_row">Inherited from body <span class="co">5</span><span class="cm_note">부모에게서 물려받은 스타일 (아래 "물려받은 값" 참고)</span></div>
+<div>body {</div>
+<div class="dt_in"><span class="dt_p">font-size</span>: <span class="dt_v">16px</span>;</div>
+<div>}</div>
+</div>
+<div class="dt_rule" style="border-bottom: none">
+<div class="dt_row cm_host"><span>button {</span><span class="src"><span class="co">6</span> user agent stylesheet</span><span class="cm_under"><span class="cm_note">브라우저 기본 스타일 (가장 약해서 내 CSS가 쉽게 덮어요)</span></span></div>
+<div class="dt_in"><span class="dt_p">padding</span>: <span class="dt_v">1px 6px</span>;</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="sub_title">개발자도구에서 본 코드를 VSCode에서 찾는 법</div><div class="steps">
+<div class="step">
+<div class="step_num">1</div>
+<div class="step_body">
+<div class="step_title">CSS 코드 찾기</div>
+<div class="step_desc">그림 2번의 <strong>파일명:줄 번호</strong> 확인 → VSCode에서 <span class="key">Ctrl</span> + <span class="key">G</span> → 줄 번호 입력</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">2</div>
+<div class="step_body">
+<div class="step_title">HTML 코드 찾기</div>
+<div class="step_desc">HTML 구조의 class 이름·내용 일부를 복사(더블클릭) → VSCode에서 <span class="key">Ctrl</span> + <span class="key">Shift</span> + <span class="key">F</span>로 전체 검색</div>
+</div>
+</div>
+</div><p class="intro">위쪽 규칙이 아래쪽 규칙을 이겨요.</p><div class="sub_title">취소선·흐림 표시는 세 종류</div><div class="steps">
+<div class="step">
+<div class="step_num">1</div>
+<div class="step_body">
+<div class="step_title">덮어씌워진 경우 <span class="tag amber">가장 흔함</span></div>
+<div class="step_desc">더 센 규칙이 이미 같은 속성을 지정했어요. <strong>해결</strong>: 이기는 규칙을 찾아 거기를 수정해요.</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 덮어씌워짐</span>
+<div class="dt_panel">
+<div class="dt_rule">
+<div class="dt_row"><span>#header .btn {</span><span class="src">style.css:20</span></div>
+<div class="dt_in"><span class="dt_p">color</span>: <span class="dt_v">blue</span>; ← 이김</div>
+<div>}</div>
+</div>
+<div class="dt_rule bad" style="border-bottom: none">
+<div class="dt_row"><span>.btn {</span><span class="src">style.css:12</span></div>
+<div class="dt_in"><span class="dt_off">color: red;</span> ← 짐</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">2</div>
+<div class="step_body">
+<div class="step_title">잘못된 값 <span class="tag amber">취소선 + 노란 ⚠</span></div>
+<div class="step_desc"><span class="tag red">colr: red;</span> 같은 오타나 <span class="tag red">width: 10xp;</span> 같은 잘못된 값이에요. <strong>해결</strong>: 철자를 확인해요.</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 오타</span>
+<div class="dt_panel">
+<div class="dt_rule warn" style="border-bottom: none">
+<div class="dt_row"><span>.btn {</span><span class="src">style.css:15</span></div>
+<div class="dt_in"><span class="dt_off"><svg aria-hidden="true" class="warn_ic" height="14" viewbox="0 0 16 16" width="14"><path d="M8 1.6L15 14H1z" fill="#f9ab00" stroke="#f9ab00" stroke-linejoin="round" stroke-width="1.2"></path><rect fill="#fff" height="4.4" width="1.6" x="7.2" y="6"></rect><rect fill="#fff" height="1.6" width="1.6" x="7.2" y="11.2"></rect></svg> colr: red;</span></div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">3</div>
+<div class="step_body">
+<div class="step_title">효과 없는 속성 <span class="tag amber">흐린 글씨 + ⓘ</span></div>
+<div class="step_desc">문법은 맞지만 지금 상태에서는 효과가 없어요. 예: <span class="tag blue">display: block</span>인 요소의 <span class="tag blue">justify-content</span>. <strong>해결</strong>: ⓘ에 마우스를 올려 툴팁을 읽고, 시키는 대로 같은 규칙에 <span class="tag blue">display: flex</span>(또는 <span class="tag blue">grid</span>)를 추가해요.<br/><strong>주의</strong>: 개발자도구는 모든 속성을 검사하지 않아서 ⓘ가 없어도 안 먹을 수 있어요. (예: <span class="tag blue">align-items</span>는 안 먹어도 흐려지지 않아요)</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 효과 없음</span>
+<div class="dt_panel">
+<div class="dt_rule" style="border-bottom: none">
+<div class="dt_row"><span>.box {</span><span class="src">style.css:30</span></div>
+<div class="dt_in"><span style="color: #9aa3b2">justify-content: center;</span> ⓘ</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="sub_title">물려받은 값 (Inherited from)</div><p class="intro"><strong>Inherited from ...</strong> 아래의 값은 부모(조상)에 쓴 CSS가 물려져 내려온 거예요. "안 썼는데 왜 이렇게 보이지?"의 출처를 찾는 곳이에요.</p><div class="shot">
+<span class="shot_label">예시 이미지 · p 요소를 선택했을 때의 Styles</span>
+<div class="shot_scroll">
+<div class="shot_in" style="min-width: 440px">
+<div class="dt_panel">
+<div class="dt_rule">
+<div class="dt_row"><span>.desc {</span><span class="src">style.css:40</span></div>
+<div class="dt_in"><span class="dt_p">margin</span>: <span class="dt_v">0</span>;</div>
+<div>}</div>
+</div>
+<div class="dt_inh"><span class="co">1</span> Inherited from div.box</div>
+<div class="dt_rule">
+<div class="dt_row"><span>.box {</span><span class="src">style.css:30</span></div>
+<div class="dt_in"><span class="dt_p">color</span>: <span class="dt_chip" style="background: #333"></span><span class="dt_v">#333</span>;</div>
+<div class="dt_in"><span class="dt_p">font-size</span>: <span class="dt_v">18px</span>;</div>
+<div>}</div>
+</div>
+<div class="dt_inh">Inherited from body</div>
+<div class="dt_rule" style="border-bottom: none">
+<div class="dt_row"><span>body {</span><span class="src">style.css:5</span></div>
+<div class="dt_in"><span class="dt_p">font-family</span>: <span class="dt_v">"Noto Sans KR"</span>;</div>
+<div class="dt_in"><span class="dt_p">line-height</span>: <span class="dt_v">1.7</span>;</div>
+<div class="dt_in"><span class="dt_off">color: #000;</span> <span class="co">2</span></div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+<ul class="legend">
+<li><span class="co">1</span><span><strong>Inherited from 부모이름</strong> — 이 아래 규칙은 부모가 정한 값이에요. 가까운 부모부터 먼 조상(body)까지 순서대로 나와요.</span></li>
+<li><span class="co">2</span><span>더 가까운 부모(<code>.box</code>)가 같은 속성을 정했기 때문에, 먼 조상(<code>body</code>)의 값은 취소선이 그어져요.</span></li>
+</ul>
+<div class="shot_cap">.box에 <code>padding: 20px</code>도 있다고 해도 여기에는 나오지 않아요. <strong>상속되는 속성만</strong> 이 영역에 표시되기 때문이에요.</div>
+</div><div class="card">
+<div class="card_title">상속되는 속성 (글자 관련)</div>
+<ul>
+<li><span class="tag green">color</span> <span class="tag green">font-size</span> <span class="tag green">font-family</span></li>
+<li><span class="tag green">font-weight</span> <span class="tag green">line-height</span> <span class="tag green">text-align</span></li>
+<li>그래서 <span class="tag blue">body</span>에 한 번만 써두면 사이트 전체에 적용돼요.</li>
+<li>이 이외의 속성은 대부분 상속되지 않아요.</li></ul>
+</div></div><div class="section" id="s7"><div class="section_header"><span class="section_num">07</span><span class="section_title">Styles 수정하기</span></div><p class="intro">고친 내용은 화면에만 잠깐 적용돼요. 시험해 보고, 마음에 드는 값은 VSCode에 옮겨 적어요.</p><div class="steps">
+<div class="step">
+<div class="step_num">1</div>
+<div class="step_body">
+<div class="step_title">값 바꾸기 — 더블클릭 → 입력 → Enter</div>
+<div class="step_desc">값을 더블클릭 → 입력 → <span class="key">Enter</span></div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 값 수정 중</span>
+<div class="dt_panel">
+<div class="dt_rule">
+<div>.btn {</div>
+<div class="dt_in"><span class="dt_p">color</span>: <span class="dt_v">#fff</span>;</div>
+<div class="dt_in"><span class="dt_p">padding</span>: <span class="dt_edit">8px 22px</span>;</div>
+<div>}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">2</div>
+<div class="step_body">
+<div class="step_title">숫자 미세 조절 — ↑ ↓ 키</div>
+<div class="step_desc">숫자 클릭 후 <span class="key">↑</span> <span class="key">↓</span> = 1씩, <span class="key">Shift</span>+<span class="key">↑</span><span class="key">↓</span> = 10씩, <span class="key">Alt</span>+<span class="key">↑</span><span class="key">↓</span> = 0.1씩</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">3</div>
+<div class="step_body">
+<div class="step_title">속성 끄고 켜기 — 체크박스</div>
+<div class="step_desc">속성 왼쪽 체크박스를 해제하면 그 속성만 꺼져요.</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 체크박스로 속성 끄기</span>
+<div class="dt_panel">
+<div class="dt_rule">
+<div>.btn {</div>
+<div class="dt_in"><span class="dt_chk on"></span><span class="dt_p">color</span>: <span class="dt_v">#fff</span>;</div>
+<div class="dt_in"><span class="dt_chk"></span><span class="dt_off">border-radius: 6px;</span></div>
+<div>}</div>
+</div>
+</div>
+<div class="shot_cap">체크가 해제된(꺼진) 속성은 화면에서 적용이 빠져요.</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">4</div>
+<div class="step_body">
+<div class="step_title">색상 바꾸기 — 색 칩 클릭</div>
+<div class="step_desc">색상 값 옆의 네모 칩을 클릭하면 색상 선택창이 열려요. (스포이트로 화면 색도 뽑을 수 있어요)</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 색 칩</span>
+<div class="dt_panel">
+<div class="dt_rule">
+<div>.btn {</div>
+<div class="dt_in"><span class="dt_p">background</span>: <span class="dt_chip" style="background: #1a56db"></span><span class="dt_v">#1a56db</span>;</div>
+<div>}</div>
+</div>
+</div>
+<div class="shot_cap">네모 칩(파란색)을 클릭하면 색상 선택창이 나와요.</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">5</div>
+<div class="step_body">
+<div class="step_title">속성 추가 — 이미 있는 규칙(선택자)의 { } 안 빈 곳 클릭</div>
+<div class="step_desc">규칙의 <span class="tag blue">{ }</span> 안 <strong>마지막 속성 아래 빈 곳</strong>을 클릭 → 속성 이름 → <span class="key">Tab</span> → 값. 자동완성이 떠요.</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · 어디를 클릭할까? (규칙 { } 안의 빈 곳)</span>
+<div class="dt_panel">
+<div class="dt_rule" style="border-bottom: none">
+<div class="dt_row"><span><span class="co">1</span> .btn {</span><span class="src">style.css:12</span></div>
+<div class="dt_in"><span class="dt_p">color</span>: <span class="dt_v">#fff</span>;</div>
+<div class="dt_in"><span class="dt_p">padding</span>: <span class="dt_v">8px 22px</span>;</div>
+<div class="click_zone"><span class="co">2</span><svg aria-hidden="true" height="16" viewbox="0 0 16 16" width="16"><path d="M3 2l9 5-4 1.2L6.5 13z" fill="#92400e"></path></svg>여기를 클릭</div>
+<div><span class="co">3</span> }</div>
+</div>
+</div>
+<ul class="legend">
+<li><span class="co">1</span><span><strong>선택자 줄</strong> — 어떤 요소에 적용되는 규칙인지 보여줘요. 이 규칙에 속성을 추가할 거예요.</span></li>
+<li><span class="co">2</span><span><strong>클릭할 곳</strong> — 마지막 속성 아래, 닫는 중괄호 위의 빈 공간이에요.</span></li>
+<li><span class="co">3</span><span><strong>닫는 중괄호 }</strong> — 규칙의 끝이에요. 속성은 { 와 } 사이에 들어가요.</span></li>
+</ul>
+<div class="shot_cap">실제 화면에서는 빈 공간이 따로 표시되지 않아요. 마지막 속성 줄 오른쪽의 빈 곳이나 그 바로 아래를 누르면 돼요. 잘 안 눌리면 <strong>마지막 속성의 값을 클릭한 뒤 Tab</strong>을 눌러도 새 입력칸이 열려요.</div>
+</div>
+<div class="shot" style="margin-bottom: 0; margin-top: 12px">
+<span class="shot_label">예시 이미지 · 속성 추가 중</span>
+<div class="dt_panel">
+<div class="dt_rule" style="border-bottom: none">
+<div class="dt_row"><span>.btn {</span><span class="src">style.css:12</span></div>
+<div class="dt_in"><span class="dt_p">color</span>: <span class="dt_v">#fff</span>;</div>
+<div class="dt_in"><span class="dt_p">padding</span>: <span class="dt_v">8px 22px</span>;</div>
+<div class="dt_in"><span class="dt_edit">dis</span></div>
+<div class="dt_sug"><div class="hl">display</div><div>…</div></div>
+<div>}</div>
+</div>
+</div>
+<div class="shot_cap">dis까지만 쳐도 display가 후보로 나와요. 끝까지 다 안 쳐도 돼요.</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">6</div>
+<div class="step_body">
+<div class="step_title">새 규칙 추가 — 선택자가 없을 때 + 버튼</div><div class="shot" style="margin: 10px 0 12px">
+<span class="shot_label">예시 이미지 · + 버튼과 새로 만들어진 규칙</span>
+<div class="dt_panel">
+<div class="dt_filter"><span class="box">Filter</span><span>:hov</span><span>.cls</span><span class="plus">+</span></div>
+<div class="dt_rule" style="border-bottom: none">
+<div class="dt_row"><span>.btn {</span><span class="src">inspector-stylesheet:1</span></div>
+<div class="dt_in"> </div>
+<div>}</div>
+</div>
+</div>
+<div class="shot_cap">새 규칙은 <strong>inspector-stylesheet</strong>라는 임시 스타일시트에 만들어져요. 내 CSS 파일에는 <strong>저장되지 않으니</strong>, 필요하면 <strong>VSCode에서 직접 입력</strong>해야 해요.</div>
+</div>
+<div class="step_desc">해당 요소에 규칙이 없을 때 Styles 위쪽 <strong>+ 버튼</strong>을 눌러요. 선택자가 자동으로 만들어져요. 마음에 들면 VSCode의 CSS에 직접 써야 해요.</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">7</div>
+<div class="step_body">
+<div class="step_title">:hov 버튼 — hover 상태 강제로 켜기</div>
+<div class="step_desc">마우스를 올려야 보이는 <span class="tag blue">:hover</span> 스타일은 <strong>:hov</strong> 버튼에서 체크해 강제로 켜요.</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · :hov 버튼</span>
+<div class="dt_panel">
+<div class="dt_filter"><span class="box">Filter</span><span class="hov">:hov</span><span>.cls</span><span>+</span></div>
+<div class="dt_rule" style="border-bottom: none">
+<span class="dt_chk on"></span>:hover   <span class="dt_chk"></span>:active   <span class="dt_chk"></span>:focus
+                    </div>
+</div>
+</div>
+</div>
+</div></div></div><div class="section" id="s8"><div class="section_header"><span class="section_num">08</span><span class="section_title" style="color: #dc2626; font-weight: 700">Computed (고칠 곳 찾기 — 여백·글씨 등)</span></div><div class="sub_title">Computed의 박스 모델</div><div class="shot">
+<span class="shot_label">예시 이미지 · Computed 탭의 박스 모델</span>
+<div class="dt_panel" style="padding: 14px">
+<div class="box_model">
+<span class="bm_name">margin</span>
+<div class="bm_border">
+<span class="bm_name">border</span>
+<div class="bm_padding">
+<span class="bm_name">padding</span>
+<div class="bm_content">120 × 24</div>
+</div>
+</div>
+</div>
+</div>
+<div class="shot_cap">각 영역에 숫자(예: 20, 1, 8)가 적혀 있어요. 어느 영역의 숫자가 큰지 보면 간격의 원인을 찾을 수 있어요. 숫자를 클릭해서 바로 고칠 수도 있어요.</div>
+</div><div class="info_box tip">
+<span class="info_icon">💡</span>
+<span>간격 문제는 <strong>요소 선택 → Computed 박스 모델 확인 → margin인지 padding인지 판단 → Styles에서 값 수정</strong> 순서로 풀어요.</span>
+</div><div class="sub_title">padding 값이 어디서 왔는지 확인하기 (Filter 사용)</div><div class="steps">
+<div class="step">
+<div class="step_num">1</div>
+<div class="step_body">
+<div class="step_title">Filter에 속성 이름 입력</div>
+<div class="step_desc">Computed 위쪽 <strong>Filter</strong>에 속성 이름(예: <span class="tag blue">padding</span>)을 입력해요.</div>
+<img alt="Computed 탭 위쪽의 Filter 입력창과 속성 목록" class="small_shot" src="data:image/png;base64,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"/>
+</div>
+</div>
+<div class="step">
+<div class="step_num">2</div>
+<div class="step_body">
+<div class="step_title">▶ 펼쳐서 출처 확인</div>
+<div class="step_desc">속성 왼쪽 <strong>▶</strong>를 펼치면 어떤 규칙(파일명:줄 번호)에서 온 값인지 나와요.</div>
+<div class="shot" style="margin-bottom: 0">
+<span class="shot_label">예시 이미지 · Computed에서 값 출처 보기</span>
+<div class="dt_panel">
+<div class="dt_rule" style="border-bottom: none">
+<div>▾ <span class="dt_p">padding-left</span>: <span class="dt_v">22px</span></div>
+<div class="dt_in dt_row"><span>.btn</span><span class="src">style.css:12</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="step_num">3</div>
+<div class="step_body">
+<div class="step_title">파란 화살표(➜) 클릭 → Styles로 이동</div>
+<div class="step_desc">값 앞의 <strong>파란 화살표(➜)</strong>를 클릭하면 Styles의 그 규칙으로 이동해요.</div>
+<img alt="Computed 속성 값 앞에 나타난 파란 화살표 버튼" class="small_shot" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVYAAAAXCAYAAABQ3Gf+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQRSURBVHhe7dzPaxRnGAfw75hEJDWhh3TT1pBL2jQR5uClh7C9hPwFgUCpIoIg1Ar1WCSQ066CuVSilxwqQegpgUKOS6C4Xqs1HhKXHFoRytp6cCJabDoeZl/z7pOZ953svBs3u98PDNk8z/vOzDvs+/Du7A8vDMMQDgRBIENERB2lt7cXAHBEJoiIKBsWViIix1hYiYgc83iPldpR8Br46Z6Hh09CbPzlAQDGPg5xatjDuXyID47KHkTZqXusLKzUdu4+9nBlBfh7W2YiuX7g6nSIic9kpp7v+1hfX5dhoJbTJbWjztKUN6+qU3kZarqDPOZBHut9cjHO6lTeyX7269dN4MLS3qJ6tHv3cfUFcP62h3IlWsnGkYVTpwquvpnaU+cxFtalpSUZooxsxcaWPwyqU3nkSmXkSmWZaur4XrwCrqzEF8ubp4GervrYD8vA9r/1MYUrUMrCWFgrlQoWFxdlmKgl/fLAw/OXMhrJfx7i1hmgW3vG/7Md9XFNrV59349dyaaN0eFlLKwAsLy8jIWFBRk2sr0MNOVV3NbGlktqk2b/Nra+SXnbsW15JSmvx+PyLqhjmM5Bb5c258L9P6O/H/UBlybrN9SK64/fhOjSnvX3/9h97JJ+u0AWTRkz3culw8laWAFgdXUV8/PzMhyrqr0MjJs8tjxEG8nUX88ltZHt9st0fFteHS/p2LY8LPtHra9qE5fPIs31NY3BlHPhQa2w5vpDfDdZvymTY8ANrbj+1qTCqhdKWUip/aUqrABQKpVQKBRkeA99wsiJpyZmUl6Px4nr34ikflWxGlObTh6/kfE1Kuv+5bjixtcK5DnZ/lfe/F97YPmci/45mP9UnwOmii1Xq+0pdWEFgM3NTWxtbclwS8lSNNRKSm7tQo6rkfFlub5pyXOy/a98MRhVzGrg4eZa/aasbQDf/+xhp1ZQxz+xVGGiBqQurMPDwygWixgZGZGpliKLRtIkpMbIa9tK13f806iAPguAhbX6DQDKFQ+XtaIKACdrfQ6a6R4sHX6pCuvo6CiKxSKGhoZkiqhlfP1l8jeqyhUPF+8Ab3Z2Y33Hoj7NwDenOpu1sPq+j0KhgIGBAZmKpb88rFruCcq8TVx/mzRt9kMe3+X4bJq9/0a4vr5ZnPgQuDYTXyi/FUUVAK7PhBjsr4+lod8fTbpParqHKmNctbYf41daZ2dnMTc3h56eHpnaIwiCdxNdTbakSW/KpykWen/ZXk50uS/Zfj9cjA9NzOvnF3dt0jL1s11fWPrDcP6u2L7SOnAcKE4DX40mPvUzkYWTOgd/K4DamvoRlt+fAI+eRt+6Uj/CcnYiRN8x2YMoOxZWIiLHmvIjLERE5HDFSkTU6XZ2ondIuWIlInKMhZWIyLG383OTOxe23XYAAAAASUVORK5CYII="/>
+</div>
+</div>
+</div></div><div class="section" id="s9"><div class="section_header"><span class="section_num">09</span><span class="section_title">Console / Network</span></div><div class="sub_title">Console 탭 — 에러 확인</div><p class="intro">JS 에러가 <strong>빨간 글씨</strong>로 나와요. 오른쪽 파일명:줄 번호를 클릭하면 그 코드로 이동해요.</p><div class="shot">
+<span class="shot_label">예시 이미지 · Console 탭</span>
+<div class="shot_scroll">
+<div class="shot_in">
+<div class="dt_panel">
+<div class="con_row"><span>값 확인: 3</span><span class="src">script.js:2</span></div>
+<div class="con_row err"><span>✖ Uncaught ReferenceError: btn is not defined</span><span class="src">script.js:5</span></div>
+</div>
+</div>
+</div>
+<div class="shot_cap">첫 줄은 console.log() 결과, 둘째 줄은 에러예요. 에러 메시지의 파일명:줄 번호부터 확인해요.</div>
+</div><div class="sub_title">Network 탭 — 파일이 제대로 불러와졌는지</div><p class="intro">파일 로딩 결과 목록이에요. Status가 빨간 <strong>404</strong>면 파일을 못 찾은 거라 경로·파일명을 확인해요. (<span class="key">F5</span>로 새로고침해야 채워져요)</p><div class="shot">
+<span class="shot_label">예시 이미지 · Network 탭</span>
+<div class="shot_scroll">
+<div class="shot_in">
+<div class="dt_panel">
+<div class="net_row head"><span>Name</span><span>Status</span><span>Type</span></div>
+<div class="net_row"><span>index.html</span><span>200</span><span>document</span></div>
+<div class="net_row"><span>style.css</span><span>200</span><span>stylesheet</span></div>
+<div class="net_row err"><span>logo.png</span><span>404</span><span>png</span></div>
+</div>
+</div>
+</div>
+<div class="shot_cap">logo.png만 404 → 이미지 경로나 파일명을 다시 확인해요. (images 폴더 안에 있는지, 대소문자까지 같은지)</div>
+</div></div></div>
+</div>
+</div>
+<button aria-label="맨 위로" class="top_btn" id="top_btn">TOP</button>
+<script>
+    var top_btn = document.getElementById("top_btn");
+    window.addEventListener("scroll", function () {
+      if (window.scrollY > 300) {
+        top_btn.classList.add("show");
+      } else {
+        top_btn.classList.remove("show");
+      }
+    });
+    top_btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG 스크롤 드로잉 체험</title>
+  <style>
+    :root { --text: #111; --muted: #6b7772; --accent: #16876a; --bg: #f7faf8; --guide: #dbe5df; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--text); background: var(--bg); font-family: Pretendard, "Noto Sans KR", Arial, sans-serif; }
+    button { font: inherit; }
+    .inner { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+    .intro { padding: 80px 0 55px; }
+    .eyebrow { margin: 0 0 20px; color: var(--accent); font-size: 13px; font-weight: 700; }
+    h1 { margin: 0; font-size: clamp(36px, 6vw, 72px); line-height: 1.16; font-weight: 700; }
+    .intro_text { margin: 24px 0 0; color: var(--muted); font-size: 17px; line-height: 1.8; }
+    .scroll_hint { margin: 36px 0 0; color: var(--accent); font-size: 14px; }
+    /* 이 높이가 클수록 선을 끝까지 그리는 데 더 많이 스크롤해야 합니다. */
+    .drawing_section { height: 300vh; }
+    .drawing_stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+    .stage_info { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 24px; }
+    .stage_info p { margin: 0; font-size: 14px; color: var(--muted); }
+    .stage_info strong { font-variant-numeric: tabular-nums; font-size: 20px; color: var(--accent); }
+    .drawing_svg { display: block; width: 100%; height: min(60vh, 530px); margin: 24px 0; }
+    .guide_lines { fill: none; stroke: var(--guide); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    /* 선 색상과 두께 수정 위치 */
+    .draw_lines { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .progress_track { width: 100%; height: 2px; background: var(--guide); }
+    .progress_fill { height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+    .stage_caption { display: flex; justify-content: space-between; gap: 20px; margin-top: 16px; color: var(--muted); font-size: 13px; }
+    .outro { padding: 100px 0 120px; border-top: 1px solid var(--guide); }
+    h2 { margin: 0 0 20px; font-size: clamp(28px, 4vw, 44px); }
+    .outro p { max-width: 720px; color: var(--muted); line-height: 1.9; }
+    code { color: var(--accent); font-size: 0.95em; }
+    .replay_btn { margin-top: 20px; padding: 14px 0; background: none; color: var(--accent); border: 0; border-bottom: 1px solid var(--accent); cursor: pointer; }
+    .replay_btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+    @media (max-width: 600px) {
+      .inner { width: calc(100% - 32px); }
+      .intro { padding: 60px 0 40px; }
+      .intro_text { font-size: 15px; }
+      .stage_caption { font-size: 12px; }
+      .drawing_svg { height: 48vh; }
+      .outro { padding: 70px 0 90px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <header class="intro">
+    <div class="inner">
+      <p class="eyebrow">SVG · SCROLL DRAWING</p>
+      <h1>스크롤로 그리는<br>작은 풍경.</h1>
+      <p class="intro_text">아래로 스크롤하면 선이 이어집니다.<br>위로 올리면 그려진 선이 다시 지워져요.</p>
+      <p class="scroll_hint">천천히 아래로 스크롤 ↓</p>
+    </div>
+  </header>
+  <!-- //intro -->
+  <main>
+    <section class="drawing_section" id="drawing_section" aria-label="스크롤로 SVG 풍경 그리기">
+      <div class="drawing_stage">
+        <div class="inner">
+          <div class="stage_info"><p>한 줄씩, 풍경이 나타납니다.</p><strong id="progress_text">0%</strong></div>
+          <!-- 직접 작성한 선형 SVG입니다. 다른 그림을 쓰려면 아래 path를 교체하세요. -->
+          <svg class="drawing_svg" viewBox="0 0 1000 500" role="img" aria-labelledby="svg_title svg_desc">
+            <title id="svg_title">산과 집, 나무와 해가 있는 풍경</title>
+            <desc id="svg_desc">스크롤 위치에 따라 길, 산, 집, 나무, 해와 구름의 윤곽이 순서대로 그려집니다.</desc>
+            <defs>
+              <g id="landscape">
+                <path d="M65 390 C150 350 200 365 270 380 S390 385 460 362 S630 360 700 375 S850 390 935 365"/>
+                <path d="M80 350 L230 155 L320 265 L400 175 L555 345 M193 203 L230 230 L258 191 M367 217 L400 245 L428 206"/>
+                <path d="M430 345 L535 250 L640 345 M454 326 V390 H616 V326 M559 272 V239 H588 V299 M512 390 V335 H557 V390 M574 332 H598 V356 H574 Z"/>
+                <path d="M716 383 V285 M745 383 V290 M730 304 C667 318 643 270 678 236 C650 191 692 160 721 176 C740 123 798 153 796 190 C851 189 865 246 826 265 C839 310 779 329 745 293"/>
+                <path d="M737 91 C737 123 689 123 689 91 C689 59 737 59 737 91 Z M713 43 V29 M713 153 V139 M665 91 H651 M775 91 H761 M679 57 L669 47 M747 125 L757 135 M679 125 L669 135 M747 57 L757 47"/>
+                <path d="M458 123 C432 122 430 91 452 86 C448 58 486 50 500 75 C526 56 557 80 549 101 C577 100 581 125 558 126 H458 M835 141 C815 140 815 116 834 112 C830 90 860 82 872 102 C895 88 919 107 912 125 C935 127 931 145 913 145 H835"/>
+                <path d="M170 387 V351 M170 364 L154 353 M170 375 L184 360 M847 384 V348 M847 361 L831 350 M847 373 L863 359 M333 393 C380 402 407 424 422 445 M584 390 C534 410 520 430 515 461"/>
+              </g>
+            </defs>
+            <use href="#landscape" class="guide_lines" aria-hidden="true"/>
+            <g class="draw_lines" id="draw_lines"></g>
+          </svg>
+          <div class="progress_track" aria-hidden="true"><div class="progress_fill" id="progress_fill"></div></div>
+          <div class="stage_caption"><span>SCROLL ↓ 그리기</span><span>SCROLL ↑ 되돌리기</span></div>
+        </div>
+      </div>
+    </section>
+    <!-- //drawing_section -->
+    <section class="outro">
+      <div class="inner">
+        <p class="eyebrow">HOW IT WORKS</p>
+        <h2>선은 원래 존재해요.</h2>
+        <p>SVG의 <code>stroke-dasharray</code>와 <code>stroke-dashoffset</code>으로 선을 숨긴 다음, 스크롤한 만큼 드러내는 방식입니다. 그림 파일을 불러오는 대신 HTML 안에 SVG를 넣어서 각 선을 직접 제어했어요.</p>
+        <p>코드의 <code>.draw_lines</code>에서 색과 두께를, <code>.drawing_section</code>의 높이에서 스크롤 길이를 바꿔볼 수 있습니다.</p>
+        <button type="button" class="replay_btn" id="replay_btn">다시 그려보기 ↑</button>
+      </div>
+    </section>
+    <!-- //outro -->
+  </main>
+  <script>
+    // 외부 라이브러리 없이 동작합니다. 인터넷 연결 없이도 체험할 수 있습니다.
+    const drawing_section = document.querySelector('#drawing_section');
+    const draw_lines = document.querySelector('#draw_lines');
+    const progress_text = document.querySelector('#progress_text');
+    const progress_fill = document.querySelector('#progress_fill');
+
+    // 동일한 path를 복사: 뒤에는 연한 가이드, 앞에는 애니메이션 선을 배치합니다.
+    document.querySelectorAll('#landscape path').forEach((path) => {
+      draw_lines.appendChild(path.cloneNode(true));
+    });
+    const paths = [...draw_lines.querySelectorAll('path')];
+    const lengths = paths.map((path) => path.getTotalLength());
+    const total_length = lengths.reduce((sum, length) => sum + length, 0);
+    paths.forEach((path, index) => {
+      path.style.strokeDasharray = lengths[index];
+      path.style.strokeDashoffset = lengths[index];
+    });
+
+    function update_drawing() {
+      const rect = drawing_section.getBoundingClientRect();
+      const stage_height = drawing_section.querySelector('.drawing_stage').getBoundingClientRect().height;
+      const scroll_length = Math.max(1, rect.height - stage_height);
+      const progress = Math.min(1, Math.max(0, -rect.top / scroll_length));
+      let remaining = total_length * progress;
+      // 앞의 선이 완성되면 다음 선을 그립니다.
+      paths.forEach((path, index) => {
+        const drawn = Math.min(lengths[index], Math.max(0, remaining));
+        path.style.strokeDashoffset = lengths[index] - drawn;
+        remaining -= lengths[index];
+      });
+      progress_text.textContent = Math.round(progress * 100) + '%';
+      progress_fill.style.transform = 'scaleX(' + progress + ')';
+    }
+    // 스크롤 이벤트가 연속으로 발생해도 화면 갱신은 프레임당 한 번만 합니다.
+    let frame_pending = false;
+    function request_update() {
+      if (frame_pending) return;
+      frame_pending = true;
+      requestAnimationFrame(() => { update_drawing(); frame_pending = false; });
+    }
+    window.addEventListener('scroll', request_update, { passive: true });
+    window.addEventListener('resize', request_update);
+    document.querySelector('#replay_btn').addEventListener('click', () => {
+      const top = drawing_section.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+    });
+    update_drawing();
+  </script>
+</body>
+</html>
