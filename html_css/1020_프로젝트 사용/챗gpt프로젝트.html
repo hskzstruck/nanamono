@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChatGPT 프로젝트 만들기</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      min-width: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    #wrap {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      background: var(--accent);
+      padding: 48px 48px 40px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+      padding: 0 24px 80px;
+    }
+
+    .toc {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      padding-top: 24px;
+    }
+
+    .toc_title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .toc_list {
+      list-style: none;
+    }
+
+    .toc_list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 6px 0;
+    }
+
+    .toc_list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc_num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .section {
+      margin-top: 48px;
+      scroll-margin-top: 20px;
+    }
+
+    .section_header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section_num {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .section_title {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .intro_text {
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+    }
+
+    .card_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .card_title:last-child {
+      margin-bottom: 0;
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card li {
+      color: var(--muted);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      line-height: 1.7;
+    }
+
+    .card li:last-child {
+      border-bottom: none;
+    }
+
+    .card li strong {
+      color: var(--text);
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .card p+p {
+      margin-top: 8px;
+    }
+
+    .card p strong {
+      color: var(--text);
+    }
+
+    .card p strong.hl {
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
+      gap: 10px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .step_num {
+      min-width: 32px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step_body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .step_title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .step_desc {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .step_desc strong {
+      color: #111;
+      font-weight: 700;
+    }
+
+    .code_block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 12px 0;
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.9;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 14px;
+      font-family: var(--mono);
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .tag.blue {
+      background: #e8f0fe;
+      color: var(--accent);
+    }
+
+    .tag.green {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.amber {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .tag.red {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .info_box {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 12px 0;
+      line-height: 1.7;
+      align-items: flex-start;
+    }
+
+    .info_box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info_box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info_icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .qa_block {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .qa_q {
+      background: #fff8ec;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #92400e;
+      border-bottom: 1px solid #fde68a;
+    }
+
+    .qa_a {
+      background: var(--bg);
+      padding: 12px 16px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .qa_a strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .top_btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .top_btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    @media (max-width: 1024px) {
+      .flex_box {
+        flex-direction: column;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 0;
+      }
+
+      .toc {
+        width: auto;
+        position: static;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 36px 20px 30px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .flex_box {
+        padding: 0 16px 80px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .step {
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .code_block {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="hero">
+      <h1>ChatGPT 프로젝트 만들기</h1>
+    </div>
+    <div class="flex_box">
+      <div class="toc">
+        <div class="toc_title">목차</div>
+        <ul class="toc_list">
+          <li><a href="#s1"><span class="toc_num">01</span> 프로젝트란?</a></li>
+          <li><a href="#s2"><span class="toc_num">02</span> 무료 플랜의 제한</a></li>
+          <li><a href="#s3"><span class="toc_num">03</span> 프로젝트 만들기</a></li>
+          <li><a href="#s4"><span class="toc_num">04</span> 지침 만드는 법 (채팅으로)</a></li>        </ul>
+      </div>
+
+      <div class="content">
+
+        <!-- 01 -->
+        <div class="section" id="s1">
+          <div class="section_header">
+            <span class="section_num">01</span>
+            <span class="section_title">프로젝트란?</span>
+          </div>
+          <p class="intro_text">프로젝트는 ChatGPT 안에 만드는 전용 작업방이다. 해당 작업을 할 때 늘 적용시킬 규칙과 참조 자료를 넣어두면, 작업할 때마다 처음부터 설명하지 않아도 된다.</p>
+          <div class="card">
+            <div class="card_title">프로젝트에 넣는 2가지</div>
+            <ul>
+              <li><span class="tag blue">지침</span> ChatGPT가 매번 지켜야 할 규칙. 이 프로젝트 안에서만 적용되며, 전체 맞춤 설정보다 우선한다. 예: "초심자 눈높이로 설명해줘"</li>
+              <li><span class="tag blue">파일</span> 이 프로젝트 안에서 사용할 참고자료<br />주의: 무료는 프로젝트당 5개까지이므로 꼭 필요한 것만 올린다. 지침에 파일 이름과 사용 방법을 적어두면 더 확실하게 참고한다.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card_title">프로젝트 메모리</div>
+            <p>메모리는 대화 내용을 요약해서 기억하는 기능이다. 프로젝트를 만들 때 또는 나중에 프로젝트 설정에서 <strong>기본 메모리</strong>와 <strong>프로젝트 전용 메모리</strong> 중 고른다.</p>
+            <p><strong>프로젝트 전용 메모리</strong>를 고르면 프로젝트 밖의 대화는 참조하지 않고, 프로젝트 밖에서도 이 프로젝트의 대화를 참조하지 않는다. 설정을 바꾸면 적용까지 몇 시간 걸릴 수 있다.</p>
+          </div>
+          <div class="info_box warn">
+            <span class="info_icon">⚠️</span>
+            <span><strong>꼭 알아둘 점</strong><br />
+              메모리는 요약이라 정확하지 않을 수 있다. 꼭 지켜야 할 규칙은 메모리가 아니라 <strong>지침이나 파일</strong>에 넣어야 한다.</span>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="section" id="s2">
+          <div class="section_header">
+            <span class="section_num">02</span>
+            <span class="section_title">무료 플랜의 제한 (ChatGPT 기준)</span>
+          </div>
+          <div class="info_box warn">
+            <span class="info_icon">⚠️</span>
+            <span>무료 플랜의 제한은 정책에 따라 <strong>수시로 바뀌니 꼭 최신 내용을 확인하여야 한다.</strong> 여기 적힌 내용은 <strong>2026년 10월 기준</strong>이다.</span>
+          </div>
+          <p class="intro_text">프로젝트는 원래 유료 전용이었으나, 지금은 무료로도 쓸 수 있다. 아래 제한만 알고 시작한다.</p>
+
+          <div class="card">
+            <ul>
+              <li><strong>프로젝트 개수: 제한 없음</strong></li>
+              <li><strong>파일: 프로젝트당 5개</strong></li>
+              <li><strong>사용량: 일반 채팅과 같은 한도를 사용 (구독 등급에 따라 총량이 다름)</strong></li>
+            </ul>
+          </div>
+
+          <div class="info_box note">
+            <span class="info_icon">📌</span>
+            <span>최신 내용은 <a href="https://help.openai.com" target="_blank">help.openai.com</a>에서 확인한다.</span>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="section" id="s3">
+          <div class="section_header">
+            <span class="section_num">03</span>
+            <span class="section_title">프로젝트 만들기</span>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <div class="step_num">1</div>
+              <div class="step_body">
+                <div class="step_title">새 프로젝트 클릭</div>
+                <div class="step_desc">chatgpt.com에 로그인한 뒤, 사이드바의 <strong>새 프로젝트</strong>를 클릭한다.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">2</div>
+              <div class="step_body">
+                <div class="step_title">이름 입력하고 생성</div>
+                <div class="step_desc"><strong>이름</strong> : 내가 알아보기 위한 용도</div>
+              </div>
+            </div>
+          </div>
+          <div class="info_box note">
+            <span class="info_icon">💡</span>
+            <span>화면 구성과 메뉴 이름은 업데이트에 따라 달라질 수 있다.</span>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="section" id="s4">
+          <div class="section_header">
+            <span class="section_num">04</span>
+            <span class="section_title">지침 만드는 법 (채팅으로)</span>
+          </div>
+          <p class="intro_text">지침은 처음부터 직접 쓰지 않아도 된다. ChatGPT와 채팅하면서 만들면 된다. 생각나는 규칙을 대충 던져주면 ChatGPT가 지침 문장으로 정리해준다.</p>
+
+          <div class="card">
+            <div class="card_title">먼저 생각해볼 것들</div>
+            <ul>
+              <li><strong>나는 누구인가</strong> 어떤 상황에서 쓰는지 (예: 웹퍼블리싱을 배우는 초심자)</li>
+              <li><strong>어떤 눈높이로</strong> 설명받고 싶은지 (예: 처음 배우는 사람 기준)</li>
+              <li><strong>어떤 형식으로</strong> 답을 받고 싶은지 (예: 코드는 HTML, CSS, JS로 나눠서)</li>
+              <li><strong>지켜야 할 규칙</strong> (예: 추정하지 말고, 필요한 사항이나 파일이 있으면 요청하기)</li>
+              <li><strong>하지 말아야 할 것</strong> (예: 모르면 아는 척하지 않기)</li>
+            </ul>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step_num">1</div>
+              <div class="step_body">
+                <div class="step_title">새 채팅을 열고 생각나는 규칙을 두서없이 보내기</div>
+                <div class="step_desc">사이드바의 <strong>새 채팅</strong>을 클릭해 <strong>프로젝트 밖의 일반 채팅</strong>에서 시작한다. 정리가 안 돼 있어도 괜찮다. 아래처럼 보내면 된다.
+                  <div class="code_block">나 웹퍼블리싱 배우는 중인데
+이 프로젝트에서 계속 작업할 거라서 ChatGPT 프로젝트 지침 만들고 싶어
+시안 올리면 html css js 나눠서 코딩해줬으면 좋겠고 결과는 코드블럭으로
+html은 기본구조 필요없고
+모르면 추정하지 말고 필요한 거나 파일 있으면 먼저 물어봐
+지침은 짧게 규칙별로 한 줄씩 정리해줘</div>
+                  <strong>꼭 들어가야 할 말</strong><br />
+                  <span class="tag blue">시안</span> 작업의 기준이 무엇인지 알려준다.<br />
+                  <span class="tag blue">html css js 나눠서</span> 한 덩어리가 아니라 파일별로 나눠 받기 위해서이다.<br />
+                  <span class="tag blue">코드블럭</span> 복사해서 붙여넣기 쉬운 형태로 받기 위해서이다.<br />
+                  <span class="tag blue">html 기본구조 필요없음</span> head, body 같은 뼈대를 빼고 필요한 부분만 받기 위해서이다.<br />
+                  <span class="tag blue">추정하지 말고 먼저 물어봐</span> 없는 내용을 지어내는 것을 막는다.<br />
+                  말투는 달라도 되지만, 위 단어가 빠지면 그 규칙이 지침에서 빠질 수 있다.
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">2</div>
+              <div class="step_body">
+                <div class="step_title">정리된 지침을 읽고 고치기</div>
+                <div class="step_desc">"이 부분은 너무 길어", "이 규칙이 빠졌어"처럼 말하면 된다. 애매한 문장은 "이 문장을 더 구체적으로 써줘"라고 요청한다.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">3</div>
+              <div class="step_body">
+                <div class="step_title">등록하기 전에 검수하기</div>
+                <div class="step_desc">붙여넣기 전에 한 번 더 점검한다. 확인할 것은 두 가지이다. ① ChatGPT가 <strong>모르는 걸 지어내게</strong> 만드는 문장은 없는지 ② 규칙이 너무 많거나 빡빡해서 <strong>오히려 답이 이상해지지 않는지</strong>. 일반 채팅에서 아래처럼 요청한다.
+                  <div class="code_block">모르는 걸 지어내게 만들 수 있는 문장이 있는지, 규칙이 너무 많아서 이상해질 부분이 있는지 보고 검수해줘.
+그리고 필요한 내용만 간단하게 지침으로 적어줘.</div>
+                </div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">4</div>
+              <div class="step_body">
+                <div class="step_title">프로젝트 지침란에 붙여넣기</div>
+                <div class="step_desc">03번에서 만든 프로젝트의 (프로젝트 화면 > 오른쪽 위 <strong>더보기(•••)</strong> > <strong>프로젝트 설정</strong> > <strong>지침</strong>)에 붙여넣고 저장한다. 저장한 뒤 새 대화를 열어 적용되는지 확인한다.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">5</div>
+              <div class="step_body">
+                <div class="step_title">프로젝트 안에서 진짜 작업으로 테스트</div>
+                <div class="step_desc">실제로 할 작업을 하나 시켜본다. 결과가 마음에 들지 않으면 어디가 어떻게 마음에 들지 않는지 말해준다.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step_num">6</div>
+              <div class="step_body">
+                <div class="step_title">고친 내용을 지침에 반영하기</div>
+                <div class="step_desc">테스트하면서 고친 내용은 지침에도 반영하여야 한다. 고친 부분만 끼워 넣지 말고, 일반 채팅에서 <strong>전체를 다시 적어달라고</strong> 요청한다.
+                  <div class="code_block">방금 내가 지적한 내용까지 반영해서 지침 전체를 다시 적어줘.</div>
+                  받은 지침으로 기존 지침을 <strong>전부 지우고 붙여넣은 뒤</strong> 저장하면 끝이다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card_title">지침 예시</div>
+            <div class="code_block"># 역할
+나는 웹퍼블리싱을 배우는 초심자이고, 클론코딩 과제를 이 프로젝트에서 계속 진행한다.
+
+# 설명 방식
+- 처음 배우는 사람 기준으로, 어려운 용어는 쉬운 말로 풀어서 설명
+- 코드는 HTML, CSS, JS로 나눠서 보여주기
+
+# 규칙
+- 추정하지 말고, 필요한 사항이나 파일이 있으면 먼저 요청하기
+- 확실하지 않은 내용은 확실하지 않다고 말하기</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="top_btn" id="top_btn" aria-label="맨 위로">↑</button>
+  <script>
+    var top_btn = document.getElementById("top_btn");
+    window.addEventListener("scroll", function () {
+      top_btn.classList.toggle("show", window.scrollY > 300);
+    });
+    top_btn.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+</body>
+
+</html>

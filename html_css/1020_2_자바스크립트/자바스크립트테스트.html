@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트</title>
+</head>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .active {
+            background-color: red;
+            border: 3px solid #111;
+        }
+        
+    </style>
+<body>
+    <h1>자바스크립트 기초</h1>
+    <div class="box">BOX</div>
+    <h2>마우스이벤트</h2>
+    <button class="btn">클릭</button>
+    <div class="box2">위 버튼위에 마우스를 올리면 여기에 변화가 생겨요</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+        const button = document.querySelector(".btn");
+        const divBox = document.querySelector(".box");
+        divBox.addEventListener("click",function(){
+        divBox.classList.toggle("active");
+
+        });
+    });
+    </script>
+    <script>
+        let userName = "홍길동";
+        console.log(userName);
+
+        let number = 25;
+        console.log(number);
+        const button = "나래디자인";
+       /*자바스크립트는 중간에 오류가 생기면 뒷줄은 하나도 적용안됨 const 는 값의 변동이 없음 button = "학원";*/
+
+        let a = "20";
+        let b = "30";
+        console.log()
+
+        console.log(a+b);
+        console.log(a-b);
+        console.log(a*b);
+        console.log(a/b);
+        console.log(a<b);
+        console.log(a>b);
+        console.log(a===b);
+
+
+
+        
+        const hoverButton = document.querySelector(".btn");
+        const changeBox = document.querySelector(".box2");
+
+        hoverButton.addEventListener("mouseenter",function(){
+            changeBox.classList.add("active");
+        });
+
+        hoverButton.addEventListener("mouseleave", function() {
+        changeBox.classList.remove("active");
+        });
+
+        let num = 15;
+        if(num>10){
+            console.log("10보다 크다");
+        }
+
+        let score=80;
+        if(score>=60){
+            console.log("통과입니다");
+        }
+
+        else{
+            console.log("재시험");
+        }
+    </script>
+</body>
+</html>

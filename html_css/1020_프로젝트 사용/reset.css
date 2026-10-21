@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+ul,ol{
+    list-style: none;
+}
+img, video, iframe{
+    vertical-align: middle;
+    max-width: 100%;
+    /*이미지나 비디오는 원래 크기가 있음! 얘네들한테 max-width:100%를 주면 부모가 본인의 본래크기보다 커지면 안따라가고, 부모가 본인의 본래 크기보다 작아지면 같이 줄어듦.*/
+}

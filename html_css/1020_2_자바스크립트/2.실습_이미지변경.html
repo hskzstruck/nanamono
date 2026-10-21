@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang='ko'>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>실습1</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 30px
+        }
+
+        .main_img {
+            width: 500px;
+            max-width: 100%;
+            display: block;
+            margin-bottom: 20px
+        }
+
+        .thumb_wrap {
+            display: flex;
+            gap: 10px
+        }
+
+        .thumb_wrap img {
+            width: 120px;
+            cursor: pointer;
+            border: 2px solid #ccc
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            transition: all 0.7s;
+        }
+
+        .active {
+            background-color: blue;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>실습. 클릭 시 이미지 변경</h2>
+    <img src='./images/img1.jpg' class='main_img'>
+    <button class="button">클릭시 이미지 변경</button>
+    <h2>실습. 클릭시 클 내용 변경</h2>
+    <p class="des">텍스트 내용.</p>
+    <button class="button_text">클릭시 글 내용 변경</button>
+    <h2>실습. 클릭시 클래스 추가</h2>
+    <div class="box"></div>
+    <button class="button_bg">클릭시 클래스 추가</button>
+    
+</body>
+
+</html>
