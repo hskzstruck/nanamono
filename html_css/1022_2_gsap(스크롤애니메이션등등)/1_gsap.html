@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>GSAP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --accent: #0f9f8f;
+      --ink: #202231;
+      --muted: #666b7a;
+      --bg: #f6f7fb;
+      --card: #fff;
+      --line: #dedfeb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Pretendard, 'Noto Sans KR', 'Malgun Gothic', Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--accent), #22243a);
+      color: white;
+      padding: 30px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      font-size: 38px;
+    }
+
+    .header p {
+      margin: 0;
+      font-size: 17px;
+      opacity: .9;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 28px;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 0;
+    }
+
+    .toc {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .toc strong {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 10px;
+      color: #383b4f;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .toc a:hover {
+      background: #f0f1fb;
+      color: var(--accent);
+    }
+
+    .section {
+      scroll-margin-top: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 30px 34px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 28px rgba(22, 28, 45, .05);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 27px;
+      letter-spacing: -.03em;
+      border-bottom: 2px solid #f0f1f6;
+      padding-bottom: 12px;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      font-size: 20px;
+      color: #262947;
+    }
+
+    h4 {
+      margin: 20px 0 8px;
+      font-size: 16px;
+      color: #3b3f5c;
+    }
+
+    p {
+      margin: 8px 0 14px;
+    }
+
+    ul,
+    ol {
+      margin-top: 8px;
+      list-style-position: inside;
+      padding-left: 10px;
+    }
+
+    li {
+      margin: 5px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: #fbfbfe;
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eef0ff;
+      color: var(--accent);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .note {
+      background: #f5f6ff;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    .warn {
+      background: #fff8e8;
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 14px 0;
+    }
+
+    pre {
+      background: #e2e2e2;
+      color: #222;
+      border-radius: 12px;
+      padding: 16px;
+      overflow: auto;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      background: white;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f1f2f8;
+    }
+
+    .checklist td:first-child {
+      width: 34%;
+      font-weight: 700;
+    }
+
+    .demo-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .demo-box {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: var(--accent);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px;
+    }
+
+    .ready-steps li {
+      margin: 18px 0;
+      padding: 16px 20px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      line-height: 1.7;
+    }
+
+    .ready-steps li::marker {
+      font-weight: bold;
+    }
+
+    .ready-highlight {
+      background: #eefaf8;
+      padding: 14px 18px;
+      margin: 16px 0;
+      border-radius: 10px;
+    }
+
+    .ready-sublist {
+      margin-top: 10px;
+    }
+
+    .ready-sublist li {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+    }
+
+
+
+    .check-item strong {
+      display: block;
+      color: #9a3412;
+      margin-bottom: 6px;
+    }
+
+    .bad-code {
+      color: #dc2626;
+      font-weight: 700;
+    }
+
+    .good-code {
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+
+    .code-rule-list {
+      display: block;
+      margin: 14px 0;
+    }
+
+    .code-rule-list .check-item {
+      margin-bottom: 12px;
+    }
+
+    .code-rule-list .check-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .toc a.active {
+      background: #f0f1fb;
+      color: var(--accent);
+    }
+
+    .version-warning {
+      color: red;
+      font-weight: bold;
+    }
+
+    code span {
+      color: #ff3535;
+      font-size: 14px;
+    }
+
+    .method-list {
+      display: block;
+      margin: 16px 0;
+    }
+
+    .method-card {
+      background: #f8fafc;
+      border: 1px solid #dfe4ea;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .method-card h4 {
+      margin-top: 0;
+      color: #0f766e;
+    }
+
+    .property-table code {
+      color: #0f766e;
+      font-weight: 700;
+    }
+
+
+    .scroll-option-table code {
+      color: #6d28d9;
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-weight: 500;
+    }
+
+    .scroll-start-tip {
+      background: #e8fbf4;
+      padding: 16px 20px;
+      border-radius: 10px;
+      margin: 16px 0;
+    }
+
+    .scroll-start-tip strong {
+      color: #047857;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>GSAP</h1>
+  </header>
+  <div class="layout">
+    <nav class="toc"><strong>목차</strong>
+      <a href="#ready">GSAP 사용 가능 환경 만들기</a>
+      <a href="#code-caution">GSAP 코드 수정 시 주의할 부분</a>
+      <a href="#basic">기본 애니메이션</a>
+      <a href="#timeline">Timeline 기초</a>
+      <a href="#stagger">Stagger</a>
+      <a href="#scroll">ScrollTrigger 기초</a>
+    </nav>
+    <main>
+
+      <section id="ready" class="section">
+        <h2>GSAP 사용 가능 환경 만들기</h2>
+
+        <h3>GSAP CDN 연결하기</h3>
+
+        <ol class="ready-steps">
+          <li>GSAP 공식 사이트 접속(gsap 검색)
+            <a href="#" target="_blank">https://gsap.com</a>
+          </li>
+
+          <li>상단 메뉴의 <strong>Docs</strong> 클릭</li>
+
+          <li>왼쪽 메뉴의<br><br><strong>Quick Start → Installation</strong><br><br>선택</li>
+
+          <li>Installation 페이지에서 Install Helper 영역을 찾은 후, CDN 탭을 클릭.</li>
+
+          <li>
+            사용할 플러그인을 선택. 플러그인을 쓰지 않을경우, 탭 아랫부분의 script src와 script부분을 복사.
+            <div class="code-label">GSAP Core 기본 코드 예시</div>
+            <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  document.addEventListener("DOMContentLoaded", (event) =&gt; {
+    // gsap code here!
+  });
+&lt;/script&gt;</code></pre>
+            <p class="version-warning">위 코드는 버전에 따라 변경될 수 있으므로, 이 문서의 해당 부분을 복사하여 사용하는 것보다 GSAP 공식 사이트의 Installation
+              페이지에서 최신 CDN 코드를 확인한 후 사용.</p>
+            <p>gsap.to(), gsap.from(), gsap.fromTo(), timeline 등의 기능은 GSAP Core만 연결해도 사용할 수 있음.</p>
+
+            <div class="ready-highlight"><strong>추가 기능이 필요한 경우에는 플러그인을 선택.</strong></div>
+            <p>ScrollTrigger, SplitText, Flip, Observer, Draggable,MotionPath 등등</p>
+
+            플러그인을 선택하면 코드 영역이 자동으로 변경되며, 선택한 플러그인에 필요한 script 태그가 함께 생성됨.
+          </li>
+
+          <li>생성된 코드를 복사.</li>
+
+          <li>HTML 문서의 &lt;/body&gt; 태그 바로 위에 붙여넣는다.</li>
+        </ol>
+      </section>
+
+      <section id="code-caution" class="section">
+        <h2>GSAP 코드 수정 시 주의할 부분</h2>
+
+        <p>GSAP 코드는 정해진 구조 안에서 필요한 값만 바꿔서 사용함. 아래 부분을 지우거나 빠뜨리면 코드가 동작하지 않을 수 있음.</p>
+
+        <div class="code-caution">
+          <h4>기본 작성법</h4>
+          <pre><code>gsap.from("대상", {<span>//css선택자를 따옴표 안에 작성</span>
+  변화 속성1,
+  변화 속성2,
+  duration: 1, // 애니메이션 실행시간(단위: 초)
+  scrollTrigger: {
+    스크롤트리거관련옵션1,
+    스크롤트리거관련옵션2
+  },<span>// 해당 범위까지 스크롤트리거 관련 범위 지정임. 지워지지 않게 조심</span>
+
+  <span>// 해당 요소에 추가 옵션을 넣을 경우</span>
+  <span>// 바로 위 옵션 뒤에 쉼표(,)를 추가한 후 작성</span>
+  추가옵션1,
+  추가옵션2
+}); <span>// 해당 요소에 GSAP 코드 적용 종료. 지워지지 않게 조심</span>
+
+<span>// 다른 요소에 GSAP을 적용할 경우 여기에 새 코드 작성</span></code></pre>
+        </div>
+
+        <div class="code-caution">
+          <h4>작성 예</h4>
+          <pre><code>gsap.from(".fade-up", {
+  y: 80,
+  opacity: 0,
+  duration: 0.8,
+  scrollTrigger: {
+    trigger: ".fade-up",
+    start: "top 80%",
+    markers: true
+  }
+});</code></pre>
+        </div>
+
+        <div class="code-rule-list">
+          <div class="check-item">
+            <strong>1. 선택자 확인</strong>
+            <p><span class="good-code">".fade-up"</span>처럼 애니메이션 대상은 큰따옴표 또는 작은따옴표 안에 작성함. 주로 클래스 선택자 많이 사용함</p>
+            <p>실제 HTML의 선택자와 GSAP 코드의 선택자가 같아야 함.</p>
+          </div>
+          <div class="check-item">
+            <strong>2. 중괄호, 소괄호 지워지지 않게 조심</strong>
+          </div>
+          <div class="check-item">
+            <strong>3. 다음 옵션을 적을 때 쉼표 확인</strong>
+            <p>마지막에 적힌 옵션 뒤 쉼표 추가 후 새로운 옵션 추가</p>
+          </div>
+        </div>
+
+        <div class="warn">
+          <b>자주 나는 오류:</b> 클래스명 오타, 따옴표 삭제, 중괄호 누락, 쉼표 누락, 플러그인 CDN 연결 누락.
+        </div>
+      </section>
+
+
+      <section id="basic" class="section">
+        <h2>기본 애니메이션</h2>
+        <h3>gsap.to(), gsap.from(), gsap.fromTo() 의미</h3>
+        <div class="method-list">
+          <div class="method-card">
+            <h4>gsap.to()</h4>
+            <p>현재 상태에서 지정한 상태로 변화하는 애니메이션 넣기. 내가 scritp에서 설정한 옵션이 최종 상태<br>
+              <b><i>변화한 후 모습</i></b>을 지정.
+            </p>
+            <pre><code>gsap.to(".box", {
+  x: 200,
+  opacity: 0.5,
+  duration: 1
+});</code></pre>
+            <p>.box가 현재 위치(css로 지정한 위치)에서 오른쪽으로 200px 이동, opacity는 0.5로변경, 변화는1초동안 보여줌(애니메이션 실행시간)</p>
+          </div>
+
+          <div class="method-card">
+            <h4>gsap.from()</h4>
+            <p>지정한 상태에서 시작해서 원래 상태로 돌아오며 애니메이션 됨.<br>
+              <b><i>변화하기 전 모습</i></b>을 지정.
+            </p>
+            <pre><code>gsap.from(".title", {
+  y: 50,
+  opacity: 0,
+  duration: 1
+});</code></pre>
+            <p>.title이 아래로 50px, opacity는 0인 상태로 있다가, 1초 동안 원래의 위치로 돌아감.</p>
+          </div>
+
+          <div class="method-card">
+            <h4>gsap.fromTo()</h4>
+            <p>시작 상태와 끝 상태를 모두 직접 지정함.</p>
+            <pre><code>gsap.fromTo(".button",
+  { opacity: 0, scale: 0.8 },
+  { opacity: 1, scale: 1, duration: 0.7 }
+);</code></pre>
+            <p>.button이 처음에는 opacity가 0, scale은 0.8의 작은 상태이다가 0.7초동안 opacity가 1로 변하고 scale은 1로 변함</p>
+          </div>
+        </div>
+
+        <h3>GSAP 기본 애니메이션에서 자주 사용하는 속성</h3>
+        <table class="property-table">
+          <tr>
+            <th>속성</th>
+            <th>의미</th>
+            <th>예시</th>
+          </tr>
+          <tr>
+            <td><code>x</code></td>
+            <td>가로 방향 이동(+:오른쪽, -:왼쪽)</td>
+            <td><code>x: 200, x:-200</code></td>
+          </tr>
+          <tr>
+            <td><code>y(+아래, -:위)</code></td>
+            <td>세로 방향 이동</td>
+            <td><code>y: 50, y:-50</code></td>
+          </tr>
+          <tr>
+            <td><code>opacity</code></td>
+            <td>투명도 조절</td>
+            <td><code>opacity: 0</code></td>
+          </tr>
+          <tr>
+            <td><code>scale</code></td>
+            <td>크기 확대/축소</td>
+            <td><code>scale: 1.2</code></td>
+          </tr>
+          <tr>
+            <td><code>rotation</code></td>
+            <td>회전</td>
+            <td><code>rotation: 360</code></td>
+          </tr>
+          <tr>
+            <td><code>duration</code></td>
+            <td>애니메이션 시간</td>
+            <td><code>duration: 1</code></td>
+          </tr>
+          <tr>
+            <td><code>delay</code></td>
+            <td>시작 전 대기 시간</td>
+            <td><code>delay: 0.3</code></td>
+          </tr>
+          <tr>
+            <td><code>ease</code></td>
+            <td>움직임 속도감 조절</td>
+            <td><code>ease: "power2.out"</code></td>
+          </tr>
+        </table>
+        <div class="note">기본 이동이나 등장 애니메이션에서는 <code>x</code>, <code>y</code>, <code>opacity</code>,
+          <code>duration</code>을 가장 자주 사용함.<br><br>
+          이 외에도 <code>scale</code>, <code>rotation</code>, <code>delay</code>, <code>ease</code>,
+          <code>repeat</code>, <code>yoyo</code>, <code>stagger</code>, <code>backgroundColor</code>,
+          <code>borderRadius</code>, <code>width</code>, <code>height</code>, <code>left</code>,
+          <code>top</code>, <code>filter</code>, <code>skewX</code>, <code>skewY</code>,
+          <code>transformOrigin</code> 등의 속성도 설정할 수 있음.
+        </div>
+        <h3>이동 방식 x/y? left/top?</h3>
+        <p>
+        <div class="note">left/top으로도 움직일 수 있지만, 해당 요소에 포지션이 들어가야 하므로, <strong style="color:red">단순 이동 애니메이션은 x/y를 우선
+            사용.</strong></div>
+
+      </section>
+      <section id="timeline" class="section">
+        <h2>Timeline 기초</h2>
+        <p>여러 애니메이션을 순서대로 실행할 때 timeline 사용.(애니메이션 플레이리스트)</p>
+        <p>[기본사용]</p>
+        <pre><code>const tl = gsap.timeline();
+
+tl.to(".logo", { y: -30, opacity: 0, duration: 0.5 })
+  .to(".title", { y: 40, opacity: 0, duration: 0.7 })
+  .to(".btn", { y: 20, opacity: 0, duration: 0.5 });</code></pre>
+        <p> ->.logo의 애니메이션이 끝나면 ,title의 애니메이션 시작, title의 애니메이션이 끝나면 .btn의 애니메이션 시작.</p>
+        <p>[겹쳐서 사용]</p>
+        <pre><code>const tl = gsap.timeline();
+
+tl.to(".logo", { y: -30, opacity: 0, duration: 0.5 })
+  .to(".title", { y: 40, opacity: 0, duration: 0.7 }, "-=0.3")
+  .to(".btn", { y: 20, opacity: 0, duration: 0.5 }, "-=0.3");</code></pre>
+        <p> ->.logo 시작 > .logo 애니메이션 끝나기 0.3초 전 .title 시작 > .title 애니메이션 끝나기 0.3초 전 .btn 시작</p>
+      </section>
+      <section id="stagger" class="section">
+        <h2>Stagger</h2>
+        <p><code>stagger</code>는 같은 움직임을 여러 요소에 순서대로 넣을 때 사용함.</p>
+        <pre><code>gsap.from(".card", {
+  y: 50,
+  opacity: 0,
+  duration: 0.7,
+  stagger: 0.15
+});</code></pre>
+        <div class="note">나란히 있는 card라는 같은 클래스를 가진 요소가 0.15초의 시간차를 두고 실행됨.<br><br>
+          <span style="background-color:pink;display: inline-block; padding:0 10px; margin-right: 10px;">card</span>
+          <span style="background-color:pink;display: inline-block; padding:0 10px; margin-right: 10px;">card</span>
+          <span style="background-color:pink;display: inline-block; padding:0 10px; margin-right: 10px;">card</span>
+          <span style="background-color:pink;display: inline-block; padding:0 10px; margin-right: 10px;">card</span>
+          이런 구조라면,<br><br>
+
+          0.00초 첫번째 card 시작<br>
+          0.15초 두번째 card 시작<br>
+          0.30초 세번째 card 시작<br>
+          0.45초 네번째 card 시작
+
+
+        </div>
+      </section>
+      <section id="scroll" class="section">
+        <h2>ScrollTrigger 기초</h2>
+        <p>스크롤 위치에 맞춰 애니메이션을 실행함.</p>
+
+        <h3>ScrollTrigger 사용 전 확인</h3>
+        <div class="warn">
+          <strong>ScrollTrigger는 GSAP 기본 기능이 아닌 플러그인임.</strong><br>
+          따라서 GSAP Core CDN만 연결하면 동작하지 않으며, ScrollTrigger CDN을 추가로 연결해야 함. 그리고 script 가장 첫줄에
+          <code>gsap.registerPlugin(ScrollTrigger);</code>를 넣어야 함.
+        </div>
+
+        <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"&gt;&lt;/script&gt;
+<span>//플러그인 js파일 cdn추가. 예시와 버전이 달라질 수 있으니 사이트에서 최신버전으로 가져오기</span>
+          
+&lt;script&gt;
+  gsap.registerPlugin(ScrollTrigger); <span>//script가장 윗쪽에 추가</span>
+  gsap.from(".fade-up", {
+    y: 80,
+    opacity: 0,
+    duration: 0.8,
+    scrollTrigger: {
+      trigger: ".fade-up",
+      start: "top 80%",
+      markers: true
+    }
+  });
+&lt;/script&gt;</code></pre>
+
+        <h3>핵심 옵션 설명</h3>
+        <table class="scroll-option-table">
+          <tr>
+            <th>옵션</th>
+            <th>설명</th>
+            <th>예시</th>
+          </tr>
+          <tr>
+            <td><code>trigger</code></td>
+            <td>애니메이션을 발동시킬 요소</td>
+            <td><code>trigger: ".section"</code></td>
+          </tr>
+          <tr>
+            <td><code>start</code></td>
+            <td>트리거 시작 위치 (요소 기준 / 뷰포트 기준)</td>
+            <td><code>start: "top 80%"</code></td>
+          </tr>
+          <tr>
+            <td><code>end</code></td>
+            <td>트리거 종료 위치</td>
+            <td><code>end: "bottom 20%"</code></td>
+          </tr>
+          <tr>
+            <td><code>markers</code></td>
+            <td>개발 중 시작/끝 선 표시 (배포 전 꼭 제거!)</td>
+            <td><code>markers: true</code></td>
+          </tr>
+          <tr>
+            <td><code>toggleActions</code></td>
+            <td>진입/이탈 시 동작 설정</td>
+            <td><code>toggleActions: "play none none none"</code></td>
+          </tr>
+          <tr>
+            <td><code>pin</code></td>
+            <td>trigger로 지정한 요소를 화면에 고정</td>
+            <td><code>pin: true</code></td>
+          </tr>
+          <tr>
+            <td><code>scrub</code></td>
+            <td>스크롤 위치를 애니메이션 진행률에 직접 연결</td>
+            <td><code>scrub: true</code></td>
+          </tr>
+        </table>
+
+        <div class="scroll-start-tip">
+          <p><strong>💡 start 값 읽는 법</strong></p>
+          <p><code>start: "top 80%"</code> = "요소의 <strong>top</strong>이 뷰포트 <strong>80%</strong> 지점에 도달하면 시작"</p>
+          <p>숫자가 클수록 더 일찍 발동됩니다. (100%는 화면 맨 아래)</p>
+        </div>
+
+        <h3>pin, scrub이란?</h3>
+        <div class="method-list">
+          <div class="method-card">
+            <h4>pin: true</h4>
+            <p>trigger로 지정한 요소를 스크롤해도 화면에 그대로 고정시킴. 정해진 구간(start~end) 동안만 고정되고,
+              구간이 끝나면 다시 스크롤을 따라 올라감.</p>
+          </div>
+
+          <div class="method-card">
+            <h4>scrub: true</h4>
+            <p>스크롤 위치가 곧 애니메이션의 진행률이 됨. 스크롤을 내리면 애니메이션이 진행되고, 스크롤을 올리면 애니메이션도 거꾸로 진행됨.
+              (재생 버튼을 누르는 개념이 아니라, 스크롤바 자체가 재생바가 되는 개념)</p>
+          </div>
+        </div>
+
+        <div class="note">
+          <code>pin</code>과 <code>scrub</code>은 같이 쓰는 경우가 많음.<br><br>
+          <code>pin</code>으로 화면에 요소를 고정해두고, 그 고정된 구간 안에서 <code>scrub</code>으로 스크롤에 맞춰
+          애니메이션(크기, 위치, 투명도 등)을 서서히 변화시키는 방식.
+        </div>
+
+        <pre><code>gsap.to(".text", {
+  scale: 1.8, <span>// 스크롤하는 동안 1배 -&gt; 1.8배로 서서히 커짐</span>
+  scrollTrigger: {
+    trigger: ".pin-wrap",
+    start: "top top",
+    end: "+=130%",
+    pin: true,   <span>// .pin-wrap을 화면에 고정</span>
+    scrub: true  <span>// 스크롤 정도 = scale 변화 정도</span>
+  }
+});</code></pre>
+
+      </section>
+    </main>
+  </div>
+
+</body>
+
+</html>

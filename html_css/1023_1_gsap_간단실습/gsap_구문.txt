@@ -1,0 +1,20 @@
+gsap.registerPlugin(ScrollTrigger);
+/*스크롤 트리거 사용시 사용*/
+
+/*일반 애니메이션시 사용*/
+        gsap.from(".클래스명", {
+        	속성명,
+		/*스크롤 반응 애니메이션시 아래부분 추가*/    
+		scrollTrigger: {
+                trigger: ".클래스이름",
+                
+            }
+        });
+/*텍스트 확대 등에 사용*/
+        gsap.to(".pin-feature-text", {
+            변화속성명,
+            scrollTrigger: {
+                trigger: ".클래스이름",
+                
+            }
+        });

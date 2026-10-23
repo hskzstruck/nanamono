@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>노블커피</title>
+	<!--aos(스크롤애니메이션) css-->
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<link rel="stylesheet" href="./noble.css">
+</head>
+
+<body>
+	<div id="logo">
+		<div class="logo_inner">
+			<a href="#"><img src="images/logo.png" alt="noble"></a>
+		</div>
+		<!--logo_inner E-->
+	</div>
+	<!--logo E-->
+	<div id="nav">
+		<div class="nav_inner">
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="#">건강한 커피</a></li>
+				<li><a href="#">예가체프 코케</a></li>
+				<li><a href="#">그린커피빈/폴리페놀</a></li>
+				<li><a href="#">코코넛오일/1A등급우유</a></li>
+				<li><a href="#">TV CF</a></li>
+			</ul>
+		</div>
+		<!--nav_inner E-->
+	</div>
+	<!--nav E-->
+	<div id="main_banner">
+		<img src="images/mb.png" alt="노블메인배너">
+	</div>
+	<!--main_banner E-->
+	<div id="healthy">
+		<!--margin:auto-->
+		<h2 data-aos="fade-up" data-aos-duration="600">건강한 커피, 노블</h2>
+		<h3 data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">매일 마시는 커피니까, 맛과 건강을 함께 생각합니다.</h3>
+		<!--4. 움직이기를 원하는 태그에 움직일 모양(data-aos)과 그 외 옵션을 준다. pdf참조 할 것.
+		* delay를 사용할때 주의점 : 너무 많은 시간을 넣지 않는다.(1000=1초, 생각보다 1000은 깁니다! 100단위로 설정 하는게 좋아요~)
+		- 딜레이는 너무 붙어 있거나 한줄에 있는 요소들 끼리의 상대적인 순서를 결정하는데만 사용한다.
+		-->
+		<!--duration을 설정하지 않았을시 기본 움직임의 속도는 400이다. duration도 너무 늦게 설정하면 나오기도 전에 넘어갈수 있으므로, 적당한 시간으로 설정한다.-->
+		<dl>
+			<dt><img src="images/bn1.jpg" alt="예가체프"></dt>
+			<dd>
+				에티오피아 예가체프와<br>콜럼비아 원두를 블렌딩하여<br>최상의 맛과 향을 드립니다.
+			</dd>
+		</dl>
+		<dl class="margin">
+			<dt><img src="images/bn2.jpg" alt="예가체프"></dt>
+			<dd>
+				에티오피아 예가체프와<br>콜럼비아 원두를 블렌딩하여<br>최상의 맛과 향을 드립니다.
+			</dd>
+		</dl>
+		<dl>
+			<dt><img src="images/bn3.jpg" alt="예가체프"></dt>
+			<dd>
+				에티오피아 예가체프와<br>콜럼비아 원두를 블렌딩하여<br>최상의 맛과 향을 드립니다.
+			</dd>
+		</dl>
+	</div>
+	<!--healthy E-->
+	<div id="coke">
+		<!--bg-->
+		<h1>예가체프 코케</h1>
+		<p>예가체프 코케는 에티오피아 고산지대에서 재배되는 스페셜티 원두로 커피의 귀부인으로 불릴 정도로 인정받고 있습니다.<br>노블은 마이크로그라인드(Micro grind)한 예가체프 코케 원두에
+			콜롬비아와
+			에콰도르산 아라비카 고급 커피를<br>블렌딩한 시그니처 커피로 풍부한 맛과 향을 즐기실 수 있습니다.</p>
+	</div>
+	<!--coke E-->
+	<div id="map">
+		<!--margin:auto-->
+		<img src="images/special.png" alt="스페셜">
+	</div>
+	<!--map E-->
+	<div id="ad">
+		<!--bg-->
+		<div class="ad_inner">
+			<!--margin:auto-->
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/6eYiDMuejDQ"
+				title="YouTube video player" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+		</div>
+		<!--ad_inner E-->
+	</div>
+	<!--ad E-->
+	<div id="footer">
+		<!--bg-->
+		<div class="footer_inner">
+			<!--margin:auto-->
+			<div class="f_logo">
+				<a href="#"><img src="images/logo.png" alt="노블푸터로고"></a>
+			</div>
+			<!--f_logo E-->
+			<p>
+				서울 광진구 구의광변로 77(구의동 216-8) TEl:02-2049-2114 고객상담실: 01-2049-2000<br>
+				일동후디스(주) 대표이사: 이준수 사업자등록번호:135-81-05649<br>
+				COPYRIGHT ⓒ ILDONG FOODIS ALL RIGHTS RESERVED
+			</p>
+		</div>
+		<!--footer_inner E-->
+	</div>
+	<!--footer E-->
+
+	<!--aos js-->
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+	<!--Initialize AOS-->
+	<script>
+		AOS.init({
+			/*여기에 설정하는것은 전반적인 aos설정을 바꾸는 것입니다*/
+			/*html에 넣는 옵션에서, data-aos부분을 뺀것이 속성이 된다. =은 :으로 대체한다.
+			예) data-aos-duration="1000" >
+			duration:1000,   한 속성 적는거 끝나면 꼭! , 넣어주세요
+			*/
+			duration:600,//전체 애니메이션 속도 설정. 설정안하면 400이 기본
+			once : true,//true혹은 false만 동작. true= 스크롤시 한번만 실행. false는 스크롤될때마다 반복실행(기본은 false)
+		});
+	</script>
+</body>
+
+</html>
