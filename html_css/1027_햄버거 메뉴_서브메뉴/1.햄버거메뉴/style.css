@@ -1,0 +1,190 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+ul,ol{list-style: none;}
+img, video, iframe{
+    vertical-align: middle;
+    max-width: 100%;
+}
+body{
+    font-family: "맑은 고딕";
+     font-size: 16px;
+     color: #111;
+     line-height: 1.2;
+}
+
+/* ===== 헤더 ===== */
+.header{
+    position: absolute; /* 시안처럼 큰 이미지 위에 겹쳐 놓기 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    color: #fff;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0)); /* 글씨가 잘 보이게 위쪽만 살짝 어둡게 */
+}
+.header_inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px clamp(30px, 3vw, 60px); /* 좌우 여백이 화면 너비에 맞춰 자동 조절 */
+}
+.header_logo img{
+    height: 24px;
+}
+
+/* PC용 메뉴 */
+.header_gnb ul{
+    display: flex;
+    gap: clamp(20px, 4vw, 80px); /* 최소 20px ~ 최대 80px 사이에서 화면 너비에 맞춰 자동 조절 */
+}
+.header_gnb a{
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap; /* 글씨가 두 줄로 꺾이지 않게 한 줄로 고정 */
+}
+
+/* 오른쪽 영역 */
+.header_right{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.header_lang{
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+.header_lang li{
+    opacity: 0.5; /* 선택 안 된 언어는 흐리게 */
+}
+.header_lang li.on{
+    opacity: 1; /* 선택된 언어는 진하게 */
+}
+
+/* ===== 햄버거 버튼 ===== */
+.hamburger_btn{
+    display: none; /* PC에서는 숨김 */
+    position: relative;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.hamburger_btn span{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+}
+.hamburger_btn span:nth-child(1){ top: 0; }
+.hamburger_btn span:nth-child(2){ top: 9px; }
+.hamburger_btn span:nth-child(3){ top: 18px; }
+
+/* ===== 햄버거 메뉴 (PC에서는 아예 없음) ===== */
+.hamburger_wrap{
+    display: none;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 1024px){
+    .header_inner{
+        padding: 20px 30px;
+    }
+    .header_gnb{
+        display: none; /* PC용 메뉴 숨김 */
+    }
+    .hamburger_btn{
+        display: block; /* 햄버거 버튼 보이기 */
+    }
+    .hamburger_wrap{
+        display: block; /* 햄버거 메뉴 사용 가능 */
+    }
+
+    /* 메뉴 바깥 어두운 배경 */
+    .hamburger_overlay{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.6);
+        opacity: 0; /* 평소에는 투명 */
+        visibility: hidden; /* 평소에는 클릭도 안 되게 */
+        transition: opacity 0.4s, visibility 0.4s;
+        z-index: 200;
+    }
+
+    /* 오른쪽에서 나오는 메뉴 */
+    .hamburger_drawer{
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 50%; /* 화면 절반 크기 */
+        min-width: 280px; /* 너무 작은 화면에서도 메뉴가 보이도록 */
+        height: 100%;
+        padding: 100px 40px 40px;
+        background: #fff;
+        color: #222;
+        transform: translateX(100%); /* 평소에는 화면 오른쪽 밖에 숨어 있음 */
+        visibility: hidden;
+        transition: transform 0.4s, visibility 0.4s;
+        z-index: 300;
+        overflow-y: auto; /* 메뉴가 길면 스크롤 */
+    }
+
+    /* 닫기(X) 버튼 */
+    .hamburger_close{
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 28px;
+        height: 28px;
+        background: none;
+        border: 0;
+        cursor: pointer;
+    }
+    .hamburger_close span{
+        position: absolute;
+        top: 13px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: #222;
+    }
+    .hamburger_close span:nth-child(1){ transform: rotate(45deg); }
+    .hamburger_close span:nth-child(2){ transform: rotate(-45deg); }
+
+    /* 메뉴 목록 */
+    .hamburger_list li a{
+        display: block;
+        padding: 20px 0;
+        font-size: 20px;
+        font-weight: 700;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* ===== JS가 hamburger_open을 붙였을 때 (메뉴 열림) ===== */
+    .hamburger_wrap.hamburger_open .hamburger_overlay{
+        opacity: 1;
+        visibility: visible;
+    }
+    .hamburger_wrap.hamburger_open .hamburger_drawer{
+        transform: translateX(0); /* 제자리로 슬라이드 */
+        visibility: visible;
+    }
+
+    /* 메뉴가 열려 있을 때 뒤쪽 화면 스크롤 막기 */
+    body.hamburger_lock{
+        overflow: hidden;
+    }
+}

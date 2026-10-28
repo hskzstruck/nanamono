@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hmhn</title>
+    <!-- GSAP 라이브러리: head에 넣어도 됩니다 -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./hmhn.css">
+</head>
+<body>
+    <header class="header">
+    <a href="#top" class="logo">HIMEHINA</a>
+
+    <nav class="nav">
+        <a href="#ticket">TICKET</a>
+        <a href="#schedule">SCHEDULE</a>
+        <a href="#upgrade">UPGRADE</a>
+        <a href="#notice">NOTICE</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+
+    <button class="menu_btn" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+    </button>
+</header>
+
+<main id="top">
+
+    <!-- MAIN VISUAL -->
+    <section class="hero hero_scroll">
+        <div class="hero_bg"></div>
+
+        <div class="hero_top">
+            <span>HIMEHINA LIVE 2027</span>
+            <span>2027.07.13 TUE</span>
+            <span>NIPPON BUDOKAN</span>
+        </div>
+
+        <div class="hero_title">
+            <span class="hero_small">
+                HIMEHINA LIVE 2027
+            </span>
+
+            <h1 class="fill_title">
+                <span class="fill_text">BUDO<br>KAN</span>
+            </h1>
+
+            <div class="hero_date">
+                2027.7.13 TUE
+                <span>東京・日本武道館</span>
+            </div>
+        </div>
+
+        <div class="hero_bottom">
+            <div class="hero_time">
+                <span>OPEN</span>
+                <strong>16:30</strong>
+            </div>
+
+            <div class="hero_time">
+                <span>START</span>
+                <strong>17:30</strong>
+            </div>
+
+            <a href="#information" class="scroll">
+                SCROLL <span>↓</span>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- INTRO -->
+    <section class="intro section" id="information">
+
+        <div class="intro_visual placeholder" data-gsap="zoom_in">
+            <span>MAIN VISUAL</span>
+        </div>
+
+        <div class="intro_content">
+            <span class="eyebrow" data-gsap="left">
+                NEXT STAGE
+            </span>
+
+            <p class="intro_date" data-gsap="up">
+                2027.7.13 <span>TUE</span>
+            </p>
+
+            <h2 data-gsap="up">
+                NIPPON<br>
+                BUDOKAN
+            </h2>
+
+            <p class="intro_jp" data-gsap="fade">
+                日本武道館
+            </p>
+
+            <p class="intro_desc" data-gsap="up">
+                HIMEHINA LIVE 2027<br>
+                THE NEXT STAGE BEGINS.
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- LIVE INFORMATION -->
+    <section class="details section">
+
+        <div class="section_heading" data-gsap="up">
+            <span class="eyebrow">LIVE INFORMATION</span>
+            <h2>HIMEHINA LIVE 2027</h2>
+            <p>BUDOKAN</p>
+        </div>
+
+        <div class="details_visual placeholder" data-gsap="zoom_out">
+            <span>LIVE POSTER</span>
+        </div>
+
+        <div class="info_list">
+
+            <div class="info_row" data-gsap="up">
+                <span>01 / DATE</span>
+                <strong>2027.7.13 TUE</strong>
+            </div>
+
+            <div class="info_row" data-gsap="up">
+                <span>02 / OPEN</span>
+                <strong>16:30 예정</strong>
+            </div>
+
+            <div class="info_row" data-gsap="up">
+                <span>03 / START</span>
+                <strong>17:30 예정</strong>
+            </div>
+
+            <div class="info_row" data-gsap="up">
+                <span>04 / VENUE</span>
+                <strong>東京・日本武道館</strong>
+            </div>
+
+            <div class="info_row" data-gsap="up">
+                <span>05 / SEAT</span>
+                <strong>전석 지정석</strong>
+            </div>
+
+            <div class="info_row" data-gsap="up">
+                <span>06 / CONTACT</span>
+                <strong>DISK GARAGE ↗</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TICKET -->
+    <section class="ticket section" id="ticket">
+
+        <div class="ticket_header">
+            <span class="eyebrow">HIMEHINA LIVE 2027</span>
+
+            <h2 class="reveal_heading">
+                <span>TICKET</span>
+            </h2>
+
+            <p>YOUR PLACE IN THE NEXT STAGE.</p>
+        </div>
+
+        <div class="ticket_card" data-gsap="up">
+
+            <div class="ticket_visual placeholder">
+                <span>TICKET VISUAL</span>
+            </div>
+
+            <div class="ticket_info">
+                <span>GENERAL RESERVED SEAT</span>
+
+                <h3>一般指定席</h3>
+
+                <strong class="price">
+                    ¥11,000 <small>税込</small>
+                </strong>
+
+                <div class="ticket_specs">
+
+                    <div>
+                        <span>01 / SEAT</span>
+                        <p>전석 지정석</p>
+                    </div>
+
+                    <div>
+                        <span>02 / LIMIT</span>
+                        <p>1회 신청 최대 4매</p>
+                    </div>
+
+                    <div>
+                        <span>03 / AGE</span>
+                        <p>6세 이상 티켓 필요</p>
+                    </div>
+
+                    <div>
+                        <span>04 / ISSUE</span>
+                        <p>전자 티켓 발권 예정</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SCHEDULE -->
+    <section class="schedule section" id="schedule">
+
+        <div class="schedule_heading">
+            <span class="eyebrow">TICKET INFORMATION</span>
+
+            <h2 class="reveal_heading">
+                <span>SCHEDULE</span>
+            </h2>
+
+            <p>THE COUNTDOWN TO BUDOKAN.</p>
+        </div>
+
+        <div class="schedule_list">
+
+            <!-- 01 -->
+            <article class="schedule_item">
+
+                <div class="schedule_num">01</div>
+
+                <div class="schedule_content">
+                    <span class="schedule_tag">FC MEMBERS ONLY</span>
+
+                    <h3>FC 최속 선행 예약</h3>
+
+                    <div class="schedule_dates">
+
+                        <div>
+                            <span>START</span>
+                            <strong>10.04 SUN</strong>
+                            <p>21:00</p>
+                        </div>
+
+                        <div>
+                            <span>END</span>
+                            <strong>10.18 SUN</strong>
+                            <p>23:59</p>
+                        </div>
+
+                        <div>
+                            <span>RESULT</span>
+                            <strong>10.23 FRI</strong>
+                            <p>당락 발표</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <a href="#contact" class="schedule_link">
+                    APPLY ↗
+                </a>
+
+            </article>
+
+
+            <!-- 02 -->
+            <article class="schedule_item">
+
+                <div class="schedule_num">02</div>
+
+                <div class="schedule_content">
+                    <span class="schedule_tag">LAWSON TICKET</span>
+
+                    <h3>로치케 최속 선행 예약</h3>
+
+                    <div class="schedule_dates">
+
+                        <div>
+                            <span>START</span>
+                            <strong>10.04 SUN</strong>
+                            <p>21:00</p>
+                        </div>
+
+                        <div>
+                            <span>END</span>
+                            <strong>10.18 SUN</strong>
+                            <p>23:59</p>
+                        </div>
+
+                        <div>
+                            <span>RESULT</span>
+                            <strong>10.23 FRI</strong>
+                            <p>당락 발표</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <a href="#contact" class="schedule_link">
+                    APPLY ↗
+                </a>
+
+            </article>
+
+
+            <!-- 03 -->
+            <article class="schedule_item">
+
+                <div class="schedule_num">03</div>
+
+                <div class="schedule_content">
+                    <span class="schedule_tag">FC MEMBERS ONLY</span>
+
+                    <h3>FC 2차 선행 예약</h3>
+
+                    <div class="schedule_dates">
+
+                        <div>
+                            <span>START</span>
+                            <strong>10.23 FRI</strong>
+                            <p>12:00</p>
+                        </div>
+
+                        <div>
+                            <span>END</span>
+                            <strong>11.22 SUN</strong>
+                            <p>23:59</p>
+                        </div>
+
+                        <div>
+                            <span>RESULT</span>
+                            <strong>11.27 FRI</strong>
+                            <p>당락 발표</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <a href="#contact" class="schedule_link">
+                    APPLY ↗
+                </a>
+
+            </article>
+
+
+            <!-- 04 -->
+            <article class="schedule_item">
+
+                <div class="schedule_num">04</div>
+
+                <div class="schedule_content">
+                    <span class="schedule_tag">LAWSON TICKET</span>
+
+                    <h3>로치케 프리 리퀘스트 선행</h3>
+
+                    <div class="schedule_dates">
+
+                        <div>
+                            <span>START</span>
+                            <strong>11.27 FRI</strong>
+                            <p>12:00</p>
+                        </div>
+
+                        <div>
+                            <span>END</span>
+                            <strong>12.20 SUN</strong>
+                            <p>23:59</p>
+                        </div>
+
+                        <div>
+                            <span>RESULT</span>
+                            <strong>12.25 FRI</strong>
+                            <p>당락 발표</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <a href="#contact" class="schedule_link">
+                    APPLY ↗
+                </a>
+
+            </article>
+
+        </div>
+
+        <p class="schedule_note" data-gsap="fade">
+            ※ 접수 일정 및 시간은 변경될 수 있습니다.
+        </p>
+
+    </section>
+
+
+    <!-- UPGRADE -->
+    <section class="upgrade upgrade_scroll section" id="upgrade">
+
+        <span class="eyebrow">
+            SPECIAL EXPERIENCE
+        </span>
+
+        <h2 class="fill_title upgrade_title">
+            <span class="fill_text">UPGRADE</span>
+        </h2>
+
+        <div class="upgrade_line"></div>
+
+        <p>
+            업그레이드 티켓의 상세 정보와 신청 일정은
+            공식 공지를 통해 확인해 주세요.
+        </p>
+
+    </section>
+
+
+    <!-- NOTICE -->
+    <section class="notice section" id="notice">
+
+        <div class="notice_heading">
+            <span class="eyebrow">PLEASE READ</span>
+
+            <h2>NOTICE</h2>
+
+            <p>IMPORTANT INFORMATION</p>
+        </div>
+
+        <div class="notice_content">
+
+            <h3>車椅子エリアに関して</h3>
+
+            <p class="notice_subtitle">
+                티켓 구매 전 반드시 확인해 주세요.
+            </p>
+
+            <div class="notice_text">
+
+                <p>
+                    휠체어 구역은 일상적으로 휠체어가 필요하거나
+                    신체적 사유로 좌석까지 이동하기 어려운 분을 위한 공간입니다.
+                </p>
+
+                <p>
+                    티켓 구매 후 사전 신청이 필요하며,
+                    신청하지 않고 방문할 경우 입장이 제한될 수 있습니다.
+                </p>
+
+                <p>
+                    휠체어 구역은 지정된 위치에 마련되며
+                    공연장 상황에 따라 무대가 가려질 수 있습니다.
+                </p>
+
+                <p>
+                    동반자는 1명까지 가능하며, 동반자에게도 티켓이 필요합니다.
+                    구역의 수용 인원에 따라 이용이 제한될 수 있습니다.
+                </p>
+
+                <p>
+                    특전 굿즈는 공연장에서 전달되며 별도 배송은 불가합니다.
+                </p>
+
+            </div>
+
+            <a href="#contact" class="notice_link">
+                MORE INFORMATION ↗
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ENDING -->
+    <section class="ending">
+
+        <div class="ending_visual placeholder" data-gsap="zoom_in">
+            <span>HIMEHINA LIVE 2027</span>
+        </div>
+
+        <div class="ending_title" data-gsap="up">
+
+            <span>2027.07.13 TUE</span>
+
+            <h2>
+                NIPPON<br>
+                BUDOKAN
+            </h2>
+
+            <p>THE NEXT STAGE BEGINS.</p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+
+    <div class="footer_top">
+
+        <div>
+            <span class="eyebrow">INFORMATION</span>
+            <h2>CONTACT</h2>
+        </div>
+
+        <a
+            href="https://info.diskgarage.com/"
+            target="_blank"
+            rel="noopener"
+        >
+            DISK GARAGE ↗
+        </a>
+
+    </div>
+
+    <div class="footer_bottom">
+
+        <span>HIMEHINA LIVE 2027 BUDOKAN</span>
+
+        <span>企画 / 制作 Studio LaRa / LIFE</span>
+
+        <span>© LaRa Inc.</span>
+
+    </div>
+
+</footer>
+<script src="./hmhn.js"></script>
+</body>
+</html>

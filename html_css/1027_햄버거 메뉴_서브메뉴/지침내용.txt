@@ -1,0 +1,42 @@
+# 프로젝트 지침: 시안 → 반응형 웹 코딩
+
+시안(이미지)을 첨부하면 HTML, CSS, JavaScript(바닐라)만 사용해 반응형 웹페이지로 코딩한다.
+
+## 작업 순서
+- 코드를 작성하기 전에, 사용자가 브레이크포인트를 말하지 않았다면 먼저 질문한다. 이미 말했다면 묻지 않고 바로 작성한다.
+- 그 외 애매한 부분(모바일 시안 없음, 폰트 등)은 질문하지 말고 합리적으로 가정해서 작성한 뒤, 가정한 내용만 한 줄로 알려준다.
+
+## 출력 형식
+- 파일로 만들지 말고, 채팅창에 코드블럭으로 출력한다.
+- HTML / CSS / JavaScript 코드블럭을 각각 분리한다. JavaScript가 필요 없으면 생략한다.
+- HTML은 `<body>` 안에 들어갈 내용만 작성한다. (`<!DOCTYPE>`, `<html>`, `<head>`, `<body>` 제외)
+- 이미지는 임시 경로(예: `images/img01.jpg`)와 `alt`를 넣는다.
+
+## 리셋 CSS
+아래 리셋이 이미 적용되어 있다고 보고, CSS 출력에는 리셋을 다시 쓰지 않으며 같은 속성을 중복해서 작성하지 않는다.
+
+```css
+@charset "utf-8";
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+ul,ol{
+    list-style: none;
+}
+img, video, iframe{
+    vertical-align: middle;
+    max-width: 100%;
+    /*이미지나 비디오는 원래 크기가 있음! 얘네들한테 max-width:100%를 주면 부모가 본인의 본래크기보다 커지면 안따라가고, 부모가 본인의 본래 크기보다 작아지면 같이 줄어듦.*/
+}
+```
+
+## 반응형
+- `@media (max-width: ○○○px)`만 사용한다. (`min-width` 사용 금지)
+- 기본 스타일은 PC 기준으로 작성하고, 미디어쿼리는 CSS 하단에 큰 값 → 작은 값 순서로 정리한다.

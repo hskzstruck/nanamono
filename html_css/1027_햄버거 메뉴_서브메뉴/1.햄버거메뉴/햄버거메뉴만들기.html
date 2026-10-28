@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>햄버거 버튼 ai</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="header_inner">
+            <!-- 로고 -->
+            <h1 class="header_logo">
+                <a href="#"><img src="images/logo.png" alt="IPARK 현대산업개발"></a>
+            </h1>
+
+            <!-- PC용 메뉴 -->
+            <nav class="header_gnb">
+                <ul>
+                    <li><a href="#">회사 소개</a></li>
+                    <li><a href="#">사업 분야</a></li>
+                    <li><a href="#">지속가능경영</a></li>
+                    <li><a href="#">투자 정보</a></li>
+                    <li><a href="#">인재 채용</a></li>
+                    <li><a href="#">뉴스룸</a></li>
+                </ul>
+            </nav>
+
+            <!-- 오른쪽 영역: 언어 선택 + 햄버거 버튼 -->
+            <div class="header_right">
+                <ul class="header_lang">
+                    <li class="on"><a href="#">KR</a></li>
+                    <li><a href="#">EN</a></li>
+                </ul>
+                <!-- 햄버거 버튼 (태블릿 이하에서만 보임) -->
+                <button type="button" class="hamburger_btn" aria-label="메뉴 열기">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 햄버거 메뉴 (드로워) -->
+    <div class="hamburger_wrap">
+        <!-- 메뉴 바깥 어두운 배경 (클릭하면 닫힘) -->
+        <div class="hamburger_overlay"></div>
+
+        <!-- 오른쪽에서 나오는 메뉴 -->
+        <aside class="hamburger_drawer">
+            <!-- 닫기(X) 버튼 -->
+            <button type="button" class="hamburger_close" aria-label="메뉴 닫기">
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="hamburger_list">
+                <li><a href="#">회사 소개</a></li>
+                <li><a href="#">사업 분야</a></li>
+                <li><a href="#">지속가능경영</a></li>
+                <li><a href="#">투자 정보</a></li>
+                <li><a href="#">인재 채용</a></li>
+                <li><a href="#">뉴스룸</a></li>
+            </ul>
+        </aside>
+    </div>
+
+
+
+    <script src="./hamberger.js"></script>
+</body>
+
+</html>
