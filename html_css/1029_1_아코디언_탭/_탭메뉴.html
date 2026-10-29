@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>탭 메뉴 — AI와 만들기</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f5f7fa;
+      --border: #dde2ec;
+      --text: #1a202c;
+      --muted: #5a6478;
+      --accent: #1a56db;
+      --accent2: #0e9f6e;
+      --accent3: #d97706;
+      --accent4: #dc2626;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Noto Sans KR", sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    #wrap {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+
+    .hero {
+      background: var(--accent);
+      padding: 48px 48px 40px;
+      color: #fff;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .hero p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .content {
+      flex: 1;
+      min-width: 0;
+      padding-right: 48px;
+    }
+
+    .section {
+      margin-top: 56px;
+    }
+
+    .section_header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section_num {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .section_title {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .section_title code,
+    p code,
+    li code,
+    td code {
+      font-family: var(--mono);
+      font-size: 0.9em;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 1px 7px;
+      border-radius: 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin: 18px 0 6px;
+    }
+
+    .sub_title {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 26px 0 8px;
+    }
+
+    /* 읽기 박스 / 정보 박스 */
+    .read_box {
+      margin-top: 14px;
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 16px;
+      color: #1e3a8a;
+      line-height: 1.8;
+    }
+
+    .read_box strong {
+      color: #1a56db;
+    }
+
+    .read_box ul {
+      margin: 6px 0 0 20px;
+    }
+
+    .info_box {
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .info_box.tip {
+      background: #d1fae5;
+      border: 1px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    .info_box.warn {
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      color: #78350f;
+    }
+
+    .info_box.note {
+      background: #e8f0fe;
+      border: 1px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .info_box strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* 코드 블록 */
+    pre.code_block {
+      background: #1e2333;
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-family: var(--mono);
+      font-size: 14px;
+      line-height: 1.9;
+      color: #e2e8f0;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
+
+    pre.code_block strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+
+    /* 예시 박스 (복사용 틀과 구분) */
+    .example_box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin: 8px 0 14px;
+      font-size: 14.5px;
+      line-height: 1.9;
+      color: var(--text);
+      word-break: keep-all;
+    }
+
+    .example_box .ex_key {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+
+    /* 복사 버튼 */
+    .copy_wrap { position: relative; }
+    .copy_wrap pre.code_block { padding-right: 84px; }
+    .copy_btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 12px;
+      border: 1px solid #4a5570;
+      border-radius: 6px;
+      background: #2b3350;
+      color: #e2e8f0;
+      font-family: var(--sans);
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .copy_btn:hover { background: #3a4570; }
+    .copy_btn.copy_done { background: var(--accent2); border-color: var(--accent2); color: #fff; }
+
+
+
+    /* 요청 시기 강조 */
+    .when_together { font-weight: 700; color: var(--accent2); }
+    .when_after { font-weight: 700; color: var(--accent3); }
+
+    pre.code_block.js_code {
+      white-space: pre;
+    }
+
+    pre.code_block .cm {
+      color: #7b879c;
+    }
+
+    pre.code_block .hit {
+      color: #68d391;
+    }
+
+    /* 표 */
+    table.read_table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 15px;
+    }
+
+    table.read_table th,
+    table.read_table td {
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.read_table th {
+      background: var(--bg2);
+    }
+
+    table.read_table td:first-child {
+      width: 200px;
+      font-weight: 500;
+    }
+
+    /* 프롬프트 강조 표시 */
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 4px;
+    }
+
+    .hl {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 1px 10px;
+      border-radius: 4px;
+      margin-right: 6px;
+      vertical-align: baseline;
+    }
+
+    .hl.func {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .hl.elem {
+      background: #d1fae5;
+      color: #047857;
+    }
+
+    .hl.act {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    .hl.none {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .prompt_box {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 20px;
+      background: #fff;
+    }
+
+    .prompt_row {
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .prompt_row:last-child {
+      border-bottom: none;
+    }
+
+    /* 시안 이미지 자리 */
+    .mockup_row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 10px 0;
+    }
+
+    .mockup_slot {
+      width: 170px;
+      height: 120px;
+      border: 2px dashed #b6bfd0;
+      border-radius: 8px;
+      background: var(--bg2);
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* 비교 카드 */
+    .two_col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .col_card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-top: 4px solid var(--accent);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .col_card.green {
+      border-top-color: var(--accent2);
+    }
+
+    .col_card .kind {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .col_card.green .kind {
+      color: var(--accent2);
+    }
+
+    .col_card p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .col_card p strong {
+      color: var(--text);
+    }
+
+    ol.check_list {
+      margin: 8px 0 0 22px;
+    }
+
+    ol.check_list li {
+      padding: 3px 0;
+    }
+
+    /* ===== 목차 (고정 사이드바) ===== */
+    .flex_box {
+      display: flex;
+      align-items: flex-start;
+      gap: 50px;
+    }
+
+    .toc {
+      width: 300px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+      border-bottom: 2px solid var(--border);
+      padding: 24px;
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .toc_title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .toc_list {
+      list-style: none;
+    }
+
+    .toc_list li a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 4px 0;
+    }
+
+    .toc_list li a:hover {
+      color: var(--accent);
+    }
+
+    .toc_num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      background: #e8f0fe;
+      padding: 1px 8px;
+      border-radius: 4px;
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .section {
+      scroll-margin-top: 20px;
+    }
+
+    /* ===== 햄버거 / 맨 위로 버튼 ===== */
+    .menu_btn {
+      display: none;
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 1100;
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .menu_btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+
+    .menu_btn.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu_btn.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu_btn.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .menu_dim {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 900;
+    }
+
+    .menu_dim.show {
+      display: block;
+    }
+
+    .top_btn {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 800;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .top_btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* 태블릿 이하: 목차를 햄버거 메뉴로 */
+    @media (max-width: 1024px) {
+      .hero {
+        padding: 32px 20px 28px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .flex_box {
+        display: block;
+      }
+
+      .content {
+        padding: 0 20px;
+      }
+
+      .menu_btn {
+        display: flex;
+      }
+
+      .toc {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(320px, 85vw);
+        height: 100vh;
+        max-height: none;
+        padding-top: 76px;
+        z-index: 1000;
+        border-bottom: none;
+        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.25s, visibility 0s 0.25s;
+      }
+
+      .toc.open {
+        transform: none;
+        visibility: visible;
+        transition: transform 0.25s;
+      }
+
+      .toc_list li a {
+        font-size: 15px;
+        padding: 6px 0;
+      }
+
+      .two_col {
+        grid-template-columns: 1fr;
+      }
+    }
+    .note_item {
+      margin-bottom: 18px;
+    }
+
+    /* ===== 예시(데모) ===== */
+    .demo_wrap { margin: 14px 0 6px; }
+    .demo_box { position: relative; border: 1px solid var(--border); border-radius: 10px; background: #fff; overflow: hidden; font-size: 14px; color: var(--text); }
+    .demo_hint { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .demo_btn { padding: 8px 14px; border: 1px solid var(--accent); background: var(--accent); color: #fff; border-radius: 6px; font-size: 13px; font-family: inherit; cursor: pointer; }
+    .demo_btn.demo_line { background: #fff; color: var(--accent); }
+    .demo_bar { display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 14px; border-bottom: 1px solid var(--border); background: #fff; }
+    .demo_logo { font-weight: 800; color: var(--accent); }
+    .demo_lines { display: flex; flex-direction: column; gap: 8px; padding: 16px 14px; }
+    .demo_lines i { display: block; height: 10px; border-radius: 5px; background: #e9edf5; }
+    .demo_phone { max-width: 340px; }
+
+    /* 햄버거 */
+    .demo_hb_btn { border: 0; background: none; font-size: 24px; line-height: 1; cursor: pointer; color: var(--text); }
+    .demo_hb_dim { position: absolute; inset: 0; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity .3s; }
+    .demo_hb_panel { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: #fff; transform: translateX(100%); transition: transform .3s; box-shadow: -4px 0 14px rgba(0,0,0,.12); }
+    .demo_hb_panel a { display: block; padding: 14px 16px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 14px; }
+    .demo_hb_close { display: block; margin: 8px 10px 4px auto; border: 0; background: none; font-size: 20px; cursor: pointer; color: var(--text); }
+    .demo_hb_open .demo_hb_dim { opacity: 1; visibility: visible; }
+    .demo_hb_open .demo_hb_panel { transform: none; }
+
+    /* 서브메뉴 */
+    .demo_sub_box { height: 210px; background: #f6f8fc; }
+    .demo_sub_head { position: relative; height: 48px; background: #fff; border-bottom: 1px solid var(--border); }
+    .demo_sub_menu { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; padding: 0 0 0 0; list-style: none; width: 66%; }
+    .demo_sub_menu > li { position: relative; }
+    .demo_sub_menu > li > span { display: block; padding: 0 14px; line-height: 48px; font-weight: 700; cursor: default; }
+    .demo_sub_list { display: none; position: absolute; top: 100%; left: 0; z-index: 2; margin: 0; padding: 6px 0; list-style: none; min-width: 120px; }
+    .demo_sub_list li { padding: 7px 14px; color: var(--muted); font-size: 13px; white-space: nowrap; }
+    .demo_sub_simple .demo_sub_list { background: #fff; border: 1px solid var(--border); box-shadow: 0 6px 14px rgba(0,0,0,.08); }
+    .demo_sub_simple .demo_sub_menu > li:hover > .demo_sub_list { display: block; }
+    .demo_sub_simple .demo_sub_menu > li:hover > span { color: var(--accent); }
+    .demo_sub_strip { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); box-shadow: 0 8px 14px rgba(0,0,0,.08); }
+    .demo_sub_full .demo_sub_strip { height: 92px; }
+    .demo_sub_mega .demo_sub_strip { height: 140px; }
+    .demo_sub_full .demo_sub_head:hover .demo_sub_strip,
+    .demo_sub_full .demo_sub_head:hover .demo_sub_list,
+    .demo_sub_mega .demo_sub_head:hover .demo_sub_strip,
+    .demo_sub_mega .demo_sub_head:hover .demo_sub_list,
+    .demo_sub_mega .demo_sub_head:hover .demo_sub_promo { display: block; }
+    .demo_sub_mega .demo_sub_list li { padding: 9px 14px; }
+    .demo_sub_promo { display: none; position: absolute; top: calc(100% + 14px); right: 14px; z-index: 2; width: 28%; height: 112px; border-radius: 8px; background: #dbe6ff; color: var(--accent); font-weight: 700; text-align: center; line-height: 112px; }
+
+    /* 탭 */
+    .demo_tab_btns { display: flex; border-bottom: 1px solid var(--border); }
+    .demo_tab_btn { flex: 1; padding: 12px 8px; border: 0; background: #f6f8fc; font-family: inherit; font-size: 14px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; }
+    .demo_tab_btn.demo_tab_active { background: #fff; color: var(--accent); font-weight: 700; border-bottom-color: var(--accent); }
+    .demo_tab_panel { display: none; padding: 16px; line-height: 1.7; }
+    .demo_tab_panel.demo_tab_show { display: block; }
+
+    /* 아코디언 */
+    .demo_acc_q { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 14px 16px; border: 0; border-bottom: 1px solid var(--border); background: #fff; font-family: inherit; font-size: 14px; font-weight: 700; text-align: left; cursor: pointer; color: var(--text); }
+    .demo_acc_q::after { content: "+"; font-size: 18px; color: var(--muted); }
+    .demo_acc_item.demo_acc_open .demo_acc_q::after { content: "−"; }
+    .demo_acc_a { max-height: 0; overflow: hidden; background: #f6f8fc; transition: max-height .3s ease; }
+    .demo_acc_a p { margin: 0; padding: 14px 16px; line-height: 1.7; color: var(--muted); }
+    .demo_acc_item.demo_acc_open .demo_acc_a { max-height: 120px; }
+
+    /* 모달 / 레이어 팝업 공통 */
+    .demo_page_box { height: 270px; }
+    .demo_page_body { padding: 16px; }
+    .demo_modal_dim { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.5); opacity: 0; visibility: hidden; transition: opacity .25s; }
+    .demo_modal_win { position: relative; width: 70%; max-width: 300px; padding: 22px 18px 18px; background: #fff; border-radius: 10px; text-align: center; line-height: 1.6; }
+    .demo_modal_x { position: absolute; top: 6px; right: 10px; border: 0; background: none; font-size: 20px; cursor: pointer; color: var(--text); }
+    .demo_modal_open .demo_modal_dim { opacity: 1; visibility: visible; }
+    .demo_pop { position: absolute; top: 14px; left: 14px; width: 190px; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,.18); overflow: hidden; display: none; }
+    .demo_pop_open .demo_pop { display: block; }
+    .demo_pop_img { height: 70px; background: #dbe6ff; color: var(--accent); font-weight: 800; text-align: center; line-height: 70px; }
+    .demo_pop_txt { padding: 10px 12px; font-size: 13px; line-height: 1.5; }
+    .demo_pop_foot { display: flex; border-top: 1px solid var(--border); }
+    .demo_pop_foot button { flex: 1; padding: 9px 4px; border: 0; background: #fff; font-family: inherit; font-size: 12px; cursor: pointer; color: var(--text); }
+    .demo_pop_foot button + button { border-left: 1px solid var(--border); }
+    .demo_pop_again { position: absolute; right: 12px; bottom: 12px; }
+
+    /* 스크롤 */
+    .demo_scroll_box { height: 300px; }
+    .demo_scroll_in { height: 100%; overflow-y: auto; }
+    .demo_sh_head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 16px; background: #eaf0ff; transition: height .25s, background .25s, box-shadow .25s; }
+    .demo_sh_head.demo_sh_scrolled { height: 46px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+    .demo_sh_head span + span { color: var(--muted); font-size: 13px; }
+    .demo_sh_body { padding: 16px; }
+    .demo_sh_body p { margin: 0 0 14px; padding: 18px; border-radius: 8px; background: #f6f8fc; line-height: 1.6; }
+    .demo_sh_top { position: absolute; right: 14px; bottom: 14px; opacity: 0; visibility: hidden; transition: opacity .25s; }
+    .demo_sh_top.demo_sh_show { opacity: 1; visibility: visible; }
+    .demo_rv_space { padding: 40px 16px 120px; color: var(--muted); text-align: center; }
+    .demo_rv_grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px 24px; }
+    .demo_rv_card { height: 90px; border-radius: 8px; background: #dbe6ff; color: var(--accent); font-weight: 700; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .demo_rv_card.demo_rv_show { opacity: 1; transform: none; }
+    .demo_cu_row { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; padding: 28px 12px 12px; }
+    .demo_cu_num { display: block; font-size: 30px; font-weight: 800; color: var(--accent); }
+    .demo_cu_cap { font-size: 13px; color: var(--muted); }
+    .demo_cu_foot { padding: 0 12px 16px; text-align: center; }
+
+    /* 폼 */
+    .demo_form { padding: 16px; max-width: 360px; }
+    .demo_form_row { margin-bottom: 12px; }
+    .demo_form_row label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 700; }
+    .demo_form_row input[type="text"], .demo_form_row input[type="password"] { width: 100%; padding: 9px 10px; border: 1px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 14px; }
+    .demo_form_row input.demo_form_error { border-color: #d92d20; }
+    .demo_form_msg { display: block; min-height: 16px; margin-top: 3px; font-size: 12px; color: #d92d20; }
+    .demo_form_ok { margin-top: 10px; font-size: 13px; font-weight: 700; color: #137a3f; }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="hero">
+      <h1>탭 메뉴 — AI와 만들기</h1>
+    </div>
+
+    <div class="flex_box">
+      <div class="toc" id="toc_menu">
+        <div class="toc_title">목차</div>
+        <ul class="toc_list">
+          <li><a href="#s_what"><span class="toc_num">01</span> 탭 메뉴란</a></li>
+          <li><a href="#s_a"><span class="toc_num">02</span> A. PC 시안만 있을 때</a></li>
+          <li><a href="#s_b"><span class="toc_num">03</span> B. 반응형 시안이 다 있을 때</a></li>
+          <li><a href="#s_rename"><span class="toc_num">04</span> 코드가 완성된 뒤: 변수 이름 정리</a></li>
+        </ul>
+      </div>
+
+      <div class="content">
+
+      <div class="section" id="s_what">
+        <div class="section_header">
+          <span class="section_num">01</span>
+          <span class="section_title">탭 메뉴란</span>
+        </div>
+        <p><strong>탭 메뉴</strong>는 탭 버튼을 눌러 같은 자리의 내용을 바꿔 보는 기능이다.</p>
+        <p>시안에 있으면 <span class="when_together">초안을 요청할 때 같이 요청</span>하고, 시안에 없고 나중에 추가하는 경우에는 <span class="when_after">초안을 만든 뒤에 요청</span>해도 된다.</p>
+        <div class="demo_wrap">
+        <div class="label">예시 — 탭을 눌러 보세요</div>
+        <div class="demo_box" id="demo_tab">
+          <div class="demo_tab_btns"><button type="button" class="demo_tab_btn demo_tab_active">공지사항</button><button type="button" class="demo_tab_btn">이벤트</button><button type="button" class="demo_tab_btn">자주 묻는 질문</button></div>
+          <div class="demo_tab_panel demo_tab_show">공지사항 내용이다. 서비스 점검 일정과 업데이트 소식을 안내한다.</div>
+          <div class="demo_tab_panel">이벤트 내용이다. 진행 중인 할인과 사은품 행사를 안내한다.</div>
+          <div class="demo_tab_panel">자주 묻는 질문 내용이다. 결제와 배송에 대한 질문과 답변을 모아 둔다.</div>
+        </div>
+        
+        </div>
+      </div>
+
+      <div class="section" id="s_a">
+        <div class="section_header">
+          <span class="section_num">02</span>
+          <span class="section_title">A. PC 시안만 있을 때</span>
+        </div>
+
+
+<div class="label">복사용 틀</div>
+<div class="copy_wrap"><pre class="code_block">[기능 이름]
+[필요 내용 및 움직임]
+- 탭 버튼과 내용의 짝:
+
+스타일은 최대한 CSS로 처리하고, JS로 붙일 class는 해당 부분의 기능 이름을 넣어서 다른 class와 구분되게 지어줘. 예) tab_active
+나는 자바스크립트를 잘 몰라서, 읽기 쉬운 코드로 만들고 줄마다 쉬운 한국어 주석을 달아줘.</pre><button type="button" class="copy_btn">복사</button></div>
+
+
+        <div class="label">예시</div>
+<div class="example_box"><span class="ex_key">[기능 이름]</span> 탭 메뉴<br>
+<span class="ex_key">[필요 내용 및 움직임]</span><br>
+- 탭 버튼과 내용의 짝: 탭 버튼을 누르면 그 탭의 내용만 보이고 나머지 내용은 숨겨져</div>
+      </div>
+
+      <div class="section" id="s_b">
+        <div class="section_header">
+          <span class="section_num">03</span>
+          <span class="section_title">B. 반응형 시안이 다 있을 때</span>
+        </div>
+
+
+<div class="label">복사용 틀</div>
+<div class="copy_wrap"><pre class="code_block">[기능 이름]
+[필요 내용 및 움직임]
+- 탭 버튼과 내용의 짝:
+
+스타일은 최대한 CSS로 처리하고, JS로 붙일 class는 해당 부분의 기능 이름을 넣어서 다른 class와 구분되게 지어줘. 예) tab_active
+나는 자바스크립트를 잘 몰라서, 읽기 쉬운 코드로 만들고 줄마다 쉬운 한국어 주석을 달아줘.</pre><button type="button" class="copy_btn">복사</button></div>
+
+
+        <div class="label">예시</div>
+<div class="example_box"><span class="ex_key">[기능 이름]</span> 탭 메뉴<br>
+<span class="ex_key">[필요 내용 및 움직임]</span> 시안과 최대한 똑같이.<br>
+- 탭 버튼과 내용의 짝: 탭 버튼을 누르면 그 탭의 내용만 보이고 나머지 내용은 숨겨져</div>
+      </div>
+
+      <div class="section" id="s_rename">
+        <div class="section_header">
+          <span class="section_num">04</span>
+          <span class="section_title">코드가 완성된 뒤: 변수 이름 정리</span>
+        </div>
+        <p>시안으로 만든 코드가 완성된 뒤, 마지막에 요청한다.</p>
+
+<div class="label">복사용</div>
+<div class="copy_wrap"><pre class="code_block">방금 만든 JS 코드에서 변수 이름만 바꿔줘. 다른 기능의 변수와 겹치지 않게 "해당 부분의 class 이름_역할" 형태로 지어줘. 예) tab_btn
+기능, 디자인, HTML 태그 이름, class 이름은 그대로 두고 JS의 변수 이름만 바꿔줘.</pre><button type="button" class="copy_btn">복사</button></div>
+      </div>
+
+      
+    </div>
+    </div>
+  </div>
+
+  <button type="button" class="menu_btn" id="menu_btn" aria-label="목차 열기" aria-expanded="false" aria-controls="toc_menu"><span></span><span></span><span></span></button>
+  <div class="menu_dim" id="menu_dim"></div>
+  <button type="button" class="top_btn" id="top_btn" aria-label="맨 위로">↑</button>
+
+  <script>
+    (function () {
+      var toc = document.getElementById("toc_menu");
+      var menu_btn = document.getElementById("menu_btn");
+      var menu_dim = document.getElementById("menu_dim");
+      var top_btn = document.getElementById("top_btn");
+
+      function set_menu(open) {
+        toc.classList.toggle("open", open);
+        menu_btn.classList.toggle("open", open);
+        menu_dim.classList.toggle("show", open);
+        menu_btn.setAttribute("aria-expanded", open ? "true" : "false");
+        menu_btn.setAttribute("aria-label", open ? "목차 닫기" : "목차 열기");
+      }
+
+      menu_btn.addEventListener("click", function () {
+        set_menu(!toc.classList.contains("open"));
+      });
+      menu_dim.addEventListener("click", function () { set_menu(false); });
+      toc.addEventListener("click", function (e) {
+        if (e.target.closest("a")) set_menu(false);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") set_menu(false);
+      });
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 1024) set_menu(false);
+      });
+
+      function on_scroll() {
+        top_btn.classList.toggle("show", window.scrollY > 300);
+      }
+      window.addEventListener("scroll", on_scroll, { passive: true });
+      on_scroll();
+      top_btn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    })();
+  </script>
+  <script>
+      (function () {
+        var box = document.getElementById("demo_tab");
+        var btns = box.querySelectorAll(".demo_tab_btn");
+        var panels = box.querySelectorAll(".demo_tab_panel");
+        btns.forEach(function (btn, i) {
+          btn.addEventListener("click", function () {
+            btns.forEach(function (b) { b.classList.remove("demo_tab_active"); });
+            panels.forEach(function (p) { p.classList.remove("demo_tab_show"); });
+            btn.classList.add("demo_tab_active");
+            panels[i].classList.add("demo_tab_show");
+          });
+        });
+      })();
+  </script>
+<script>
+(function () {
+  var btns = document.querySelectorAll('.copy_btn');
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var pre = btn.parentNode.querySelector('pre');
+      var text = pre.textContent;
+      var done = function () {
+        btn.textContent = '복사됨';
+        btn.classList.add('copy_done');
+        setTimeout(function () { btn.textContent = '복사'; btn.classList.remove('copy_done'); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+      } else { fallback(text); done(); }
+    });
+  });
+  function fallback(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+</body>
+
+</html>
